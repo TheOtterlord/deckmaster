@@ -1,0 +1,23 @@
+select {
+  background: #555;
+  outline: none;
+  border: none;
+  color: white;
+  padding: 8px;
+  font-weight: bold;
+  width: 100%;
+}
+
+input[type=text] {
+  width: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  padding: 4px;
+}
+
+input[type=text]:disabled {
+  border-bottom: 1px solid #555;
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Hand Traps",
+  "format_version": 0,
+  "version": "1.0.0",
+  "author": "Reuben Tier",
+  "arrays": {
+    "hand_traps": [
+      "14558127",
+      "38814750",
+      "10045474",
+      "97268402",
+      "94145021",
+      "60643553",
+      "73642296",
+      "59438930",
+      "27204311",
+      "78661338",
+      "91800273",
+      "52038441"
+    ]
+  },
+  "combos": [
+    {
+      "name": "1+ Hand trap",
+      "desc": "Chance of opening 1+ hand traps",
+      "turn": "first",
+      "variants": [
+        {
+          "tests": [
+            {
+              "target": "hand",
+              "query": "arrays.hand_traps",
+              "min": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2+ Hand trap",
+      "desc": "Chance of opening 2+ hand traps",
+      "turn": "first",
+      "variants": [
+        {
+          "tests": [
+            {
+              "target": "hand",
+              "query": "arrays.hand_traps",
+              "min": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3+ Hand trap",
+      "desc": "Chance of opening 3+ hand traps",
+      "turn": "first",
+      "variants": [
+        {
+          "tests": [
+            {
+              "target": "hand",
+              "query": "arrays.hand_traps",
+              "min": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

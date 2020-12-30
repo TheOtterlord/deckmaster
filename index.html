@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+<head>
+  <title>DeckMaster</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="css/filter.css">
+  <link rel="stylesheet" href="css/editor.css">
+</head>
+
+<body>
+  <script src="js/menu.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ygoprodeck.js"></script>
+  <script src="js/deckeditor.js"></script>
+  <script src="js/hg_calc.js"></script>
+  <script src="js/combowidget.js"></script>
+  <script src="js/update.js"></script>
+  <script src="js/main.js"></script>
+
+  <header>
+    <div class="title">DeckMaster</div>
+    <div class="menu">
+      <div class="dropdown">
+        <div class="dropbtn" onclick="drop(this.nextElementSibling)">
+          File
+        </div>
+        <div class="dropdown-content">
+          <a href="#" onclick="deckmaster.newDeck()">New Deck</a>
+          <a href="#" class="disabled">New Combo</a>
+          <a href="#" onclick="deckmaster.openDeck()">Open Deck</a>
+          <a href="#" onclick="deckmaster.close()">Close</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropbtn" onclick="drop(this.nextElementSibling)">
+          Edit
+        </div>
+        <div class="dropdown-content">
+          <a href="#" class="disabled">Undo</a>
+          <a href="#" class="disabled">Redo</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropbtn" onclick="drop(this.nextElementSibling)">
+          Help
+        </div>
+        <div class="dropdown-content">
+          <a href="#" onclick="deckmaster.restart()">Restart</a>
+          <a href="#" onclick="deckmaster.wiki()">User documentation</a>
+          <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster/issues')">Report a bug</a>
+          <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster')">GitHub</a>
+          <a href="#" onclick="checkForUpdates()">Check for updates</a>
+          <a href="#" onclick="deckmaster.link('https://theotterlord.github.io/deckmaster/about')">About</a>
+        </div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <div class="minimise" onclick="win.minimize()">&#9601;</div>
+      <div class="maximise" onclick="win.isMaximized() ? win.unmaximize() : win.maximize()">&#9634;</div>
+      <div class="close" onclick="win.close()">&#10006;</div>
+    </div>
+  </header>
+
+  <div class="start-screen">
+    <div class="card">
+      <div class="actions">
+        <div class="padding">
+          <h1>Actions</h1>
+          <div class="list">
+            <a onclick="deckmaster.newDeck()">
+              <h4>New Deck</h4>
+              <p>
+                Create a new deck using the YDK format.
+              </p>
+            </a>
+            <a class="disabled">
+              <h4>New Combo Module</h4>
+              <p>
+                Create a combo module to test your deck's consistency.
+              </p>
+            </a>
+            <a onclick="deckmaster.openDeck()">
+              <h4>Open Deck</h4>
+              <p>
+                Open an existing deck file in the YDK format.
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="recent">
+        <div class="padding">
+          <h1>Recent</h1>
+          <div class="list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="preview">
+      <div class="img">
+        <img src="bg.webp" alt="No card selected">
+      </div>
+      <div class="cardtext"></div>
+    </div>
+    <div class="deckzone">
+      <div class="padding">
+        <div class="cell info" style="height:20%;width:50%;float:left;">
+          <div style="width:100%;float:left;">
+            <div style="width: 40%;float:left;">
+              Deck name:
+            </div>
+            <div style="width: 60%;float:left;">
+              <input type="text" class="deckname" placeholder="My Deck.ydk" style="width:100%;" disabled>
+            </div>
+          </div>
+          <div style="width:100%;float:left;">
+            <div style="width: 40%;float:left;">
+              Created by:
+            </div>
+            <div style="width: 60%;float:left;">
+              <input type="text" class="author" placeholder="Author..." style="width:100%;">
+            </div>
+          </div>
+          <div style="width: 100%;float: left;">
+            <div style="width: 100%;float:left;">
+              <button class="btn33"
+                onclick="if (main.filepath) {deckmaster.saveDeck(main.filepath)} else {document.querySelector('.saveas').click()}">Save</button>
+              <button class="btn33 saveas"
+                onclick="var path = localStorage.getItem('ygopro');dialog.showSaveDialog({ defaultPath: path ? paths.join(path, 'deck') : '~', filters: [{ name: 'Yu-Gi-Oh! deck file', extensions: ['ydk'] },{ name: 'All Files', extensions: ['*'] }] }).then((path) => {deckmaster.saveDeck(path.filePath)})">Save
+                As</button>
+              <button class="btn33"
+                onclick="dialog.showMessageBox({type: 'question', buttons: ['Cancel', 'Yes', 'No'], title: 'Question', message: 'Do you want to delete this deck?',detail: 'It will be removed forever!'}).then((yes) => {if (yes.response==1) {editor.delete()}});">Delete</button>
+            </div>
+          </div>
+        </div>
+        <div class="combo-widget" style="height:20%;width:50%;display:inline-block;">
+          <div>
+            <!-- Combos -->
+          </div>
+          <div class="btn-grp">
+            <button class="btn50" onclick="addComboMod()">Add</button>
+            <button class="btn50" onclick="removeCombo()">Remove</button>
+          </div>
+        </div>
+        <div class="cell" style="height: 50%;">
+          <div class="deckbox main"></div>
+        </div>
+        <div class="cell" style="height: 12.5%;">
+          <div class="deckbox extra"></div>
+        </div>
+        <div class="cell" style="height: 12.5%;">
+          <div class="deckbox side"></div>
+        </div>
+      </div>
+    </div>
+    <div class="search">
+      <div class="padding">
+        <div class="filter">
+          <input class="searchbar" type="text" placeholder="Card name/text...">
+          <button onclick="toggleFilter(`open`)">Filter</button>
+          <button class="clear">Clear</button>
+        </div>
+        <div class="maxwidth">
+          <div class="results"></div>
+          <div class="pagination">
+            <div style="bottom:0;width:100%;position: absolute;">
+              <a onclick="backward()">&laquo</a>
+              <a class="num1" onclick="page(this.innerHTML)">1</a>
+              <a class="num2" onclick="page(this.innerHTML)">2</a>
+              <a class="num3" onclick="page(this.innerHTML)">3</a>
+              <a onclick="forward()">&raquo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-panel">
+      <h2 style="padding: 4px;">Filter <span style="color:red;">(EXPERIMENTAL)</span></h2>
+      <div style="padding: 4px;">
+        <div style="width: 33%;float: left;padding:4px;">
+          <select id="supertype" onchange="filters.update(this)">
+            <option value="undefined">Select Supertype</option>
+            <option value="Monster">Monster</option>
+            <option value="Spell">Spell</option>
+            <option value="Trap">Trap</option>
+          </select>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <select id="cardtype" onchange="filters.update(this)" disabled>
+            <option value="undefined">Select Card Type</option>
+            <option value="Effect Monster">Effect Monster</option>
+            <option value="Flip Effect Monster">Flip Effect Monster</option>
+            <option value="Flip Tuner Effect Monster">Flip Tuner Effect Monster</option>
+            <option value="Gemini Monster">Gemini Monster</option>
+            <option value="Normal Monster">Normal Monster</option>
+            <option value="Normal Tuner Monster">Normal Tuner Monster</option>
+            <option value="Pendulum Effect Monster">Pendulum Effect Monster</option>
+            <option value="Pendulum Flip Effect Monster">Pendulum Flip Effect Monster</option>
+            <option value="Pendulum Normal Monster">Pendulum Normal Monster</option>
+            <option value="Pendulum Tuner Effect Monster">Pendulum Tuner Effect Monster</option>
+            <option value="Ritual Effect Monster">Ritual Effect Monster</option>
+            <option value="Ritual Monster">Ritual Monster</option>
+            <option value="Spirit Monster">Spirit Monster</option>
+            <option value="Toon Monster">Toon Monster</option>
+            <option value="Tuner Monster">Tuner Monster</option>
+            <option value="Union Effect Monster">Union Effect Monster</option>
+            <option value="Fusion Monster">Fusion Monster</option>
+            <option value="Link Monster">Link Monster</option>
+            <option value="Pendulum Effect Fusion Monster">Pendulum Effect Fusion Monster</option>
+            <option value="Synchro Monster">Synchro Monster</option>
+            <option value="Synchro Pendulum Effect Monster">Synchro Pendulum Effect Monster</option>
+            <option value="Synchro Tuner Monster">Synchro Tuner Monster</option>
+            <option value="XYZ Monster">XYZ Monster</option>
+            <option value="XYZ Pendulum Effect Monster">XYZ Pendulum Effect Monster</option>
+            <option value="Normal">Normal</option>
+            <option value="Field">Field</option>
+            <option value="Equip">Equip</option>
+            <option value="Continuous">Continuous</option>
+            <option value="Quick-Play">Quick-Play</option>
+            <option value="Ritual">Ritual</option>
+            <option value="Normal">Normal</option>
+            <option value="Continuous">Continuous</option>
+            <option value="Counter">Counter</option>
+          </select>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <select id="race" onchange="filters.update(this)" disabled>
+            <option value="undefined">Select Monster Type</option>
+            <option value="Aqua">Aqua</option>
+            <option value="Beast">Beast</option>
+            <option value="Beast-Warrior">Beast-Warrior</option>
+            <option value="Creator-God">Creator-God</option>
+            <option value="Cyberse">Cyberse</option>
+            <option value="Dinosaur">Dinosaur</option>
+            <option value="Divine-Beast">Divine-Beast</option>
+            <option value="Dragon">Dragon</option>
+            <option value="Fairy">Fairy</option>
+            <option value="Fiend">Fiend</option>
+            <option value="Fish">Fish</option>
+            <option value="Insect">Insect</option>
+            <option value="Machine">Machine</option>
+            <option value="Plant">Plant</option>
+            <option value="Psychic">Psychic</option>
+            <option value="Pyro">Pyro</option>
+            <option value="Reptile">Reptile</option>
+            <option value="Rock">Rock</option>
+            <option value="Sea Serpent">Sea Serpent</option>
+            <option value="Spellcaster">Spellcaster</option>
+            <option value="Thunder">Thunder</option>
+            <option value="Warrior">Warrior</option>
+            <option value="Winged Beast">Winged Beast</option>
+          </select>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <input type="text" id="atk" placeholder="Attack" onchange="filters.update(this)" disabled>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <input type="text" id="def" placeholder="Defense" onchange="filters.update(this)" disabled>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <input type="text" id="level" placeholder="Level/Rank/Link" onchange="filters.update(this)" disabled>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <input type="text" id="scale" placeholder="Pendulum Scale" onchange="filters.update(this)" disabled>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <select id="attribute" onchange="filters.update(this)" disabled>
+            <option value="undefined">Select Attribute</option>
+            <option value="LIGHT">Light</option>
+            <option value="DARK">Dark</option>
+            <option value="FIRE">Fire</option>
+            <option value="WATER">Water</option>
+            <option value="EARTH">Earth</option>
+            <option value="WIND">Wind</option>
+          </select>
+        </div>
+        <div style="width: 33%;float:left;padding:4px;">
+          <br><br>
+        </div>
+      </div>
+      <button onclick="toggleFilter(`close`)">Close</button>
+    </div>
+  </div>
+
+  <div class="intro" style="display:none;">
+    <h2>Welcome</h2>
+    <p>
+      Hello there!
+      Thanks for installing DeckMaster.
+      Before you start creating decks, please help us finish the setup.
+    </p>
+    <p>
+      To improve performance, DeckMaster is capable of linking to YGOPro/EDOPro to share the same deck/image storage.
+      If you would like to do this, please direct us to the app's folder using the button below.
+      If not, just click "Finish".
+    </p>
+    <button class="ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
+    <br><br>
+    <button onclick="deckmaster.setup()">Finish</button>
+  </div>
+</body>
+
+</html>

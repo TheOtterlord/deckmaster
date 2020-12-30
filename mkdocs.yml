@@ -1,0 +1,46 @@
+site_name: DeckMaster
+site_author: TheOtterlord
+site_description: >-
+  DeckMaster is a prototype deck editor for the Yu-Gi-Oh! TCG. 
+  Still in the development phase, DeckMaster aims to bring an enhanced deck building experience
+
+repo_name: TheOtterlord/DeckMaster
+repo_url: https://github.com/TheOtterlord/deckmaster
+
+copyright: Copyright &copy; 2020 TheOtterlord
+
+theme: 
+  name: material
+  custom_dir: overrides
+
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.instant
+  palette:
+    scheme: default
+    primary: blue
+    accent: blue grey
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/TheOtterlord
+      name: TheOtterlord on GitHub
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: install.md
+    - First Use: first.md
+  - Documentation:
+    - Deck Editor: deck.md
+    - YCB: ycb.md
+  - About: 
+    - DeckMaster: about.md

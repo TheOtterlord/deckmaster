@@ -1,0 +1,350 @@
+.editor {
+  content: "";
+  display: table;
+  clear: both;
+  height: calc(100% - 26px);
+  display: none;
+}
+
+.editor .preview {
+  display: table-cell;
+  float: left;
+  height: 100%;
+  width: 25%;
+  overflow-x: hidden;
+}
+
+.editor .preview .img {
+  padding: 8px;
+  height: 50%;
+}
+
+.editor .preview .img img {
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+
+.editor .preview .cardtext {
+  padding: 8px;
+  height: 50%;
+  overflow-y: scroll;
+}
+
+.editor .search {
+  display: table-cell;
+  float: left;
+  height: 100%;
+  width: 20%;
+  overflow-x: hidden;
+}
+
+.editor .deckzone {
+  display: table-cell;
+  float: left;
+  height: 100%;
+  width: 55%;
+  overflow-x: hidden;
+}
+
+.editor .deckzone .padding {
+  padding: 8px;
+  height: 100%;
+}
+
+.editor .deckzone .padding .cell {
+  padding: 4px;
+}
+
+.deckbox {
+  border: 1px solid #fff;
+  padding: 4px;
+  height: 100%;
+}
+
+.deckbox .card {
+  display: flex;
+  padding: 2px;
+  float: left;
+  border-radius: 4px;
+}
+
+.deckbox.main.max-40 .card {
+  width: 10%;
+  height: 25%;
+}
+
+.deckbox.main.max-60 .card {
+  width: 8.33%;
+  height: 20%;
+}
+
+.deckbox.extra.max-10 .card {
+  width: 10%;
+  height: 100%;
+}
+.deckbox.extra.max-15 .card {
+  width: 6.66%;
+  height: 100%;
+}
+
+.deckbox.side.max-10 .card {
+  width: 10%;
+  height: 100%;
+}
+.deckbox.side.max-15 .card {
+  width: 6.66%;
+  height: 100%;
+}
+
+.deckbox .card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deckbox .card:hover {
+  padding: 0;
+}
+
+.card {
+  transition: padding 0.2s;
+}
+
+.card.drag {
+  position: absolute;
+  z-index: 9;
+}
+
+.editor .search .padding {
+  padding: 16px 4px;
+  height: 100%;
+}
+
+.editor .search .padding .filter {
+  width: 100%;
+  padding: 4px;
+  height: 20%;
+}
+
+.editor .search .padding .filter input {
+  width: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  padding: 4px;
+}
+
+.editor .search .padding .filter button {
+  width: calc(50% - 8px);
+  outline: none;
+  border: none;
+  background: rgba(255,0,255,0.4);
+  color: #fff;
+  float: left;
+  margin: 4px;
+  border-radius: 4px;
+  transition: background 0.4s;
+}
+
+.editor .search .padding .filter button:active {
+  background-color: rgba(255,0,255,0.6);
+}
+
+.editor .search .padding .maxwidth {
+  height: 80%;
+}
+
+.editor .search .padding .results {
+  height: 90%;
+  padding-top: 6px;
+  display: table;
+  width: 100%;
+}
+
+.editor .search .padding .results .card {
+  padding: 4px;
+  width: 25%;
+  max-height: 16.66%;
+  display: inline-flex;
+}
+
+.editor .search .padding .results .card img {
+  width: 100%;
+  height: 100%;
+}
+
+.editor .search .padding .pagination {
+  height: 10%;
+  position: relative;
+}
+
+.editor .search .padding .pagination a {
+  width: 20%;
+  width: 20%;
+  float: left;
+  text-align: center;
+  padding: 8px;
+  transition: background-color 0.2s;
+}
+
+.editor .search .padding .pagination a:hover {
+  background-color: rgba(255,255,255,0.4);
+}
+
+.editor .search .padding .pagination a.active, .editor .search .padding .pagination a:active {
+  background-color: rgba(255,0,255,0.4);
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: .8s;
+  animation-name: fade;
+  animation-duration: .8s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .2} 
+  to {opacity: 1}
+}
+@keyframes fade {
+  from {opacity: .2} 
+  to {opacity: 1}
+}
+
+/* Filter */
+
+.filter-panel {
+  position: fixed;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #242424;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transition: height 0.4s;
+  height: 0%;
+}
+
+.filter-panel.active {
+  height: 50%;
+}
+
+.filter-panel button {
+  outline: none;
+  border: none;
+  background: rgba(255,0,255,0.4);
+  color: #fff;
+  float: left;
+  margin: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 4px;
+  transition: background 0.4s;
+}
+
+.filter-panel button:active {
+  background-color: rgba(255,0,255,0.6);
+}
+
+/* Information box above deck */
+
+.cell.info input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  padding: 4px;
+}
+
+.btn50 {
+  outline: none;
+  border: none;
+  background: rgba(255,0,255,0.4);
+  color: #fff;
+  float: left;
+  margin: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 4px;
+  transition: background 0.4s;
+  width: calc(50% - 8px);
+}
+
+.btn50:active {
+  background-color: rgba(255,0,255,0.6);
+}
+
+.btn33 {
+  outline: none;
+  border: none;
+  background: rgba(255,0,255,0.4);
+  color: #fff;
+  float: left;
+  margin: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 4px;
+  transition: background 0.4s;
+  width: calc(33% - 4px);
+}
+
+.btn33:active {
+  background-color: rgba(255,0,255,0.6);
+}
+
+/* Combo Widget */
+
+.combo-widget {
+  border: 1px solid #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.combo-widget h4 {
+  margin: 0;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.combo-widget h4:hover {
+  background-color: #282828;
+}
+
+.combo-widget .btn-grp {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-width: 66%;
+}
+
+.combo-widget .btn50.disabled {
+  cursor: not-allowed;
+  background-color: #282828;
+  color: #555;
+}
+
+.combo-widget h4.active {
+  background-color: #3a3a3a;
+}
+
+.combo-widget ul {
+  display: none;
+  margin: 0;
+  padding-left: 16px;
+  list-style-type: none;
+}
+
+.combo-widget ul.active {
+  display: block;
+}
