@@ -54,5 +54,4 @@ function installUpdate(version) {
   }
 }
 
-// TODO: Remove comment (`//`)
-// document.addEventListener("DOMContentLoaded", checkForUpdates);
+document.addEventListener("DOMContentLoaded", checkForUpdates);
