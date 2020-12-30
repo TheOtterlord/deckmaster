@@ -1,7 +1,7 @@
 const { dialog } = require('electron').remote;
 
 const deckmaster = {
-  version: "v0.1.0",
+  version: "v0.1.2",
   notification: (title, text, onclick) => {
     const notification = new Notification(title, {
       body: text
@@ -161,6 +161,9 @@ const deckmaster = {
         ]
       }).then((data) => {
         var file = data.filePaths[0];
+        if (file == undefined) {
+          return;
+        }
         deckmaster.openDeck(file);
       });
     }

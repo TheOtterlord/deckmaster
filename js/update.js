@@ -15,6 +15,7 @@ function checkForUpdates() {
           message: 'Do you want to update?',
           detail: 'Updating keeps the bugs at bay'
         };
+        console.log(json[0].tag_name);
         dialog.showMessageBox(null, options).then((data) => {
           // if yes: update
           if (data.response == 1) {
