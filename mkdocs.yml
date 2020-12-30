@@ -16,7 +16,6 @@ theme:
   language: en
   features:
     - navigation.tabs
-    - navigation.instant
   palette:
     scheme: default
     primary: blue
