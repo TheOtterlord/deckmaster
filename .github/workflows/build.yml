@@ -3,11 +3,6 @@ name: Build DeckMaster
 on:
   push:
     branches: [ master ]
-    paths:
-    - '**.css'
-    - '**.js'
-    - '**.html'
-    - '**.json'
 
 jobs:
   build:
