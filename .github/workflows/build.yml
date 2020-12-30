@@ -1,5 +1,3 @@
-name: Build DeckMaster
-
 on:
   push:
     branches: [ master ]
