@@ -18,7 +18,9 @@ function checkForUpdates() {
         dialog.showMessageBox(null, options).then((data) => {
           // if yes: update
           if (data.response == 1) {
-            installUpdate(json[0].tag_name);
+            // temporary solution to updating; sorry :(
+            window.open("https://github.com/TheOtterlord/deckmaster/releases/latest", "_blank");
+            // installUpdate(json[0].tag_name);
           }
         });
       } else {
