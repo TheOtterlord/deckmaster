@@ -23,4 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
   deckmaster.getRecentDocs().forEach(path => {
     recent.innerHTML = `<a onclick="deckmaster.openDeck(this.innerHTML)">${path}</a>`+recent.innerHTML;
   });
+
+  // Keybindings
+  var binder = new Keybinder();
+
+  binder.register({key: "f1", ctrl: true, callback: deckmaster.wiki});
+  binder.register({key: "o", ctrl: true, callback: deckmaster.openDeck});
+  binder.register({key: "s", ctrl: true, callback: () => {
+    if (main.filepath) {
+      deckmaster.saveDeck(main.filepath);
+    }
+  }});
 });

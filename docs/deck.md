@@ -12,7 +12,7 @@ You can name it when you save the deck.
 
 ## Opening a deck
 
-You can open a deck using the start screen action, or the menu action `File > Open Deck`.
+You can open a deck using the start screen action, or the menu action `File > Open Deck`, or with the keyboard shortcut (Ctrl+O).
 
 ## Searching for cards
 
