@@ -5,7 +5,8 @@ This screen is the setup, and allows you to optionally link YGOPro/EDOPro to the
 
 ## Linking YGOPro/EDOPro
 
-If you wish to link YGOPro/EDOPro to the app, click on the button and navigate to the application's folder.
+If you wish to link YGOPro/EDOPro to the app, click on the button and navigate to the application's folder. 
+You can change this later in settings. 
 
 > HINT: The folder is the one containing `YGOPro.exe` or `EDOPro.exe`
 

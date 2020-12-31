@@ -1,6 +1,6 @@
 {
   "name": "deckmaster",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A Yu-Gi-Oh! TCG deck editor",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "build": {
     "productName": "DeckMaster",
     "appId": "dev.theotterlord.deckmaster",
-    "artifactName": "win-installer.${ext}",
+    "artifactName": "installer.${ext}",
     "directories": {
       "output": "build"
     },

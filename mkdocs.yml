@@ -41,5 +41,7 @@ nav:
   - Documentation:
     - Deck Editor: deck.md
     - YCB: ycb.md
+    - Keybindings: keys.md
+    - Settings: settings.md
   - About: 
     - DeckMaster: about.md
