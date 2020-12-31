@@ -1,7 +1,44 @@
-const originalFs = require('original-fs');
-const paths = require('path');
+const { ipcRenderer } = require("electron")
 
+// TODO: Clean up element node removal
+function notify(msg, id, timeout) {
+  var all = document.querySelector(".notifications");
+  all.innerHTML += msg;
+  if (!timeout) return;
+  var i = all.childElementCount-1;
+  setTimeout(() => {
+    document.querySelector(`#${id}`).remove();
+  }, timeout);
+}
+
+ipcRenderer.on('message', function(event, text) {
+  if (text == "update-downloaded") {
+    notify(`<div id='downloaded'>
+      A new update was downloaded!<br><br>
+      <button class="ygopro_connect" style="float: left;width: 50%;" onclick="ipcRenderer.send('update')">Restart</button>
+      <button class="ygopro_connect" style="float: left;width: 50%;" onclick="this.parentElement.remove()">Dismiss</button>
+    </div>`, 'downloaded');
+  } else if (text.startsWith("progress:")) {
+    var percent = +text.split("progress:")[1];
+    document.querySelector("#update-progress").innerHTML = `Downloading update: ${percent}%`;
+    win.setProgressBar(percent/100);
+  } else if (text == "update-available") {
+    notify(`<div id='update-progress'>
+      New update available!
+    </div>`, 'update-progress');
+  } else {
+    notify(`<div id='message'>
+      ${text}
+    </div>`, 'message', 4000);
+  }
+})
+
+/**
+ * Checks for updates for non-windows devices
+ * Windows is handled by electron-updater in index.js
+ */
 function checkForUpdates() {
+  if (process.platform === "win32") return;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -12,49 +49,22 @@ function checkForUpdates() {
           buttons: ['Cancel', 'Yes', 'No'],
           defaultId: 2,
           title: 'Update Available!',
-          message: 'Do you want to update?',
+          message: `Do you want to update to ${json[0].tag_name}?`,
           detail: 'Updating keeps the bugs at bay'
         };
-        console.log(json[0].tag_name);
         dialog.showMessageBox(null, options).then((data) => {
-          // if yes: update
+          // yes == 1
           if (data.response == 1) {
-            // temporary solution to updating; sorry :(
             window.open("https://github.com/TheOtterlord/deckmaster/releases/latest", "_blank");
-            // installUpdate(json[0].tag_name);
           }
         });
       } else {
-        console.log("Up to date");
+        console.log("DeckMaster is up to date");
       }
     }
   };
   xhttp.open("GET", "https://api.github.com/repos/TheOtterlord/DeckMaster/releases", true);
   xhttp.send();
-}
-
-function installUpdate(version) {
-  try {
-    var received_bytes = 0;
-    var total_bytes = 0;
-    var asar_path = __dirname;
-    if (!asar_path.includes('.asar')) {
-      asar_path = paths.join(asar_path, "resources", 'app.asar');
-    }
-    var file = originalFs.createWriteStream(asar_path);
-    https.get("https://github.com/TheOtterlord/deckmaster/releases/download/" + version + "/resources.asar", function (response) {
-      response.pipe(file);
-      total_bytes = parseInt(response.headers['content-length']);
-      response.on('end', deckmaster.restart);
-      response.on('data', function (chunk) {
-        received_bytes += chunk.length;
-        console.log(received_bytes / total_bytes * 100 + "%");
-      });
-    });
-  } catch (e) {
-    console.log("Manual update required", e);
-    deckmaster.notification("Task Failed", "Failed to update DeckMaster, please download a new installer from https://github.com/TheOtterlord/deckmaster/downloads/latest");
-  }
 }
 
 document.addEventListener("DOMContentLoaded", checkForUpdates);
