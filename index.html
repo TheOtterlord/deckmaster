@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="css/filter.css">
   <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/iridium.css">
 </head>
 
 <body>
@@ -20,6 +21,7 @@
   <script src="js/hg_calc.js"></script>
   <script src="js/combowidget.js"></script>
   <script src="js/keybind.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/update.js"></script>
   <script src="js/main.js"></script>
 
@@ -55,6 +57,7 @@
           <a href="#" onclick="deckmaster.wiki()">User documentation</a>
           <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster/issues')">Report a bug</a>
           <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster')">GitHub</a>
+          <a href="#" onclick="open_settings()">Settings</a>
           <a href="#" onclick="checkForUpdates()">Check for updates</a>
           <a href="#" onclick="deckmaster.link('https://theotterlord.github.io/deckmaster/about')">About</a>
         </div>
@@ -288,6 +291,18 @@
     </div>
   </div>
 
+  <div class="settings" style="display: none;">
+    <h1>Settings</h1>
+    <div class="ir-flex-row">
+      <div class="ir-flex">YGOPro/EDOPro Path: </div>
+      <button class="ir-flex ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
+    </div>
+    <div class="ir-flex-row">
+      <button class="ir-flex ygopro_connect" onclick="deckmaster.reset_all()">Reset All Settings</button>
+      <button class="ir-flex ygopro_connect" onclick="close_settings()">Close Settings</button>
+    </div>
+  </div>
+
   <div class="intro" style="display:none;">
     <h2>Welcome</h2>
     <p>
@@ -297,8 +312,8 @@
     </p>
     <p>
       To improve performance, DeckMaster is capable of linking to YGOPro/EDOPro to share the same deck/image storage.
-      If you would like to do this, please direct us to the app's folder using the button below.
-      If not, just click "Finish".
+      If you would like to do this, please direct us to the app's folder containing the YGOPro.exe or EDOPro.exe file using the button below.
+      If not, just click "Finish". You can change these preferences later in settings.
     </p>
     <button class="ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
     <br><br>

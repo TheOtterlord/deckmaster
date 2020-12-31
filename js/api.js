@@ -8,6 +8,10 @@ const deckmaster = {
     });
     notification.onclick = onclick;
   },
+  reset_all: () => {
+    localStorage.clear();
+    deckmaster.restart();
+  },
   setup: () => {
     localStorage.setItem("settings", JSON.stringify({
       "settingsVersion": "0.1.0"

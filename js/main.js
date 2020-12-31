@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   binder.register({key: "f1", ctrl: true, callback: deckmaster.wiki});
   binder.register({key: "o", ctrl: true, callback: deckmaster.openDeck});
+  binder.register({key: ",", ctrl: true, callback: open_settings});
   binder.register({key: "s", ctrl: true, callback: () => {
     if (main.filepath) {
       deckmaster.saveDeck(main.filepath);
