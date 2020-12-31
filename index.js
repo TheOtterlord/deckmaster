@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Menu, MenuItem } = require('electron')
 const path = require('path')
 const url = require('url')
+const {autoUpdater} = require("electron-updater")
 
 function createWindow () {
   let win = new BrowserWindow({
@@ -68,3 +69,8 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+// TODO: add download progress & restart options
+app.on('ready', function()  {
+  autoUpdater.checkForUpdatesAndNotify();
+});
