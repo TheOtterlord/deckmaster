@@ -266,3 +266,28 @@ header {
   border-radius: 4px;
   transition: background 0.4s;
 }
+
+.notifications {
+  margin: 16px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 11;
+  width: 250px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.notifications div {
+  width: 100%;
+  background-color: #343434;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  margin: 16px 0;
+  padding: 8px;
+  animation: slide-in 1s linear;
+}
+
+@keyframes slide-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

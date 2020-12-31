@@ -1,10 +1,12 @@
-const { app, BrowserWindow, Menu, MenuItem } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 const {autoUpdater} = require("electron-updater")
 
+let win;
+
 function createWindow () {
-  let win = new BrowserWindow({
+  win = new BrowserWindow({
 		icon:'favicon.ico',
 		show: false,
 		backgroundColor: '#202020',
@@ -21,7 +23,7 @@ function createWindow () {
       // when deprecated, remove `nodeIntegration: true` but keep this
       contextIsolation: false
 		}
-	});
+  });
 
   // open links in native browser
   win.webContents.on('new-window', function(e, url) {
@@ -35,7 +37,11 @@ function createWindow () {
 		pathname: index_path,
 		protocol: 'file:',
 		slashes: true
-  }));
+  }))
+  
+  ipcMain.on('update', () => {
+    autoUpdater.quitAndInstall();
+  });
   
   win.webContents.on("did-finish-load", () => {
     win.webContents.send("cmd", process.argv);
@@ -43,6 +49,7 @@ function createWindow () {
 
   // Once loaded, show the screen
   win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
     win.maximize();
     win.show();
   });
@@ -70,7 +77,18 @@ app.on('activate', () => {
   }
 })
 
-// TODO: add download progress & restart options
-app.on('ready', function()  {
-  autoUpdater.checkForUpdatesAndNotify();
+function sendStatusToWindow(text) {
+  win.webContents.send('message', text);
+}
+
+autoUpdater.on('update-downloaded', (info) => {
+  sendStatusToWindow('update-downloaded');
 });
+
+autoUpdater.on('update-available', (info) => {
+  sendStatusToWindow('update-available');
+})
+
+autoUpdater.on('download-progress', (progressObj) => {
+  sendStatusToWindow('progress:'+Math.round(progressObj.percent));
+})

@@ -1,5 +1,4 @@
 const { remote } = require('electron');
-const { ipcRenderer } = require("electron")
 
 const app = remote.app;
 
