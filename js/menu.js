@@ -17,7 +17,6 @@ window.onclick = function(event) {
       }
     }
     if (!event.target.matches('.dropbtn')) {
-      console.log(event.target);
       MENU_OPEN = false;
     }
   }

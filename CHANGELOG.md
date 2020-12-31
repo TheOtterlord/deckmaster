@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.2.0 Alpha
+
+The auto-updater is back! 
+I've also added a settings menu that over time will be populated with more options to customise DeckMaster.
+
+### Added
+
+- Basic settings menu
+- Ability to reset settings
+- Setting to change YGOPro path
+- In-app notifications API
+- New auto-updater
+- Default keybinding for settings (Ctrl+,)
+
+
 ## 0.1.2 Alpha
 
 A few fixes and improvements
