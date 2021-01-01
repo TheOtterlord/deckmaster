@@ -111,7 +111,9 @@ const deckmaster = {
       if (err) {
         console.log(`Failed to write to ${path}`);
       } else {
-        deckmaster.notification("Saved!", "Your deck has been saved!");
+        notify(`<div id='saved'>
+          Your deck has been saved
+        </div>`, 'saved', 3000);
       }
     });
   },

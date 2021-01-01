@@ -332,6 +332,7 @@ header {
   margin: 16px 0;
   padding: 8px;
   animation: slide-in 1s linear;
+  overflow-x: auto;
 }
 
 @keyframes slide-in {
