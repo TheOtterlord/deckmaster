@@ -1,4 +1,5 @@
 const { dialog } = require('electron').remote;
+const paths = require('path');
 
 const deckmaster = {
   version: "v0.2.0",
@@ -114,6 +115,20 @@ const deckmaster = {
       }
     });
   },
+  saveAs() {
+    var path = localStorage.getItem('ygopro');
+    dialog.showSaveDialog(
+      { 
+        defaultPath: path ? paths.join(path, 'deck') : '~', 
+        filters: [
+          { name: 'Yu-Gi-Oh! deck file', extensions: ['ydk'] },
+          { name: 'All Files', extensions: ['*'] }
+        ] 
+      }
+    ).then((path) => {
+      if (path.filePath) deckmaster.saveDeck(path.filePath)
+    });
+  },
   newDeck() {
     var startscreen = document.querySelector(".start-screen");
     var el_editor = document.querySelector(".editor");
@@ -121,6 +136,7 @@ const deckmaster = {
     el_editor.style.display = "block";
     fade(el_editor);
     editor.setDeckname("");
+    main.filepath = undefined;
     main.clear();
     extra.clear();
     side.clear();
