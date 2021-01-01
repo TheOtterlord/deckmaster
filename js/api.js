@@ -1,7 +1,8 @@
 const { dialog } = require('electron').remote;
+const paths = require('path');
 
 const deckmaster = {
-  version: "v0.2.0",
+  version: "v0.2.1",
   notification: (title, text, onclick) => {
     const notification = new Notification(title, {
       body: text
@@ -110,8 +111,24 @@ const deckmaster = {
       if (err) {
         console.log(`Failed to write to ${path}`);
       } else {
-        deckmaster.notification("Saved!", "Your deck has been saved!");
+        notify(`<div id='saved'>
+          Your deck has been saved
+        </div>`, 'saved', 3000);
       }
+    });
+  },
+  saveAs() {
+    var path = localStorage.getItem('ygopro');
+    dialog.showSaveDialog(
+      { 
+        defaultPath: path ? paths.join(path, 'deck') : '~', 
+        filters: [
+          { name: 'Yu-Gi-Oh! deck file', extensions: ['ydk'] },
+          { name: 'All Files', extensions: ['*'] }
+        ] 
+      }
+    ).then((path) => {
+      if (path.filePath) deckmaster.saveDeck(path.filePath)
     });
   },
   newDeck() {
@@ -121,6 +138,7 @@ const deckmaster = {
     el_editor.style.display = "block";
     fade(el_editor);
     editor.setDeckname("");
+    main.filepath = undefined;
     main.clear();
     extra.clear();
     side.clear();

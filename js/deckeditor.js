@@ -47,8 +47,11 @@ const editor = {
       if (err) {
         throw err;
       }
-      deckmaster.notification("Deck Deleted", "The deck has been deleted");
+      notify(`<div id='deleted'>
+        The deck at ${main.filepath} has been deleted
+      </div>`, 'deleted', 3000);
       deckmaster.removeRecentDocs(main.filepath);
+      main.filepath = undefined;
       deckmaster.toHome();
     });
   },
@@ -340,6 +343,27 @@ class Deck {
       if (count >= 3) {
         return false;
       }
+      // TODO: add extra deck blocking for main deck cards
+      if (this.min == 40 && [
+        "Fusion Monster",
+        "Link Monster",
+        "Pendulum Effect Fusion Monster",
+        "Synchro Monster",
+        "Synchro Pendulum Effect Monster",
+        "Synchro Tuner Monster",
+        "XYZ Monster",
+        "XYZ Pendulum Effect Monster"
+      ].includes(ygodata.cards[card.id].type)) return false;
+      if (this.isExtra && ![
+        "Fusion Monster",
+        "Link Monster",
+        "Pendulum Effect Fusion Monster",
+        "Synchro Monster",
+        "Synchro Pendulum Effect Monster",
+        "Synchro Tuner Monster",
+        "XYZ Monster",
+        "XYZ Pendulum Effect Monster"
+      ].includes(ygodata.cards[card.id].type)) return false;
       if (this.el.childElementCount < this.display[0].max) {
         this.el.classList.remove(`max-${this.display[1].max}`);
         this.el.classList.add(`max-${this.display[0].max}`);
@@ -490,6 +514,7 @@ document.addEventListener("DOMContentLoaded", function () {
       { max: 15, width: "6.66%", height: "100%" }
     ]
   });
+  extra.isExtra = true;
   side = new Deck(document.querySelector(".deckbox.side"), {
     min: 0, max: 15,
     display: [

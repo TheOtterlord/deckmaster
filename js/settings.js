@@ -1,9 +1,11 @@
 function open_settings() {
-  document.querySelector(".settings").style.display = "block";
+  document.querySelector(".fade-bg").classList.remove("hide");
+  document.querySelector(".settings").classList.add("show");
 }
 
 function close_settings() {
-  document.querySelector(".settings").style.display = "none";
+  document.querySelector(".fade-bg").classList.add("hide");
+  document.querySelector(".settings").classList.remove("show");
 }
 
 document.addEventListener("DOMContentLoaded", () => {

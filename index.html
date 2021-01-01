@@ -137,7 +137,7 @@
               <button class="btn33"
                 onclick="if (main.filepath) {deckmaster.saveDeck(main.filepath)} else {document.querySelector('.saveas').click()}">Save</button>
               <button class="btn33 saveas"
-                onclick="var path = localStorage.getItem('ygopro');dialog.showSaveDialog({ defaultPath: path ? paths.join(path, 'deck') : '~', filters: [{ name: 'Yu-Gi-Oh! deck file', extensions: ['ydk'] },{ name: 'All Files', extensions: ['*'] }] }).then((path) => {deckmaster.saveDeck(path.filePath)})">Save
+                onclick="deckmaster.saveAs()">Save
                 As</button>
               <button class="btn33"
                 onclick="dialog.showMessageBox({type: 'question', buttons: ['Cancel', 'Yes', 'No'], title: 'Question', message: 'Do you want to delete this deck?',detail: 'It will be removed forever!'}).then((yes) => {if (yes.response==1) {editor.delete()}});">Delete</button>
@@ -291,7 +291,7 @@
     </div>
   </div>
 
-  <div class="settings" style="display: none;">
+  <div class="settings">
     <h1>Settings</h1>
     <div class="ir-flex-row">
       <div class="ir-flex">YGOPro/EDOPro Path: </div>
@@ -321,6 +321,8 @@
   </div>
 
   <div class="notifications"></div>
+
+  <div class="fade-bg hide"></div>
 </body>
 
 </html>

@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.2.1 Alpha
+
+This update brings a few bug fixes and UI improvements. 
+
+### Added
+
+- Default keybinding for "save as" (Ctrl+Shift+S)
+
+### Changes
+
+- Improved settings menu
+- Documentation changes can now be published without building a new version
+- Save and delete notifications are now in-app instead of native
+
+### Fixed
+
+- Save as functionallity
+- Main deck cards can no longer be added to the extra deck
+- Extra deck cards can no longer be added to the main deck
+
+
 ## 0.2.0 Alpha
 
 The auto-updater is back! 
