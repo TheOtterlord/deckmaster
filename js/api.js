@@ -2,7 +2,7 @@ const { dialog } = require('electron').remote;
 const paths = require('path');
 
 const deckmaster = {
-  version: "v0.2.0",
+  version: "v0.2.1",
   notification: (title, text, onclick) => {
     const notification = new Notification(title, {
       body: text
