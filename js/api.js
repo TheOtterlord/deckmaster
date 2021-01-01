@@ -1,4 +1,5 @@
 const { dialog } = require('electron').remote;
+const paths = require('path');
 
 const deckmaster = {
   version: "v0.2.0",
