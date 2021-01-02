@@ -1,7 +1,13 @@
 class Settings {
   constructor() {
     this.data = JSON.parse(localStorage.getItem("settings")) ?? {};
-    this.data = this.update();
+    if (!localStorage.getItem("ygopro")) {
+      var startscreen = document.querySelector(".start-screen");
+      var welcome = document.querySelector(".intro");
+      startscreen.style.display = "none";
+      welcome.style.display = "block";
+    }
+    this.update(this.data);
   }
 
   /**
@@ -20,7 +26,7 @@ class Settings {
     }, ...old.keybindings ?? {}};
     new_settings.author = old.author ?? "";
     this.save();
-    return new_settings;
+    this.data = new_settings;
   }
 
   get(key) {
@@ -33,7 +39,18 @@ class Settings {
   }
 
   save() {
-    localStorage.setItem("settings", JSON.stringify(new_settings));
+    localStorage.setItem("settings", JSON.stringify(this.data));
+  }
+
+  tab(el) {
+    var links = el.parentElement;
+    for (let i = 0; i < links.children.length; i++) {
+      const link = links.children[i];
+      link.classList.remove("active");
+      document.querySelector(`#${link.innerHTML}`).style.display = "none";
+    }
+    el.classList.add("active");
+    document.querySelector(`#${el.innerHTML}`).style.display = "block";
   }
 }
 

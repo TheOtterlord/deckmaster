@@ -18,3 +18,60 @@ body {
 .ir-flex {
   flex: 1;
 }
+
+.tablinks a {
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.4s;
+  border-bottom: 2px solid transparent;
+}
+
+.tablinks a.active {
+  border-bottom: 2px solid #fff;
+}
+
+.tab {
+  display: none;
+  padding: 6px 12px;
+}
+
+.ir-button {
+  background: #343434;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.ir-button:active {
+  background: #343443;
+}
+
+.ir-input {
+  background: #242424;
+  outline: none;
+  border: 2px solid #141414;
+  border-radius: 2px;
+  color: #fff;
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.ir-input:focus {
+  border: 2px solid #fff;
+}
+
+.ir-input.err {
+  border: 2px solid #f00;
+}

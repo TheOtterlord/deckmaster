@@ -54,7 +54,11 @@ const ygoprodeck = {
     dialog.showOpenDialog(null, {
       properties: ['openDirectory']
     }).then((result) => {
-      document.querySelector(".ygopro_connect").innerHTML = result.filePaths[0];
+      var btns = document.querySelectorAll(".ygopro_connect")
+      for (let i = 0; i < btns.length; i++) {
+        const btn = btns[i];
+        btn.innerHTML = result.filePaths[0];
+      }
       ygoprodeck.connect_ygopro(result.filePaths[0]);
     });
   },

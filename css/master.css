@@ -339,3 +339,7 @@ header {
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+#Keybindings .ir-flex-row div {
+  width: 50%;
+}

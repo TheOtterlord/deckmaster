@@ -15,8 +15,8 @@ ipcRenderer.on('message', function(event, text) {
   if (text == "update-downloaded") {
     notify(`<div id='downloaded'>
       A new update was downloaded!<br><br>
-      <button class="ygopro_connect" style="float: left;width: 50%;" onclick="ipcRenderer.send('update')">Restart</button>
-      <button class="ygopro_connect" style="float: left;width: 50%;" onclick="this.parentElement.remove()">Dismiss</button>
+      <button style="float: left;width: 50%;" onclick="ipcRenderer.send('update')">Restart</button>
+      <button style="float: left;width: 50%;" onclick="this.parentElement.remove()">Dismiss</button>
     </div>`, 'downloaded');
   } else if (text.startsWith("progress:")) {
     var percent = +text.split("progress:")[1];
