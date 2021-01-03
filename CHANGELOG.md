@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.2.2 Alpha
+
+This update add some settings and fixes some bugs. 
+
+### Added
+
+- About tab in settings
+- Keybindings tab in settings
+
+### Changes
+
+- Updated settings UI
+
+### Fixed
+
+- Fixed a bug that caused data to save to different locations
+- Fixed a bug that caused YGOPRO path to display incorrectly
+
 ## 0.2.1 Alpha
 
 This update brings a few bug fixes and UI improvements. 

@@ -343,7 +343,6 @@ class Deck {
       if (count >= 3) {
         return false;
       }
-      // TODO: add extra deck blocking for main deck cards
       if (this.min == 40 && [
         "Fusion Monster",
         "Link Monster",

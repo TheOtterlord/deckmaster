@@ -3,6 +3,12 @@
   -webkit-user-select: none;
 }
 
+
+#About a {
+  text-decoration: none;
+  color: #0cf;
+}
+
  /* width */
  ::-webkit-scrollbar {
   width: 10px;
@@ -23,7 +29,7 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #fff;
-} 
+}
 
 html {
   height: 100%;
@@ -300,6 +306,7 @@ header {
   z-index: 10;
   transform: translate(-50%, -50%) scale(0);
   transition: .5s ease-in-out;
+  border-radius: 8px;
 }
 
 .settings.show {
@@ -338,4 +345,8 @@ header {
 @keyframes slide-in {
   from {opacity: 0;}
   to {opacity: 1;}
+}
+
+#Keybindings .ir-flex-row div {
+  width: 50%;
 }

@@ -54,7 +54,11 @@ const ygoprodeck = {
     dialog.showOpenDialog(null, {
       properties: ['openDirectory']
     }).then((result) => {
-      document.querySelector(".ygopro_connect").innerHTML = result.filePaths[0];
+      var btns = document.querySelectorAll(".ygopro_connect")
+      for (let i = 0; i < btns.length; i++) {
+        const btn = btns[i];
+        btn.innerHTML = result.filePaths[0];
+      }
       ygoprodeck.connect_ygopro(result.filePaths[0]);
     });
   },
@@ -73,7 +77,7 @@ const ygoprodeck = {
         }
         ygodata = cards;
         console.log("Received new card data");
-        fs.writeFile(ygoprodeck.file, JSON.stringify(cards), (err) => {
+        fs.writeFile(paths.join("__dirname", "../", ygoprodeck.file), JSON.stringify(cards), (err) => {
           if (err) {
             console.log(`Failed to write to ${ygoprodeck.file}`);
           }
@@ -222,7 +226,7 @@ const filters = {
 };
 
 document.addEventListener("DOMContentLoaded", (ev) => {
-  fs.readFile(ygoprodeck.file, (err, data) => {
+  fs.readFile(paths.join("__dirname", "../", ygoprodeck.file), (err, data) => {
     if (err) {
       ygoprodeck.fetch();
     } else {
