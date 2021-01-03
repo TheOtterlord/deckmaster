@@ -292,14 +292,34 @@
   </div>
 
   <div class="settings">
-    <h1>Settings</h1>
-    <div class="ir-flex-row">
-      <div class="ir-flex">YGOPro/EDOPro Path: </div>
-      <button class="ir-flex ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
+    <div class="ir-flex-row tablinks" style="margin: 0;">
+      <a class="active" onclick="settings.tab(this)">Settings</a>
+      <a onclick="settings.tab(this)">Keybindings</a>
+      <a onclick="settings.tab(this)">About</a>
+    </div>
+    <div class="tab" id="Settings" style="display: block;">
+      <div class="ir-flex-row">
+        <div class="ir-flex">YGOPro/EDOPro Path: </div>
+        <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
+      </div>
+    </div>
+    <div class="tab" id="Keybindings">
+      <div class="ir-flex-row"><div>Help</div><input class="ir-input key-help"></div>
+      <div class="ir-flex-row"><div>Open deck</div><input class="ir-input key-open_deck"></div>
+      <div class="ir-flex-row"><div>Save</div><input class="ir-input key-save"></div>
+      <div class="ir-flex-row"><div>Save As</div><input class="ir-input key-save_as"></div>
+      <div class="ir-flex-row"><div>Settings</div><input class="ir-input key-settings"></div>
+    </div>
+    <div class="tab" id="About">
+      <h2>About</h2>
+      <p>Version: 0.2.2</p>
+      <p>Author: Reuben Tier (AKA TheOtterlord)</p>
+      <p>Website: <a href="https://theotterlord.github.io/deckmaster" target="_blank">theotterlord.github.io/deckmaster</a></p>
+      <p>Bug Tracker: <a href="https://github.com/TheOtterlord/deckmaster/issues" target="_blank">GitHub Issues</a></p>
     </div>
     <div class="ir-flex-row">
-      <button class="ir-flex ygopro_connect" onclick="deckmaster.reset_all()">Reset All Settings</button>
-      <button class="ir-flex ygopro_connect" onclick="close_settings()">Close Settings</button>
+      <button class="ir-flex ir-button" onclick="deckmaster.reset_all()">Reset All Settings</button>
+      <button class="ir-flex ir-button" onclick="close_settings()">Close Settings</button>
     </div>
   </div>
 
@@ -322,7 +342,7 @@
 
   <div class="notifications"></div>
 
-  <div class="fade-bg hide"></div>
+  <div class="fade-bg hide" onclick="close_settings()"></div>
 </body>
 
 </html>
