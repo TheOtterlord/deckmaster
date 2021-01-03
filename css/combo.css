@@ -1,0 +1,41 @@
+.combo-editor {
+  display: none;
+  height: 100%;
+}
+
+.combo-editor .col {
+  height: 100%;
+  float: left;
+  border-right: 2px solid #181818;
+}
+
+.combo-editor .col .scroller {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.collapse-btn {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin: 0;
+  color: #fff;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  transition: border 0.2s;
+  background: #262626;
+}
+
+.collapse-btn.active {
+  background: #303030;
+}
+.collapse-btn:hover {
+  background: #343434;
+}
+
+.collapse {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}

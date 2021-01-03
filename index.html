@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="css/filter.css">
   <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/combo.css">
   <link rel="stylesheet" href="css/iridium.css">
 </head>
 
@@ -18,6 +19,7 @@
   <script src="js/api.js"></script>
   <script src="js/ygoprodeck.js"></script>
   <script src="js/deckeditor.js"></script>
+  <script src="js/comboeditor.js"></script>
   <script src="js/hg_calc.js"></script>
   <script src="js/combowidget.js"></script>
   <script src="js/keybind.js"></script>
@@ -36,6 +38,7 @@
           <a href="#" onclick="deckmaster.newDeck()">New Deck</a>
           <a href="#" class="disabled">New Combo</a>
           <a href="#" onclick="deckmaster.openDeck()">Open Deck</a>
+          <a href="#" onclick="deckmaster.openCombo()">Open YCB</a>
           <a href="#" onclick="deckmaster.close()">Close</a>
         </div>
       </div>
@@ -136,8 +139,7 @@
             <div style="width: 100%;float:left;">
               <button class="btn33"
                 onclick="if (main.filepath) {deckmaster.saveDeck(main.filepath)} else {document.querySelector('.saveas').click()}">Save</button>
-              <button class="btn33 saveas"
-                onclick="deckmaster.saveAs()">Save
+              <button class="btn33 saveas" onclick="deckmaster.saveAs()">Save
                 As</button>
               <button class="btn33"
                 onclick="dialog.showMessageBox({type: 'question', buttons: ['Cancel', 'Yes', 'No'], title: 'Question', message: 'Do you want to delete this deck?',detail: 'It will be removed forever!'}).then((yes) => {if (yes.response==1) {editor.delete()}});">Delete</button>
@@ -291,6 +293,46 @@
     </div>
   </div>
 
+  <div class="combo-editor" class="ir-flex-row">
+    <div class="col" style="width: 20%;">
+      <div class="scroller">
+        <h2 class="collapse-btn" onclick="toggleCollapse(this)">Metadata</h2>
+        <div class="collapse">
+          <div class="ir-margin">
+            <input class="ir-input ir-maxwidth" id="meta-name" placeholder="Module Name"
+              oninput="combo_editor.data.name = this.value">
+            <input class="ir-input ir-maxwidth" id="meta-version" placeholder="Module Version"
+              oninput="combo_editor.data.version = this.value">
+            <input class="ir-input ir-maxwidth" id="meta-author" placeholder="Module Author"
+              oninput="combo_editor.data.author = this.value">
+          </div>
+        </div>
+        <h2 class="collapse-btn" onclick="toggleCollapse(this)">Arrays</h2>
+        <div class="collapse">
+          <div class="ir-margin">
+            <p>TODO: Add arrays</p>
+          </div>
+        </div>
+        <h2 class="collapse-btn" onclick="toggleCollapse(this)">Combos</h2>
+        <div class="collapse">
+          <div class="ir-margin">
+            <p>TODO: Add combos</p>
+          </div>
+        </div>
+        <div class="ir-flex-row">
+          <button class="ir-flex ir-button ir-margin" onclick="combo_editor.save()">Save</button>
+          <button class="ir-flex ir-button ir-margin" onclick="combo_editor.saveAs()">Save As</button>
+        </div>
+      </div>
+    </div>
+    <div class="col" style="width: 20%;">
+      <!-- Metadata and variants -->
+    </div>
+    <div class="col" style="width: 60%;">
+      <!-- Tests -->
+    </div>
+  </div>
+
   <div class="settings">
     <div class="ir-flex-row tablinks" style="margin: 0;">
       <a class="active" onclick="settings.tab(this)">Settings</a>
@@ -300,21 +342,33 @@
     <div class="tab" id="Settings" style="display: block;">
       <div class="ir-flex-row">
         <div class="ir-flex">YGOPro/EDOPro Path: </div>
-        <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
+        <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder
+          selected...</button>
       </div>
     </div>
     <div class="tab" id="Keybindings">
-      <div class="ir-flex-row"><div>Help</div><input class="ir-input key-help"></div>
-      <div class="ir-flex-row"><div>Open deck</div><input class="ir-input key-open_deck"></div>
-      <div class="ir-flex-row"><div>Save</div><input class="ir-input key-save"></div>
-      <div class="ir-flex-row"><div>Save As</div><input class="ir-input key-save_as"></div>
-      <div class="ir-flex-row"><div>Settings</div><input class="ir-input key-settings"></div>
+      <div class="ir-flex-row">
+        <div>Help</div><input class="ir-input key-help">
+      </div>
+      <div class="ir-flex-row">
+        <div>Open deck</div><input class="ir-input key-open_deck">
+      </div>
+      <div class="ir-flex-row">
+        <div>Save</div><input class="ir-input key-save">
+      </div>
+      <div class="ir-flex-row">
+        <div>Save As</div><input class="ir-input key-save_as">
+      </div>
+      <div class="ir-flex-row">
+        <div>Settings</div><input class="ir-input key-settings">
+      </div>
     </div>
     <div class="tab" id="About">
       <h2>About</h2>
       <p>Version: 0.2.2</p>
       <p>Author: Reuben Tier (AKA TheOtterlord)</p>
-      <p>Website: <a href="https://theotterlord.github.io/deckmaster" target="_blank">theotterlord.github.io/deckmaster</a></p>
+      <p>Website: <a href="https://theotterlord.github.io/deckmaster"
+          target="_blank">theotterlord.github.io/deckmaster</a></p>
       <p>Bug Tracker: <a href="https://github.com/TheOtterlord/deckmaster/issues" target="_blank">GitHub Issues</a></p>
     </div>
     <div class="ir-flex-row">
@@ -332,7 +386,8 @@
     </p>
     <p>
       To improve performance, DeckMaster is capable of linking to YGOPro/EDOPro to share the same deck/image storage.
-      If you would like to do this, please direct us to the app's folder containing the YGOPro.exe or EDOPro.exe file using the button below.
+      If you would like to do this, please direct us to the app's folder containing the YGOPro.exe or EDOPro.exe file
+      using the button below.
       If not, just click "Finish". You can change these preferences later in settings.
     </p>
     <button class="ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>

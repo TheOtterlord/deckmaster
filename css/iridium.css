@@ -53,6 +53,7 @@ body {
   margin: 8px 0;
   box-sizing: border-box;
   transition: border 0.2s;
+  cursor: pointer;
 }
 
 .ir-button:active {
@@ -78,4 +79,12 @@ body {
 
 .ir-input.err {
   border: 2px solid #f00;
+}
+
+.ir-margin {
+  margin: 8px;
+}
+
+.ir-maxwidth {
+  width: 100%;
 }
