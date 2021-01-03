@@ -15,7 +15,7 @@ This update add some settings and fixes some bugs.
 - About tab in settings
 - Keybindings tab in settings
 
-## Changes
+### Changes
 
 - Updated settings UI
 
