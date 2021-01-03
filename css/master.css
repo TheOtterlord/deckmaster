@@ -3,6 +3,12 @@
   -webkit-user-select: none;
 }
 
+
+#About a {
+  text-decoration: none;
+  color: #0cf;
+}
+
  /* width */
  ::-webkit-scrollbar {
   width: 10px;
@@ -23,7 +29,7 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #fff;
-} 
+}
 
 html {
   height: 100%;
