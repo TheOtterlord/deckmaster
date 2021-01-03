@@ -77,7 +77,7 @@ const ygoprodeck = {
         }
         ygodata = cards;
         console.log("Received new card data");
-        fs.writeFile(ygoprodeck.file, JSON.stringify(cards), (err) => {
+        fs.writeFile(paths.join("__dirname", "../", ygoprodeck.file), JSON.stringify(cards), (err) => {
           if (err) {
             console.log(`Failed to write to ${ygoprodeck.file}`);
           }
@@ -226,7 +226,7 @@ const filters = {
 };
 
 document.addEventListener("DOMContentLoaded", (ev) => {
-  fs.readFile(ygoprodeck.file, (err, data) => {
+  fs.readFile(paths.join("__dirname", "../", ygoprodeck.file), (err, data) => {
     if (err) {
       ygoprodeck.fetch();
     } else {
