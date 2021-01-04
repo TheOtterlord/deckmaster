@@ -38,7 +38,7 @@ const deckmaster = {
   },
   open(path) {
     if (path.endsWith(".ydk")) this.openDeck(path);
-    if (path.endsWith(".ycb")) this.openCombo(path);
+    else if (path.endsWith(".ycb")) this.openCombo(path);
     else alert(`Failed to find action for '${path}'`);
   },
   restart: () => {

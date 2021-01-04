@@ -308,9 +308,11 @@
           </div>
         </div>
         <h2 class="collapse-btn" onclick="toggleCollapse(this)">Arrays</h2>
-        <div class="collapse">
+        <div class="collapse" style="padding:0;">
+          <div id="arrays"></div>
           <div class="ir-margin">
-            <p>TODO: Add arrays</p>
+            <input class="ir-input ir-maxwidth" id="array-name" placeholder="Name of array" onkeypress="if (event.which == 13) combo_editor.addArray();">
+            <button class="ir-button ir-maxwidth" onclick="combo_editor.addArray()">+ Add array</button>
           </div>
         </div>
         <h2 class="collapse-btn" onclick="toggleCollapse(this)">Combos</h2>
@@ -325,11 +327,23 @@
         </div>
       </div>
     </div>
-    <div class="col" style="width: 20%;">
-      <!-- Metadata and variants -->
-    </div>
-    <div class="col" style="width: 60%;">
-      <!-- Tests -->
+    <span id="combo-screen">
+      <div class="col" style="width: 20%;">
+        <!-- Metadata and variants -->
+      </div>
+      <div class="col" style="width: 60%;">
+        <!-- Tests -->
+      </div>
+    </span>
+    <div id="array-screen" class="col" style="width: 80%;display: none;">
+      <div class="scroller" style="margin: 32px;">
+        <h2 style="color:#666">arrays.<span style="color:#fff" id="display-array-name"></span></h2>
+        <br>
+        <div class="array-list"></div>
+        <br>
+        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else combo_editor.validateArrayItem()" placeholder="YCB Query">
+        <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
+      </div>
     </div>
   </div>
 

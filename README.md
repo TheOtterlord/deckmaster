@@ -7,6 +7,13 @@ It is currently in the development phase, and is being updated frequently.
 I aim to bring a full deck building experience with ways to test opening hand chances and more.
 
 
+## TODO
+
+- Display current array name in array editor
+- Add all code for combos
+- Add YCB validation & documentation
+
+
 ## Installation
 
 You can install **DeckMaster** via one of our installers, or by building from source.
