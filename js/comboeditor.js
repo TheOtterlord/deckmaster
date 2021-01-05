@@ -24,6 +24,15 @@ class ComboEditor {
     });
   }
 
+  setCombos() {
+    var combos = document.querySelector("#all-combos");
+    combos.innerHTML = "";
+    var keys = this.data.combos.length;
+    for (let i = 0; i < keys; i++) {
+      combos.innerHTML += `<div class="array-item" title="${i}" onclick="combo_editor.loadCombo('${i}')">${this.data.combos[i].name}<span style="float: right;color:red;" onclick="combo_editor.removeCombo(this.parentElement)">&#10006;</span></div>`;
+    }
+  }
+
   setup() {
     this.filepath = undefined;
     this.data = {
@@ -48,8 +57,19 @@ class ComboEditor {
         document.querySelector("#meta-author").value = data.author;
         // TODO: Add load arrays and combos
         this.setArrays();
+        this.setCombos();
       }
     });
+  }
+
+  // TODO
+  loadCombo(key) {
+    if (!this.data.combos[+key]) return;
+    this.currentCombo = +key;
+    document.querySelector("#array-screen").style.display = "none";
+    document.querySelector("#combo-screen").style.display = "block";
+    document.querySelector("#combo-name").value = this.data.combos[+key].name;
+    document.querySelector("#combo-desc").innerHTML = this.data.combos[+key].desc;
   }
 
   loadArray(key) {
@@ -130,6 +150,13 @@ class ComboEditor {
     el.remove();
   }
 
+  removeCombo(el) {
+    var value = el.title;
+    value = +value;
+    delete this.data.combos[value];
+    el.remove();
+  }
+
   addArray() {
     var array_name = document.querySelector("#array-name");
     if (this.data.arrays[array_name.value]) {
@@ -152,6 +179,8 @@ class ComboEditor {
 
   save() {
     if (!this.filepath) return this.saveAs();
+    this.data.combos = this.data.combos.filter((itm) => {if (itm) return true;});
+    this.setCombos();
     fs.writeFile(this.filepath, JSON.stringify(this.data), (err) => {
       if (err) console.error(err);
       else {
