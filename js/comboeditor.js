@@ -70,7 +70,7 @@ class ComboEditor {
     document.querySelector("#combo-screen").style.display = "block";
     document.querySelector("#combo-name").value = this.data.combos[+key].name;
     document.querySelector("#combo-desc").innerHTML = this.data.combos[+key].desc;
-    document.querySelector("#combo-turn").innerHTML = this.data.combos[+key].turn;
+    document.querySelector("#combo-turn").value = this.data.combos[+key].turn;
   }
 
   loadArray(key) {
