@@ -328,9 +328,10 @@
         </div>
       </div>
     </div>
-    <div class="col" style="width: 80%;" id="combo-screen">
+    <div class="col" style="width: 80%;display:none;" id="combo-screen">
       <div class="col" style="width: 25%;">
         <div class="ir-margin">
+          <h6 style="margin:0;color:#888;">Name changes will be reflected on save</h6>
           <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value">
           <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth" id="combo-desc" placeholder="Combo Description" oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value" spellcheck="false"></textarea>
         </div>
@@ -339,7 +340,7 @@
         <!-- Tests -->
       </div>
     </div>
-    <div id="array-screen" class="col" style="width: 80%;display: none;">
+    <div id="array-screen" class="col" style="width: 80%;display:none;">
       <div class="scroller" style="margin: 32px;">
         <h2 style="color:#666">arrays.<span style="color:#fff" id="display-array-name"></span></h2>
         <br>

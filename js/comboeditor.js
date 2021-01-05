@@ -154,6 +154,7 @@ class ComboEditor {
     var value = el.title;
     value = +value;
     delete this.data.combos[value];
+    if (value == this.currentCombo) this.currentCombo == undefined;
     el.remove();
   }
 
@@ -171,6 +172,18 @@ class ComboEditor {
       arrays.innerHTML += `<div class="array-item" onclick="combo_editor.loadArray('${array_name.value}')">${array_name.value}<span style="float: right;color:red;" onclick="combo_editor.removeArray(this.parentElement)">&#10006;</span></div>`;
       arrays.parentElement.style.maxHeight = arrays.parentElement.scrollHeight+"px";
     }
+  }
+
+  addCombo() {
+    var combos = document.querySelector("#all-combos");
+    this.data.combos[this.data.combos.length] = {
+      name: "New combo",
+      desc: "",
+      turn: "first",
+      variants: []
+    };
+    this.setCombos();
+    combos.parentElement.style.maxHeight = combos.parentElement.scrollHeight+"px";
   }
 
   alert(msg) {
