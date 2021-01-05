@@ -69,7 +69,6 @@ body {
   width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
-  box-sizing: border-box;
   transition: border-color 0.2s;
 }
 
@@ -79,6 +78,15 @@ body {
 
 .ir-input.err {
   border: 2px solid #f00;
+}
+
+.ir-select {
+  background: #242424;
+  outline: none;
+  border-radius: 2px;
+  color: #fff;
+  padding: 12px 20px;
+  margin: 8px 0;
 }
 
 .ir-margin {

@@ -334,6 +334,10 @@
           <h6 style="margin:0;color:#888;">Name changes will be reflected on save</h6>
           <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value">
           <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth" id="combo-desc" placeholder="Combo Description" oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value" spellcheck="false"></textarea>
+          <select id="combo-turn" onchange="combo_editor.data.combos[combo_editor.currentCombo].turn = this.value;">
+            <option value="first">First</option>
+            <option value="second">Second</option>
+          </select>
         </div>
       </div>
       <div class="col" style="width: 75%;">

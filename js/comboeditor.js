@@ -56,7 +56,6 @@ class ComboEditor {
         document.querySelector("#meta-name").value = data.name;
         document.querySelector("#meta-version").value = data.version;
         document.querySelector("#meta-author").value = data.author;
-        // TODO: Add load arrays and combos
         this.setArrays();
         this.setCombos();
       }
@@ -71,6 +70,7 @@ class ComboEditor {
     document.querySelector("#combo-screen").style.display = "block";
     document.querySelector("#combo-name").value = this.data.combos[+key].name;
     document.querySelector("#combo-desc").innerHTML = this.data.combos[+key].desc;
+    document.querySelector("#combo-turn").innerHTML = this.data.combos[+key].turn;
   }
 
   loadArray(key) {
