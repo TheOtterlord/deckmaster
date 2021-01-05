@@ -29,6 +29,7 @@ class ComboEditor {
     combos.innerHTML = "";
     var keys = this.data.combos.length;
     for (let i = 0; i < keys; i++) {
+      if (!this.data.combos[i]) continue;
       combos.innerHTML += `<div class="array-item" title="${i}" onclick="combo_editor.loadCombo('${i}')">${this.data.combos[i].name}<span style="float: right;color:red;" onclick="combo_editor.removeCombo(this.parentElement)">&#10006;</span></div>`;
     }
   }
