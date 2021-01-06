@@ -62,7 +62,6 @@ class ComboEditor {
     });
   }
 
-  // TODO
   loadCombo(key) {
     if (!this.data.combos[+key]) return;
     this.currentCombo = +key;
@@ -71,6 +70,66 @@ class ComboEditor {
     document.querySelector("#combo-name").value = this.data.combos[+key].name;
     document.querySelector("#combo-desc").innerHTML = this.data.combos[+key].desc;
     document.querySelector("#combo-turn").value = this.data.combos[+key].turn;
+    var variants = document.querySelector("#combo-variants");
+    variants.innerHTML = "";
+    this.data.combos[+key].variants.forEach((_, i) => {
+      variants.innerHTML += `<div class="array-item" onclick="combo_editor.loadVariant(${i})" title="${i+1}">Variant: ${i+1}<span style="float: right;color:red;" onclick="combo_editor.removeVariant(this.parentElement);">&#10006;</span></div>`;
+    });
+    document.querySelector("#combo-screen").children[1].style.display = "none";
+  }
+
+  addTest() {
+    var query = document.querySelector("#variant-query").value;
+    if (!this.isValidQuery(query)) return;
+    var test = {
+      target: document.querySelector("#variant-target").value,
+      query,
+    };
+    var min = document.querySelector("#variant-min");
+    var max = document.querySelector("#variant-max");
+    if (min.value != "") test.min = min.value;
+    if (max.value != "") test.max = max.value;
+    if (min.value == "" && max.value == "") return;
+    this.data.combos[this.currentCombo].variants[this.currentVariant].tests.push(test);
+    this.loadVariant(this.currentVariant);
+  }
+
+  removeTest(node) {
+    var el = node;
+    var index = 0;
+    while ( (el = el.previousElementSibling) ) {
+        index++;
+    }
+    this.data.combos[this.currentCombo].variants[this.currentVariant].tests.splice(index, 1);
+    node.remove();
+  }
+
+  addVariant() {
+    this.data.combos[this.currentCombo].variants.push({
+      tests: []
+    });
+    this.loadCombo(this.currentCombo);
+    this.loadVariant(this.data.combos[this.currentCombo].variants.length-1);
+  }
+
+  loadVariant(i) {
+    this.currentVariant = i;
+    const variant = this.data.combos[this.currentCombo].variants[i];
+    const tests = document.querySelector("#variant-tests");
+    tests.innerHTML = "";
+    variant.tests.forEach(test => {
+      tests.innerHTML += `<div class="item">'${test.query}' in '${test.target}' - ${test.min ? 'min: '+test.min : ''}${test.min && test.max ? ', ' : ''}${test.max ? 'max: '+test.max : ''}<span style="float: right;color:red;" onclick="combo_editor.removeTest(this.parentElement);">&#10006;</span></div>`;
+    });
+    document.querySelector("#combo-screen").children[1].style.display = "block";
+  }
+
+  removeVariant(el) {
+    var value = +el.title;
+    value = value-1;
+    delete this.data.combos[this.currentCombo].variants[value];
+    if (value == this.currentVariant) this.currentVariant == undefined;
+    document.querySelector("#combo-screen").children[1].style.display = "none";
+    el.remove();
   }
 
   loadArray(key) {
@@ -80,7 +139,7 @@ class ComboEditor {
     document.querySelector("#array-screen").style.display = "block";
     var array = this.data.arrays[key];
     if (!array) return;
-    var list = document.querySelector(".array-list");
+    var list = document.querySelector("#array-list");
     list.innerHTML = "";
     array.forEach(itm => {
       list.innerHTML += `<div class="item">${itm}<span style="float: right;color:red;" onclick="combo_editor.removeArrayItem(this.parentElement);this.parentElement.remove()">&#10006;</span></div>`;
@@ -124,6 +183,15 @@ class ComboEditor {
     }
   }
 
+  validateTestQuery() {
+    var q = document.querySelector("#variant-query");
+    if (this.isValidQuery(q.value)) {
+      q.classList.remove("err");
+    } else {
+      q.classList.add("err");
+    }
+  }
+
   addArrayItem() {
     var q = document.querySelector("#array-itemname");
     console.log(this.isValidQuery(q.value));
@@ -133,7 +201,7 @@ class ComboEditor {
     }
     q.classList.remove("err");
     this.data.arrays[this.currentArray].push(q.value);
-    document.querySelector(".array-list").innerHTML += `<div class="item">${q.value}<span style="float: right;color:red;" onclick="combo_editor.removeArrayItem(this.parentElement);this.parentElement.remove()">&#10006;</span></div>`
+    document.querySelector("#array-list").innerHTML += `<div class="item">${q.value}<span style="float: right;color:red;" onclick="combo_editor.removeArrayItem(this.parentElement);this.parentElement.remove()">&#10006;</span></div>`
     q.value = "";
   }
 
@@ -194,7 +262,12 @@ class ComboEditor {
   save() {
     if (!this.filepath) return this.saveAs();
     this.data.combos = this.data.combos.filter((itm) => {if (itm) return true;});
+    for (let i = 0; i < this.data.combos.length; i++) {
+      const combo = this.data.combos[i];
+      combo.variants = combo.variants.filter(itm => {if (itm) return true;});
+    }
     this.setCombos();
+    this.loadCombo(this.currentCombo);
     fs.writeFile(this.filepath, JSON.stringify(this.data), (err) => {
       if (err) console.error(err);
       else {

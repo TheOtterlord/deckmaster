@@ -9,7 +9,6 @@ I aim to bring a full deck building experience with ways to test opening hand ch
 
 ## TODO
 
-- Add all code for combos
 - Add YCB validation & documentation
 
 

@@ -331,7 +331,7 @@
     <div class="col" style="width: 80%;display:none;" id="combo-screen">
       <div class="col" style="width: 25%;">
         <div class="ir-margin">
-          <h6 style="margin:0;color:#888;">Name changes will be reflected on save</h6>
+          <h6 style="margin:0;color:#888;">Changes will be reflected on save</h6>
           <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value">
           <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth" id="combo-desc" placeholder="Combo Description" oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value" spellcheck="false"></textarea>
           <select id="combo-turn" onchange="combo_editor.data.combos[combo_editor.currentCombo].turn = this.value;">
@@ -339,16 +339,39 @@
             <option value="second">Second</option>
           </select>
         </div>
+        <div id="combo-variants"></div>
+        <div class="ir-margin">
+          <button class="ir-button ir-maxwidth" onclick="combo_editor.addVariant()">+ Add Variant</button>
+        </div>
       </div>
       <div class="col" style="width: 75%;">
-        <!-- Tests -->
+        <div class="ir-margin">
+          <div id="variant-tests" class="array-list"></div>
+          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery()" placeholder="YCB Query">
+          <div class="ir-flex-row">
+            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup="" placeholder="Min" type="number" min="0">
+            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-max" onkeyup="" placeholder="Max" type="number" min="0">
+          </div>
+          <br>
+          <select id="variant-target" onchange="// TODO">
+            <option value="hand">Hand</option>
+            <option value="deck">Deck</option>
+          </select>
+          <button class="ir-button ir-maxwidth" onclick="combo_editor.addTest()">Add Test</button>
+        </div>
+        <!--
+          Target (hand/deck)
+          Query
+          Min (optional)
+          Max (optional)
+         -->
       </div>
     </div>
     <div id="array-screen" class="col" style="width: 80%;display:none;">
       <div class="scroller" style="margin: 32px;">
         <h2 style="color:#666">arrays.<span style="color:#fff" id="display-array-name"></span></h2>
         <br>
-        <div class="array-list"></div>
+        <div id="#array-list" class="array-list"></div>
         <br>
         <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else combo_editor.validateArrayItem()" placeholder="YCB Query">
         <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
