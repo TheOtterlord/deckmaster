@@ -33,8 +33,13 @@ const deckmaster = {
     startscreen.style.display = "block";
     var recent = document.querySelector(".recent .padding .list");
     deckmaster.getRecentDocs().forEach(path => {
-      recent.innerHTML = `<a onclick="deckmaster.openDeck(this.innerHTML)">${path}</a>` + recent.innerHTML;
+      recent.innerHTML = `<a onclick="deckmaster.open(this.innerHTML)">${path}</a>` + recent.innerHTML;
     });
+  },
+  open(path) {
+    if (path.endsWith(".ydk")) this.openDeck(path);
+    else if (path.endsWith(".ycb")) this.openCombo(path);
+    else alert(`Failed to find action for '${path}'`);
   },
   restart: () => {
     app.relaunch();
@@ -189,5 +194,40 @@ const deckmaster = {
         deckmaster.openDeck(file);
       });
     }
+  },
+  openCombo(path) {
+    if (path) {
+      this.addRecentDocs(path);
+      var startscreen = document.querySelector(".start-screen");
+      var el_editor = document.querySelector(".combo-editor");
+      startscreen.style.display = "none";
+      el_editor.style.display = "block";
+      fade(el_editor);
+      combo_editor.load(path);
+    } else {
+      var path = localStorage.getItem("ygopro");
+      dialog.showOpenDialog({
+        properties: ['openFile'],
+        defaultPath: path ? paths.join(path, "combos") : "~",
+        filters: [
+          { name: "Yu-Gi-Oh! combo file", extensions: ["ycb"] },
+          { name: 'All Files', extensions: ['*'] }
+        ]
+      }).then((data) => {
+        var file = data.filePaths[0];
+        if (file == undefined) {
+          return;
+        }
+        deckmaster.openCombo(file);
+      });
+    }
+  },
+  newCombo() {
+    var startscreen = document.querySelector(".start-screen");
+    var el_editor = document.querySelector(".combo-editor");
+    startscreen.style.display = "none";
+    el_editor.style.display = "block";
+    fade(el_editor);
+    combo_editor.setup();
   }
 };

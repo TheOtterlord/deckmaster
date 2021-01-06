@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="css/filter.css">
   <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/combo.css">
   <link rel="stylesheet" href="css/iridium.css">
 </head>
 
@@ -18,6 +19,7 @@
   <script src="js/api.js"></script>
   <script src="js/ygoprodeck.js"></script>
   <script src="js/deckeditor.js"></script>
+  <script src="js/comboeditor.js"></script>
   <script src="js/hg_calc.js"></script>
   <script src="js/combowidget.js"></script>
   <script src="js/keybind.js"></script>
@@ -34,8 +36,9 @@
         </div>
         <div class="dropdown-content">
           <a href="#" onclick="deckmaster.newDeck()">New Deck</a>
-          <a href="#" class="disabled">New Combo</a>
+          <a href="#" onclick="deckmaster.newCombo()">New YCB</a>
           <a href="#" onclick="deckmaster.openDeck()">Open Deck</a>
+          <a href="#" onclick="deckmaster.openCombo()">Open YCB</a>
           <a href="#" onclick="deckmaster.close()">Close</a>
         </div>
       </div>
@@ -82,8 +85,8 @@
                 Create a new deck using the YDK format.
               </p>
             </a>
-            <a class="disabled">
-              <h4>New Combo Module</h4>
+            <a onclick="deckmaster.newCombo()">
+              <h4>New Combo Module (YCB)</h4>
               <p>
                 Create a combo module to test your deck's consistency.
               </p>
@@ -92,6 +95,12 @@
               <h4>Open Deck</h4>
               <p>
                 Open an existing deck file in the YDK format.
+              </p>
+            </a>
+            <a onclick="deckmaster.openCombo()">
+              <h4>Open Combo Module (YCB)</h4>
+              <p>
+                Create a combo module (YCB) to test your deck's consistency.
               </p>
             </a>
           </div>
@@ -136,8 +145,7 @@
             <div style="width: 100%;float:left;">
               <button class="btn33"
                 onclick="if (main.filepath) {deckmaster.saveDeck(main.filepath)} else {document.querySelector('.saveas').click()}">Save</button>
-              <button class="btn33 saveas"
-                onclick="deckmaster.saveAs()">Save
+              <button class="btn33 saveas" onclick="deckmaster.saveAs()">Save
                 As</button>
               <button class="btn33"
                 onclick="dialog.showMessageBox({type: 'question', buttons: ['Cancel', 'Yes', 'No'], title: 'Question', message: 'Do you want to delete this deck?',detail: 'It will be removed forever!'}).then((yes) => {if (yes.response==1) {editor.delete()}});">Delete</button>
@@ -184,7 +192,7 @@
       </div>
     </div>
     <div class="filter-panel">
-      <h2 style="padding: 4px;">Filter <span style="color:red;">(EXPERIMENTAL)</span></h2>
+      <h2 style="padding: 4px;">Filter</h2>
       <div style="padding: 4px;">
         <div style="width: 33%;float: left;padding:4px;">
           <select id="supertype" onchange="filters.update(this)">
@@ -291,6 +299,98 @@
     </div>
   </div>
 
+  <div class="combo-editor" class="ir-flex-row">
+    <div class="col" style="width: 20%;">
+      <div class="scroller">
+        <h2 class="collapse-btn" onclick="toggleCollapse(this)">Metadata</h2>
+        <div class="collapse">
+          <div class="ir-margin">
+            <input class="ir-input ir-maxwidth" id="meta-name" placeholder="Module Name"
+              oninput="combo_editor.data.name = this.value">
+            <input class="ir-input ir-maxwidth" id="meta-version" placeholder="Module Version"
+              oninput="combo_editor.data.version = this.value">
+            <input class="ir-input ir-maxwidth" id="meta-author" placeholder="Module Author"
+              oninput="combo_editor.data.author = this.value">
+          </div>
+        </div>
+        <h2 class="collapse-btn" onclick="toggleCollapse(this)">Arrays</h2>
+        <div class="collapse" style="padding:0;">
+          <div id="arrays"></div>
+          <div class="ir-margin">
+            <input class="ir-input ir-maxwidth" id="array-name" placeholder="Name of array" onkeypress="if (event.which == 13) combo_editor.addArray();">
+            <button class="ir-button ir-maxwidth" onclick="combo_editor.addArray()">+ Add array</button>
+          </div>
+        </div>
+        <h2 class="collapse-btn" onclick="toggleCollapse(this)">Combos</h2>
+        <div class="collapse" style="padding:0;">
+          <div id="all-combos"></div>
+          <div class="ir-margin">
+            <button class="ir-button ir-maxwidth" onclick="combo_editor.addCombo()">+ Add combo</button>
+          </div>
+        </div>
+        <div class="ir-flex-row">
+          <button class="ir-flex ir-button ir-margin" onclick="combo_editor.save()">Save</button>
+          <button class="ir-flex ir-button ir-margin" onclick="combo_editor.saveAs()">Save As</button>
+        </div>
+        <div class="ir-margin">
+          <h6 style="margin:0;color:#f44;">
+            This feature is experimental.
+            Please report any bugs and send your feedback to <a href="https://github.com/TheOtterlord/deckmaster/issues">GitHub</a>.
+          </h6>
+        </div>
+      </div>
+    </div>
+    <div class="col" style="width: 80%;display:none;" id="combo-screen">
+      <div class="col" style="width: 25%;">
+        <div class="ir-margin">
+          <h6 style="margin:0;color:#888;">Changes will be reflected on save</h6>
+          <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value">
+          <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth" id="combo-desc" placeholder="Combo Description" oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value" spellcheck="false"></textarea>
+          <select id="combo-turn" onchange="combo_editor.data.combos[combo_editor.currentCombo].turn = this.value;">
+            <option value="first">First</option>
+            <option value="second">Second</option>
+          </select>
+        </div>
+        <div id="combo-variants"></div>
+        <div class="ir-margin">
+          <button class="ir-button ir-maxwidth" onclick="combo_editor.addVariant()">+ Add Variant</button>
+        </div>
+      </div>
+      <div class="col" style="width: 75%;">
+        <div class="ir-margin">
+          <div id="variant-tests" class="array-list"></div>
+          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery()" placeholder="YCB Query">
+          <div class="ir-flex-row">
+            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup="" placeholder="Min" type="number" min="0">
+            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-max" onkeyup="" placeholder="Max" type="number" min="0">
+          </div>
+          <br>
+          <select id="variant-target" onchange="// TODO">
+            <option value="hand">Hand</option>
+            <option value="deck">Deck</option>
+          </select>
+          <button class="ir-button ir-maxwidth" onclick="combo_editor.addTest()">Add Test</button>
+        </div>
+        <!--
+          Target (hand/deck)
+          Query
+          Min (optional)
+          Max (optional)
+         -->
+      </div>
+    </div>
+    <div id="array-screen" class="col" style="width: 80%;display:none;">
+      <div class="scroller" style="margin: 32px;">
+        <h2 style="color:#666">arrays.<span style="color:#fff" id="display-array-name"></span></h2>
+        <br>
+        <div id="array-list" class="array-list"></div>
+        <br>
+        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else combo_editor.validateArrayItem()" placeholder="YCB Query">
+        <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
+      </div>
+    </div>
+  </div>
+
   <div class="settings">
     <div class="ir-flex-row tablinks" style="margin: 0;">
       <a class="active" onclick="settings.tab(this)">Settings</a>
@@ -300,21 +400,33 @@
     <div class="tab" id="Settings" style="display: block;">
       <div class="ir-flex-row">
         <div class="ir-flex">YGOPro/EDOPro Path: </div>
-        <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
+        <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder
+          selected...</button>
       </div>
     </div>
     <div class="tab" id="Keybindings">
-      <div class="ir-flex-row"><div>Help</div><input class="ir-input key-help"></div>
-      <div class="ir-flex-row"><div>Open deck</div><input class="ir-input key-open_deck"></div>
-      <div class="ir-flex-row"><div>Save</div><input class="ir-input key-save"></div>
-      <div class="ir-flex-row"><div>Save As</div><input class="ir-input key-save_as"></div>
-      <div class="ir-flex-row"><div>Settings</div><input class="ir-input key-settings"></div>
+      <div class="ir-flex-row">
+        <div>Help</div><input class="ir-input key-help">
+      </div>
+      <div class="ir-flex-row">
+        <div>Open deck</div><input class="ir-input key-open_deck">
+      </div>
+      <div class="ir-flex-row">
+        <div>Save</div><input class="ir-input key-save">
+      </div>
+      <div class="ir-flex-row">
+        <div>Save As</div><input class="ir-input key-save_as">
+      </div>
+      <div class="ir-flex-row">
+        <div>Settings</div><input class="ir-input key-settings">
+      </div>
     </div>
     <div class="tab" id="About">
       <h2>About</h2>
       <p>Version: 0.2.2</p>
       <p>Author: Reuben Tier (AKA TheOtterlord)</p>
-      <p>Website: <a href="https://theotterlord.github.io/deckmaster" target="_blank">theotterlord.github.io/deckmaster</a></p>
+      <p>Website: <a href="https://theotterlord.github.io/deckmaster"
+          target="_blank">theotterlord.github.io/deckmaster</a></p>
       <p>Bug Tracker: <a href="https://github.com/TheOtterlord/deckmaster/issues" target="_blank">GitHub Issues</a></p>
     </div>
     <div class="ir-flex-row">
@@ -332,7 +444,8 @@
     </p>
     <p>
       To improve performance, DeckMaster is capable of linking to YGOPro/EDOPro to share the same deck/image storage.
-      If you would like to do this, please direct us to the app's folder containing the YGOPro.exe or EDOPro.exe file using the button below.
+      If you would like to do this, please direct us to the app's folder containing the YGOPro.exe or EDOPro.exe file
+      using the button below.
       If not, just click "Finish". You can change these preferences later in settings.
     </p>
     <button class="ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder selected...</button>
