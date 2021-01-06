@@ -149,6 +149,7 @@ class ComboEditor {
   isValidQuery(q) {
     if (q == "") return false;
     if (typeof(+q) == "number" && !isNaN(+q)) return true;
+    if (q.startsWith("arrays.")) return true;
     var names = [
       "name",
       "type",

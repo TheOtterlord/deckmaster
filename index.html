@@ -36,7 +36,7 @@
         </div>
         <div class="dropdown-content">
           <a href="#" onclick="deckmaster.newDeck()">New Deck</a>
-          <a href="#" class="disabled">New Combo</a>
+          <a href="#" onclick="deckmaster.newCombo()">New YCB</a>
           <a href="#" onclick="deckmaster.openDeck()">Open Deck</a>
           <a href="#" onclick="deckmaster.openCombo()">Open YCB</a>
           <a href="#" onclick="deckmaster.close()">Close</a>
@@ -85,8 +85,8 @@
                 Create a new deck using the YDK format.
               </p>
             </a>
-            <a class="disabled">
-              <h4>New Combo Module</h4>
+            <a onclick="deckmaster.newCombo()">
+              <h4>New Combo Module (YCB)</h4>
               <p>
                 Create a combo module to test your deck's consistency.
               </p>
@@ -95,6 +95,12 @@
               <h4>Open Deck</h4>
               <p>
                 Open an existing deck file in the YDK format.
+              </p>
+            </a>
+            <a onclick="deckmaster.openCombo()">
+              <h4>Open Combo Module (YCB)</h4>
+              <p>
+                Create a combo module (YCB) to test your deck's consistency.
               </p>
             </a>
           </div>
@@ -371,7 +377,7 @@
       <div class="scroller" style="margin: 32px;">
         <h2 style="color:#666">arrays.<span style="color:#fff" id="display-array-name"></span></h2>
         <br>
-        <div id="#array-list" class="array-list"></div>
+        <div id="array-list" class="array-list"></div>
         <br>
         <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else combo_editor.validateArrayItem()" placeholder="YCB Query">
         <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
