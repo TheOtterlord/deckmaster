@@ -2,7 +2,7 @@ const { dialog } = require('electron').remote;
 const paths = require('path');
 
 const deckmaster = {
-  version: "v0.2.2",
+  version: "v0.3.0",
   notification: (title, text, onclick) => {
     const notification = new Notification(title, {
       body: text
@@ -123,6 +123,7 @@ const deckmaster = {
     });
   },
   saveAs() {
+    if (document.querySelector(".combo-editor").style.display == "block") return combo_editor.saveAs();
     var path = localStorage.getItem('ygopro');
     dialog.showSaveDialog(
       { 

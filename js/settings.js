@@ -20,6 +20,7 @@ class Settings {
     new_settings.keybindings = {...{
       help: {key: "f1", ctrl: true},
       open_deck: {key: "o", ctrl: true},
+      open_ycb: {key: "o", ctrl: true, shift: true},
       save: {key: "s", ctrl: true},
       save_as: {key: "s", ctrl: true, shift: true},
       settings: {key: ",", ctrl: true}
