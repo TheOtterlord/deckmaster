@@ -1,6 +1,6 @@
 {
   "name": "deckmaster",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A Yu-Gi-Oh! TCG deck editor",
   "main": "index.js",
   "scripts": {
@@ -75,6 +75,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "discord-rpc": "^3.1.4",
     "electron-updater": "^4.0.0"
   },
   "devDependencies": {

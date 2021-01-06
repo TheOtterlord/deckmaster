@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   settings = new Settings();
   var recent = document.querySelector(".recent .padding .list");
   deckmaster.getRecentDocs().forEach(path => {
-    recent.innerHTML = `<a onclick="deckmaster.openDeck(this.innerHTML)">${path}</a>` + recent.innerHTML;
+    recent.innerHTML = `<a onclick="deckmaster.open(this.innerHTML)">${path}</a>` + recent.innerHTML;
   });
 
   binder = new Keybinder();

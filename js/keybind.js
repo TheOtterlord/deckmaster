@@ -28,6 +28,7 @@ class Keybinder {
     var to_bind = [
       'help',
       'open_deck',
+      'open_ycb',
       'save',
       'save_as',
       'settings'
@@ -66,9 +67,11 @@ class Keybinder {
     var binds = settings.get('keybindings');
     this.register({...binds.help, callback: deckmaster.wiki});
     this.register({...binds.open_deck, callback: deckmaster.openDeck });
+    this.register({...binds.open_ycb, callback: deckmaster.openCombo });
     this.register({
       ...binds.save, callback: () => {
-        if (main.filepath) deckmaster.saveDeck(main.filepath);
+        if (main.filepath?.endsWith(".ydk")) deckmaster.saveDeck(main.filepath);
+        else if (combo_editor.filepath?.endsWith(".ycb")) combo_editor.save();
         else deckmaster.saveAs();
       }
     });

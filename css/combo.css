@@ -1,0 +1,85 @@
+.combo-editor {
+  display: none;
+  height: calc(100% - 26px);
+}
+
+.combo-editor .col {
+  height: 100%;
+  float: left;
+  border-right: 2px solid #181818;
+}
+
+.combo-editor .col .scroller {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.collapse-btn {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin: 0;
+  color: #fff;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  transition: border 0.2s;
+  background: #262626;
+}
+
+.collapse-btn.active {
+  background: #303030;
+}
+.collapse-btn:hover {
+  background: #343434;
+}
+
+.collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.array-item {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin: 0;
+  color: #fff;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+.array-item:hover, .array-item.active {
+  background-color: rgba(0,0,0,0.2);
+  color: #0ef;
+}
+
+.array-list {
+  width: 100%;
+  border: 2px solid #181818;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.array-list .item {
+  background: #242424;
+  outline: none;
+  border: none;
+  color: #fff;
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.array-list .item:nth-child(even) {
+  background-color: #202020;
+}
+
+/* Maybe add back if you can click it for action */
+/* .array-list .item:hover {
+  background-color: #343443;
+} */
+
+.array-list .item span {
+  cursor: pointer;
+}

@@ -40,8 +40,9 @@ nav:
     - First Use: first.md
   - Documentation:
     - Deck Editor: deck.md
-    - YCB: ycb.md
+    - YCB Query: ycb-query.md
     - Keybindings: keys.md
     - Settings: settings.md
+    - YCB: ycb.md
   - About: 
     - DeckMaster: about.md
