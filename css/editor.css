@@ -295,7 +295,7 @@
   padding-right: 6px;
   border-radius: 4px;
   transition: background 0.4s;
-  width: calc(33% - 4px);
+  width: calc(50% - 4px);
 }
 
 .btn33:active {
@@ -347,4 +347,42 @@
 
 .combo-widget ul.active {
   display: block;
+}
+
+/* Sorter */
+
+.sorter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 55%;
+  max-width: 80%;
+  min-height: 55%;
+  max-height: 80%;
+  overflow-y: scroll;
+  z-index: 9;
+  transform: translate(-50%, -50%) scale(0);
+  transition: .5s ease-in-out;
+  background-color: #282828;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.sorter.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.sorter .list {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  display: flex;
+  white-space: nowrap;
+}
+
+.sorter .list span {
+  float: left;
+  background-color: #242424;
+  border-radius: 4px;
+  padding: 4px 16px;
+  margin: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }

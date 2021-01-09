@@ -19,6 +19,7 @@
   <script src="js/api.js"></script>
   <script src="js/ygoprodeck.js"></script>
   <script src="js/deckeditor.js"></script>
+  <script src="js/deck_sorter.js"></script>
   <script src="js/comboeditor.js"></script>
   <script src="js/hg_calc.js"></script>
   <script src="js/combowidget.js"></script>
@@ -149,6 +150,7 @@
                 As</button>
               <button class="btn33"
                 onclick="dialog.showMessageBox({type: 'question', buttons: ['Cancel', 'Yes', 'No'], title: 'Question', message: 'Do you want to delete this deck?',detail: 'It will be removed forever!'}).then((yes) => {if (yes.response==1) {editor.delete()}});">Delete</button>
+              <button class="btn33" onclick="sort_deck()">Sort</button>
             </div>
           </div>
         </div>
@@ -456,9 +458,26 @@
     <button onclick="deckmaster.setup()">Finish</button>
   </div>
 
+  <div class="sorter">
+    <!-- TODO: Add sorter code -->
+    <div class="list">
+      <span>Card Type</span>
+      <span>Alphabet</span>
+    </div>
+    <div class="ir-flex-row">
+      <button class="ir-flex ir-button ir-margin" onclick="// TODO">Card Type</button>
+      <button class="ir-flex ir-button ir-margin" onclick="// TODO">Alphabet</button>
+      <button class="ir-flex ir-button ir-margin" onclick="// TODO">Card Set</button>
+    </div>
+    <div class="ir-flex-row">
+      <button class="ir-flex ir-button ir-margin" onclick="// TODO">Sort</button>
+      <button class="ir-flex ir-button ir-margin" onclick="dont_sort_deck()">Close</button>
+    </div>
+  </div>
+
   <div class="notifications"></div>
 
-  <div class="fade-bg hide" onclick="close_settings()"></div>
+  <div class="fade-bg hide" onclick="close_settings();dont_sort_deck()"></div>
 </body>
 
 </html>
