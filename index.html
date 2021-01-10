@@ -176,7 +176,7 @@
       <div class="padding">
         <div class="filter">
           <input class="searchbar" type="text" placeholder="Card name/text...">
-          <button onclick="toggleFilter(`open`)">Filter</button>
+          <button onclick="toggleFilter(`open`)">Filter/Sort</button>
           <button class="clear">Clear</button>
         </div>
         <div class="maxwidth">
@@ -293,11 +293,26 @@
             <option value="WIND">Wind</option>
           </select>
         </div>
+        <div style="width:33%;float: left;padding: 4px;">
+          <select id="card_set" onchange="filters.update(this)">
+            <option value="undefined">Select card set</option>
+          </select>
+        </div>
         <div style="width: 33%;float:left;padding:4px;">
+          <select id="sortby" onchange="filters.sort(this.value)">
+            <option value="undefined">Sort By</option>
+            <option value="name">Name</option>
+            <option value="set">Card Set</option>
+            <option value="atk">ATK</option>
+            <option value="def">DEF</option>
+            <option value="level">Level</option>
+          </select>
+        </div>
+        <div style="width: 66%;float:left;padding:4px;">
           <br><br>
         </div>
       </div>
-      <button onclick="toggleFilter(`close`)">Close</button>
+      <button class="ir-button ir-maxwidth" onclick="toggleFilter(`close`)">Close</button>
     </div>
   </div>
 
@@ -459,18 +474,12 @@
   </div>
 
   <div class="sorter">
-    <!-- TODO: Add sorter code -->
-    <div class="list">
-      <span>Card Type</span>
-      <span>Alphabet</span>
-    </div>
     <div class="ir-flex-row">
       <button class="ir-flex ir-button ir-margin" onclick="// TODO">Card Type</button>
       <button class="ir-flex ir-button ir-margin" onclick="// TODO">Alphabet</button>
       <button class="ir-flex ir-button ir-margin" onclick="// TODO">Card Set</button>
     </div>
     <div class="ir-flex-row">
-      <button class="ir-flex ir-button ir-margin" onclick="// TODO">Sort</button>
       <button class="ir-flex ir-button ir-margin" onclick="dont_sort_deck()">Close</button>
     </div>
   </div>

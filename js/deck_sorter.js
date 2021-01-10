@@ -1,4 +1,4 @@
-var sort_by = [];
+var last_type;
 
 function sort_deck() {
   document.querySelector(".fade-bg").classList.remove("hide");
@@ -10,14 +10,14 @@ function dont_sort_deck() {
   document.querySelector(".sorter").classList.remove("show");
 }
 
-function clear_sorter() {
-  sort_by = [];
+function quick_sort() {
+  var type;
+  if (last_type) type=last_type;
+  else type="card_type";
+  actually_sort_deck(type, true);
 }
 
-// TODO: Add code for these two functions
-function add_sorter() {}
-function remove_sorter() {}
-
-function actually_sort_deck(type) {
-  if (!sort_by) return /* display something to show nothing is selected? */;
+function actually_sort_deck(type, quick=undefined) {
+  if (!quick) last_type = type;
+  // TODO: sort
 }
