@@ -163,8 +163,6 @@ const ygoprodeck = {
         return 1;
       } else if (b == undefined) {
         return -1;
-      } else {
-        console.log(a, b);
       }
     });;
   }
