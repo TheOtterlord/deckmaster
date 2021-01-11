@@ -19,6 +19,7 @@
   <script src="js/api.js"></script>
   <script src="js/ygoprodeck.js"></script>
   <script src="js/deckeditor.js"></script>
+  <script src="js/deck_sorter.js"></script>
   <script src="js/comboeditor.js"></script>
   <script src="js/hg_calc.js"></script>
   <script src="js/combowidget.js"></script>
@@ -149,6 +150,7 @@
                 As</button>
               <button class="btn33"
                 onclick="dialog.showMessageBox({type: 'question', buttons: ['Cancel', 'Yes', 'No'], title: 'Question', message: 'Do you want to delete this deck?',detail: 'It will be removed forever!'}).then((yes) => {if (yes.response==1) {editor.delete()}});">Delete</button>
+              <button class="btn33" onclick="sort_deck()">Sort</button>
             </div>
           </div>
         </div>
@@ -174,7 +176,7 @@
       <div class="padding">
         <div class="filter">
           <input class="searchbar" type="text" placeholder="Card name/text...">
-          <button onclick="toggleFilter(`open`)">Filter</button>
+          <button onclick="toggleFilter(`open`)">Filter/Sort</button>
           <button class="clear">Clear</button>
         </div>
         <div class="maxwidth">
@@ -291,11 +293,26 @@
             <option value="WIND">Wind</option>
           </select>
         </div>
+        <div style="width:33%;float: left;padding: 4px;">
+          <select id="card_set" onchange="filters.update(this)">
+            <option value="undefined">Select card set</option>
+          </select>
+        </div>
         <div style="width: 33%;float:left;padding:4px;">
+          <select id="sortby" onchange="filters.sort(this.value)">
+            <option value="undefined">Sort By</option>
+            <option value="name">Name</option>
+            <option value="set">Card Set</option>
+            <option value="atk">ATK</option>
+            <option value="def">DEF</option>
+            <option value="level">Level</option>
+          </select>
+        </div>
+        <div style="width: 66%;float:left;padding:4px;">
           <br><br>
         </div>
       </div>
-      <button onclick="toggleFilter(`close`)">Close</button>
+      <button class="ir-button ir-maxwidth" onclick="toggleFilter(`close`)">Close</button>
     </div>
   </div>
 
@@ -426,7 +443,7 @@
     </div>
     <div class="tab" id="About">
       <h2>About</h2>
-      <p>Version: 0.3.0</p>
+      <p>Version: 0.4.0</p>
       <p>Author: Reuben Tier (AKA TheOtterlord)</p>
       <p>Website: <a href="https://theotterlord.github.io/deckmaster"
           target="_blank">theotterlord.github.io/deckmaster</a></p>
@@ -456,9 +473,20 @@
     <button onclick="deckmaster.setup()">Finish</button>
   </div>
 
+  <div class="sorter">
+    <div class="ir-flex-row">
+      <button class="ir-flex ir-button ir-margin" onclick="actually_sort_deck('type')">Card Type</button>
+      <button class="ir-flex ir-button ir-margin" onclick="actually_sort_deck('name')">Alphabet</button>
+      <button class="ir-flex ir-button ir-margin" onclick="actually_sort_deck('misc_info.0.tcg_date')">Card Set</button>
+    </div>
+    <div class="ir-flex-row">
+      <button class="ir-flex ir-button ir-margin" onclick="dont_sort_deck()">Close</button>
+    </div>
+  </div>
+
   <div class="notifications"></div>
 
-  <div class="fade-bg hide" onclick="close_settings()"></div>
+  <div class="fade-bg hide" onclick="close_settings();dont_sort_deck()"></div>
 </body>
 
 </html>

@@ -84,8 +84,23 @@ const ygoprodeck = {
         });
       }
     };
-    xhttp.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardinfo.php`, true);
+    xhttp.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardinfo.php?misc=yes`, true);
     xhttp.send();
+    var xhttp2 = new XMLHttpRequest();
+    xhttp2.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var json = JSON.parse(xhttp2.responseText);
+        ygodata.sets = json;
+        console.log("Received new cardset data");
+        fs.writeFile(paths.join("__dirname", "../", "sets.json"), JSON.stringify(json), (err) => {
+          if (err) {
+            console.log(`Failed to write to ${ygoprodeck.file}`);
+          }
+        });
+      }
+    };
+    xhttp2.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardsets.php`, true);
+    xhttp2.send();
   },
   search: (search) => {
     search = search.toLowerCase();
@@ -95,6 +110,7 @@ const ygoprodeck = {
     }
     var results = [];
     var keys = Object.keys(ygodata.cards);
+    // filter
     filters_ = filters.all();
     for (let i = 0; i < keys.length; i++) {
       var key = keys[i];
@@ -110,16 +126,55 @@ const ygoprodeck = {
         if (filters.supertype == "Monster" && !filters.Monster.includes(card.type)) {
           ok = 0;
         }
+        if (card.type == "Token") ok=0;
+        if (ok != 0 && filters.card_set && !card?.card_sets?.filter(set => {return set.set_code.split("-")[0] == filters.card_set}).length) {
+          ok = 0;
+        }
         if (ok==1) {
           results.push(key);
         }
       }
     }
-    return results;
+    return results.sort((a, b) => {
+      a = ygodata.cards[a];
+      b = ygodata.cards[b];
+      var c = a;
+      var d = b;
+      var sort = filters.key.split(".");
+      for (let i = 0; i < sort.length; i++) {
+        const key = sort[i];
+        a = a[key];
+        b = b[key];
+      }
+      if (a > b) {
+        return 1;
+      } else if (a == b) {
+        if (a == undefined) return 1;
+        else if (b == undefined) return -1;
+        else {
+          if (c.name > d.name) return 1;
+          else if (c.name == d.name) return 0;
+          else return -1;
+        }
+        return 0;
+      } else if (a < b) {
+        return -1;
+      } else if (a == undefined) {
+        return 1;
+      } else if (b == undefined) {
+        return -1;
+      }
+    });;
   }
 }
 
 const filters = {
+  key: "name",
+  sort(val) {
+    if (val == "undefined") this.key = "id";
+    else if (val == "set") this.key = "misc_info.0.tcg_date";
+    else this.key = val;
+  },
   all() {
     var all = [];
     filters.supertype && filters.supertype != "Monster" ? all.push(["type", filters.supertype+" Card"]) : null;
@@ -237,6 +292,19 @@ document.addEventListener("DOMContentLoaded", (ev) => {
         ygoprodeck.fetch();
       } else {
         console.log("Loaded cards from memory");
+        fs.readFile(paths.join("__dirname", "../", "sets.json"), (err, data) => {
+          if (err) {
+            ygoprodeck.fetch();
+          } else {
+            data = JSON.parse(data);
+            ygodata.sets = data;
+            console.log("Loaded sets from memory");
+            var options = document.querySelector("#card_set");
+            data.forEach(set => {
+              options.innerHTML += `<option value="${set.set_code}">${set.set_name}</option>`;
+            });
+          }
+        });
       }
     }
   });
