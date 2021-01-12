@@ -82,25 +82,29 @@ const ygoprodeck = {
             console.log(`Failed to write to ${ygoprodeck.file}`);
           }
         });
+        var xhttp2 = new XMLHttpRequest();
+        xhttp2.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            var json = JSON.parse(xhttp2.responseText);
+            ygodata.sets = json;
+            var options = document.querySelector("#card_set");
+            json.forEach(set => {
+              options.innerHTML += `<option value="${set.set_code}">${set.set_name}</option>`;
+            });
+            console.log("Received new cardset data");
+            fs.writeFile(paths.join("__dirname", "../", "sets.json"), JSON.stringify(json), (err) => {
+              if (err) {
+                console.log(`Failed to write to ${ygoprodeck.file}`);
+              }
+            });
+          }
+        };
+        xhttp2.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardsets.php`, true);
+        xhttp2.send();
       }
     };
     xhttp.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardinfo.php?misc=yes`, true);
     xhttp.send();
-    var xhttp2 = new XMLHttpRequest();
-    xhttp2.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var json = JSON.parse(xhttp2.responseText);
-        ygodata.sets = json;
-        console.log("Received new cardset data");
-        fs.writeFile(paths.join("__dirname", "../", "sets.json"), JSON.stringify(json), (err) => {
-          if (err) {
-            console.log(`Failed to write to ${ygoprodeck.file}`);
-          }
-        });
-      }
-    };
-    xhttp2.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardsets.php`, true);
-    xhttp2.send();
   },
   search: (search) => {
     search = search.toLowerCase();
