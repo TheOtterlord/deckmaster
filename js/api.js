@@ -148,6 +148,8 @@ const deckmaster = {
     main.clear();
     extra.clear();
     side.clear();
+    deckchanges.clear();
+    deckchanges.default = {main: [], extra: [], side: []};
     combos.splice(0, combos.length);
     updateCombos();
   },
@@ -171,6 +173,8 @@ const deckmaster = {
           main.addCards(deck.main);
           extra.addCards(deck.extra);
           side.addCards(deck.side);
+          deckchanges.clear();
+          deckchanges.default = deck;
           editor.setDeckname(path.split("\\").reverse()[0]);
           editor.setAuthor(deck.author);
           combos.splice(0, combos.length);

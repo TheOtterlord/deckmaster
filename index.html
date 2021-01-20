@@ -17,6 +17,7 @@
 <body>
   <script src="js/menu.js"></script>
   <script src="js/api.js"></script>
+  <script src="js/undo.js"></script>
   <script src="js/ygoprodeck.js"></script>
   <script src="js/deckeditor.js"></script>
   <script src="js/deck_sorter.js"></script>
@@ -48,8 +49,8 @@
           Edit
         </div>
         <div class="dropdown-content">
-          <a href="#" class="disabled">Undo</a>
-          <a href="#" class="disabled">Redo</a>
+          <a href="#" class="undo disabled">Undo</a>
+          <a href="#" class="redo disabled">Redo</a>
         </div>
       </div>
       <div class="dropdown">
@@ -439,6 +440,12 @@
       </div>
       <div class="ir-flex-row">
         <div>Settings</div><input class="ir-input key-settings">
+      </div>
+      <div class="ir-flex-row">
+        <div>Undo</div><input class="ir-input key-undo">
+      </div>
+      <div class="ir-flex-row">
+        <div>Redo</div><input class="ir-input key-redo">
       </div>
     </div>
     <div class="tab" id="About">

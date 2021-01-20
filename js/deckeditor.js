@@ -231,6 +231,7 @@ function set_page() {
       } else {
         console.log(card);
       }
+      deckchanges.push(editor.getDeck());
       return true;
     };
     child.onmouseover = (ev) => {
@@ -268,6 +269,7 @@ function set_page() {
           // add to the deckbox
           card.parentElement.removeChild(card);
           ev.target.deck.addCard(card.children[0].alt);
+          deckchanges.push(editor.getDeck());
         } else if (
           ev.target.parentElement.classList.contains("deckbox")
           || ev.target.parentElement.parentElement.classList.contains("deckbox")
@@ -279,6 +281,7 @@ function set_page() {
             target = target.parentElement;
           }
           target.parentElement.deck.addCard(card.children[0].alt, target);
+          deckchanges.push(editor.getDeck());
         } else {
           card.remove();
         }
@@ -446,24 +449,25 @@ class Deck {
         } else if (
           ev.target.parentElement.classList.contains("deckbox")
           || ev.target.parentElement.parentElement.classList.contains("deckbox")
-        ) {
-          // add to deckbox before the target card
-          card.parentElement.deck.oncardremoved();
-          card.parentElement.removeChild(card);
-          var target = ev.target;
-          if (!target.classList.contains("card")) {
-            target = target.parentElement;
+          ) {
+            // add to deckbox before the target card
+            card.parentElement.deck.oncardremoved();
+            card.parentElement.removeChild(card);
+            var target = ev.target;
+            if (!target.classList.contains("card")) {
+              target = target.parentElement;
+            }
+            var add_card = target.parentElement.deck.oncardadded(card);
+            if (add_card) {
+              target.parentElement.insertBefore(add_card, target);
+            }
+            updateCombos();
+          } else {
+            card.parentElement.deck.oncardremoved();
+            card.remove();
+            updateCombos();
           }
-          var add_card = target.parentElement.deck.oncardadded(card);
-          if (add_card) {
-            target.parentElement.insertBefore(add_card, target);
-          }
-          updateCombos();
-        } else {
-          card.parentElement.deck.oncardremoved();
-          card.remove();
-          updateCombos();
-        }
+          deckchanges.push(editor.getDeck());
       };
     };
     card.oncontextmenu = (ev) => {
@@ -471,6 +475,7 @@ class Deck {
       card.parentElement.deck.oncardremoved();
       card.parentElement.removeChild(card);
       updateCombos();
+      deckchanges.push(editor.getDeck());
       return true;
     }
     var img = ygoprodeck.dl_image(id, card);
@@ -496,7 +501,7 @@ class Deck {
   }
 }
 
-let main, extra, side;
+let main, extra, side, deckchanges;
 
 document.addEventListener("DOMContentLoaded", function () {
   main = new Deck(document.querySelector(".deckbox.main"), {
@@ -520,6 +525,38 @@ document.addEventListener("DOMContentLoaded", function () {
       { max: 10, width: "10%", height: "100%" },
       { max: 15, width: "6.66%", height: "100%" }
     ]
+  });
+
+  deckchanges = new Change();
+
+  deckchanges.on('undo', item => {
+    if (deckchanges.index == -1) item = deckchanges.default;
+    main.clear();
+    main.addCards(item.main);
+    extra.clear();
+    extra.addCards(item.extra);
+    side.clear();
+    side.addCards(item.side);
+  });
+  deckchanges.on('redo', item => {
+    if (deckchanges.index == -1) item = deckchanges.default;
+    main.clear();
+    main.addCards(item.main);
+    extra.clear();
+    extra.addCards(item.extra);
+    side.clear();
+    side.addCards(item.side);
+  });
+
+  document.querySelector(".undo").addEventListener("click", () => deckchanges.undo());
+  document.querySelector(".redo").addEventListener("click", () => deckchanges.redo());
+  ["push","undo","redo"].forEach(ev => {
+    deckchanges.on(ev, () => {
+      if (deckchanges.canUndo) document.querySelector(".undo").classList.remove("disabled");
+      else document.querySelector(".undo").classList.add("disabled")
+      if (deckchanges.canRedo) document.querySelector(".redo").classList.remove("disabled");
+      else document.querySelector(".redo").classList.add("disabled")
+    });
   });
 
   // control search
