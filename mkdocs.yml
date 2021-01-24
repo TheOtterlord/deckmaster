@@ -46,3 +46,5 @@ nav:
     - YCB: ycb.md
   - About: 
     - DeckMaster: about.md
+
+edit_uri: edit/main/docs
