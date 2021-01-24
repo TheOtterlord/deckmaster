@@ -1,10 +1,9 @@
 # Yu-Gi-Oh! DeckMaster
 
-![GitHub all releases](https://img.shields.io/github/downloads/TheOtterlord/DeckMaster/total)
+![DeckMaster's editor in action](docs/assets/deckbuilding.png)
 
-**DeckMaster** is a prototype deck editor for the Yu-Gi-Oh! TCG.
-It is currently in the development phase, and is being updated frequently.
-I aim to bring a full deck building experience with ways to test opening hand chances and more.
+Yu-Gi-Oh! DeckMaster is a deck editor for the Yu-Gi-Oh! trading card game.
+It features a full deck editor and a combo editor for live probabilities.
 
 
 ## Installation
@@ -15,7 +14,7 @@ Visit the [documentation](https://theotterlord.github.io/deckmaster/install) for
 
 ## Support
 
-If you encounter any issues when using DeckMaster, or simply have a suggestion, please open an issue in our [issue tracker](https://github.com/TheOtterlord/deckmaster/issues). I'll try and help you the best I can.
+If you encounter any issues when using DeckMaster, or simply have a suggestion on how to improve it, please open an issue in our [issue tracker](https://github.com/TheOtterlord/deckmaster/issues) and I'll get back to you.
 
 
 ## Contributing
@@ -26,7 +25,7 @@ If you wish to contribute to **DeckMaster**, please read our [contributing](CONT
 
 ## License
 
-**DeckMaster** is distributed under the [MIT License](https://choosealicense.com/licenses/mit/).
+**DeckMaster** is distributed under the [MIT](https://choosealicense.com/licenses/mit/) license.
 
 
 ## Thanks For All The Fish! (Attribution)
