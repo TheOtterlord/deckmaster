@@ -23,7 +23,9 @@ class Settings {
       open_ycb: {key: "o", ctrl: true, shift: true},
       save: {key: "s", ctrl: true},
       save_as: {key: "s", ctrl: true, shift: true},
-      settings: {key: ",", ctrl: true}
+      settings: {key: ",", ctrl: true},
+      undo: {key: "z", ctrl: true},
+      redo: {key: "y", ctrl: true}
     }, ...old.keybindings ?? {}};
     new_settings.author = old.author ?? "";
     this.save();

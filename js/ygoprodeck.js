@@ -263,6 +263,8 @@ const filters = {
         document.querySelector("#attribute").selectedIndex = 0;
         filters.attribute = undefined;
         document.querySelector("#attribute").disabled = "true";
+        filters.card_set = undefined;
+        document.querySelector("#card_set").selectedIndex = 0;
       }
       if (el.value == "undefined") {
         document.querySelector("#cardtype").selectedIndex = 0;

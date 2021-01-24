@@ -31,7 +31,9 @@ class Keybinder {
       'open_ycb',
       'save',
       'save_as',
-      'settings'
+      'settings',
+      'undo',
+      'redo'
     ];
     to_bind.forEach(bind => {
       document.querySelector(`.key-${bind}`).value = this.stringify(settings.data.keybindings?.[bind]) ?? "";
@@ -77,6 +79,8 @@ class Keybinder {
     });
     this.register({...binds.save_as, callback: deckmaster.saveAs });
     this.register({...binds.settings, callback: open_settings });
+    this.register({...binds.undo, callback: () => deckchanges.undo()});
+    this.register({...binds.redo, callback: () => deckchanges.redo()});
   }
 
   register(binding) {
