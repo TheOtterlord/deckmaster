@@ -1,63 +1,46 @@
-var last_type;
+var monster_types = [
+  "Normal Monster",
+  "Normal Tuner Monster",
+  "Effect Monster",
+  "Tuner Monster",
+  "Flip Tuner Effect Monster",
+  "Flip Effect Monster",
+  "Spirit Monster",
+  "Gemini Monster",
+  "Toon Monster",
+  "Ritual Monster",
+  "Ritual Effect Monster",
+  "Pendulum Normal Monster",
+  "Pendulum Effect Monster",
+  "Pendulum Tuner Effect Monster",
+  "Pendulum Flip Effect Monster",
+  "Union Effect Monster",
+  "Fusion Monster",
+  "Pendulum Effect Fusion Monster",
+  "Synchro Monster",
+  "Synchro Tuner Monster",
+  "Synchro Pendulum Effect Monster",
+  "XYZ Monster",
+  "XYZ Pendulum Effect Monster",
+  "Link Monster"
+];
+
+var spell_types = [
+  "Field",
+  "Normal",
+  "Quick-Play",
+  "Ritual",
+  "Continuous",
+  "Equip"
+];
+
+var trap_types = [
+  "Normal",
+  "Continuous",
+  "Counter"
+];
 
 function sort_deck() {
-  document.querySelector(".fade-bg").classList.remove("hide");
-  document.querySelector(".sorter").classList.add("show");
-}
-
-function dont_sort_deck() {
-  document.querySelector(".fade-bg").classList.add("hide");
-  document.querySelector(".sorter").classList.remove("show");
-}
-
-function quick_sort() {
-  var type;
-  if (last_type) type = last_type;
-  else type = "card_type";
-  actually_sort_deck(type);
-}
-
-function ygo_sorter(a, b) {
-  a = ygodata.cards[a];
-  b = ygodata.cards[b];
-  var c = a;
-  var d = b;
-  var sort = last_type.split(".");
-  for (let i = 0; i < sort.length; i++) {
-    const key = sort[i];
-    a = a?.[key];
-    b = b?.[key];
-  }
-  if (sort == "type") {
-    if (a?.includes?.("Monster")) a = "1 " + a;
-    if (a?.includes?.("Spell")) a = "2 " + a;
-    if (a?.includes?.("Trap")) a = "3 " + a;
-    if (b?.includes?.("Monster")) b = "1 " + b;
-    if (b?.includes?.("Spell")) b = "2 " + b;
-    if (b?.includes?.("Trap")) b = "3 " + b;
-  }
-  if (a > b) {
-    return 1;
-  } else if (a == b) {
-    if (a == undefined) return 1;
-    else if (b == undefined) return -1;
-    else {
-      if (c.name > d.name) return 1;
-      else if (c.name == d.name) return 0;
-      else return -1;
-    }
-    return 0;
-  } else if (a < b) {
-    return -1;
-  } else if (a == undefined) {
-    return 1;
-  } else if (b == undefined) {
-    return -1;
-  }
-}
-
-function actually_sort_deck(type) {
-  last_type = type;
   var main_ids = [];
   var extra_ids = [];
   var side_ids = [];
@@ -73,5 +56,27 @@ function actually_sort_deck(type) {
   extra.addCards(extra_ids);
   side.clear();
   side.addCards(side_ids);
-  dont_sort_deck();
+}
+
+function type_of(c) {
+  c = c.toLowerCase();
+  if (c.includes("monster")) return 0;
+  if (c.includes("spell")) return 1;
+  if (c.includes("trap")) return 2;
+}
+
+function ygo_sorter(a, b) {
+  a = ygodata.cards[a];
+  b = ygodata.cards[b];
+  let type_a = type_of(a.type);
+  let type_b = type_of(b.type);
+  if (type_a != type_b) return type_a - type_b;
+  var val;
+  if (type_a == 0) val = monster_types.indexOf(a.type) - monster_types.indexOf(b.type);
+  if (type_a == 1) val = spell_types.indexOf(a.race) - spell_types.indexOf(b.race);
+  if (type_a == 2) val = trap_types.indexOf(a.race) - trap_types.indexOf(b.race);
+  if (val != 0) return val;
+  if (a.name < b.name) return -1;
+  if (a.name > b.name) return 1;
+  return 0;
 }

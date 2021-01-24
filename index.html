@@ -480,20 +480,9 @@
     <button onclick="deckmaster.setup()">Finish</button>
   </div>
 
-  <div class="sorter">
-    <div class="ir-flex-row">
-      <button class="ir-flex ir-button ir-margin" onclick="actually_sort_deck('type')">Card Type</button>
-      <button class="ir-flex ir-button ir-margin" onclick="actually_sort_deck('name')">Alphabet</button>
-      <button class="ir-flex ir-button ir-margin" onclick="actually_sort_deck('misc_info.0.tcg_date')">Card Set</button>
-    </div>
-    <div class="ir-flex-row">
-      <button class="ir-flex ir-button ir-margin" onclick="dont_sort_deck()">Close</button>
-    </div>
-  </div>
-
   <div class="notifications"></div>
 
-  <div class="fade-bg hide" onclick="close_settings();dont_sort_deck()"></div>
+  <div class="fade-bg hide" onclick="close_settings()"></div>
 </body>
 
 </html>
