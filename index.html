@@ -295,7 +295,7 @@
           </select>
         </div>
         <div style="width:33%;float: left;padding: 4px;">
-          <select id="card_set" onchange="filters.update(this)">
+          <select id="card_set" onchange="filters.update(this)" disabled>
             <option value="undefined">Select card set</option>
           </select>
         </div>
@@ -383,7 +383,7 @@
             <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-max" onkeyup="" placeholder="Max" type="number" min="0">
           </div>
           <br>
-          <select id="variant-target" onchange="// TODO">
+          <select id="variant-target">
             <option value="hand">Hand</option>
             <option value="deck">Deck</option>
           </select>

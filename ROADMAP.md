@@ -5,7 +5,7 @@ Things may be added/removed over time if I change my mind about what should be i
 
 - [x] Settings menu
 - [x] Keyboard shortcut API
-- [ ] Undo/Redo system
+- [x] Undo/Redo system
 - [ ] Context menu when right click on deck or a card in deck
 - [x] Combo Editor (using `.ycb` extension (**Y**u-Gi-Oh! **C**om**b**o))
 - [x] Custom CSS library (iridium.css)
