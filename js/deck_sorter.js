@@ -56,6 +56,7 @@ function sort_deck() {
   extra.addCards(extra_ids);
   side.clear();
   side.addCards(side_ids);
+  deckchanges.push(editor.getDeck());
 }
 
 function type_of(c) {
