@@ -100,3 +100,8 @@ body {
 .ir-faded-text {
   color: rgba(255,255,255,0.4);
 }
+
+/* A h6 element used for hints */
+.ir-hint-text {
+  margin: 0;
+}

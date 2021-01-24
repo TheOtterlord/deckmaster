@@ -12,6 +12,10 @@ function get_preview(q, arrays) {
       }
     }
     if (!match) return "";
-    return isMultiple ? `- (e.g. ${ygodata.cards[match].name})` : `- ${ygodata.cards[match].name}`;
+    return isMultiple ? `(e.g. ${ygodata.cards[match].name})` : `${ygodata.cards[match].name}`;
   }
+}
+
+function inputPreview(el) {
+  el.nextElementSibling.innerHTML = `<a class='ir-faded-text'>${get_preview(el.value) ?? ""}</a>`;
 }
