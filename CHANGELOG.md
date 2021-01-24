@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.5.0 Alpha
+
+Undo/Redo update
+
+### Added
+
+- Undo/Redo control
+- Keybindings for undo & redo
+
+### Changed
+
+- Updated the deck sorter to use a single sorting algorithm
+
+### Fixed
+
+- Fixed a bug in the filter causing the card set filter to remain uncleared when filter is cleared.
+
 ## 0.4.1 Alpha
 
 Small bug fixes
@@ -35,7 +52,7 @@ A big update adding big features.
 - Discord RPC
 - Default keybinding for "open ycb" (Ctrl+Shift+O)
 
-### Changes
+### Changed
 
 - Removed experimental sign from filter in deck editor
 
@@ -48,7 +65,7 @@ This update add some settings and fixes some bugs.
 - About tab in settings
 - Keybindings tab in settings
 
-### Changes
+### Changed
 
 - Updated settings UI
 
@@ -65,7 +82,7 @@ This update brings a few bug fixes and UI improvements.
 
 - Default keybinding for "save as" (Ctrl+Shift+S)
 
-### Changes
+### Changed
 
 - Improved settings menu
 - Documentation changes can now be published without building a new version

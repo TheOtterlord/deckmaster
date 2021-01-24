@@ -244,7 +244,6 @@ const filters = {
         document.querySelector("#level").disabled = undefined;
         document.querySelector("#scale").disabled = undefined;
         document.querySelector("#attribute").disabled = undefined;
-        document.querySelector("#card_set").disabled = undefined;
       } else {
         document.querySelector("#race").selectedIndex = 0;
         filters.race = undefined;
@@ -265,7 +264,6 @@ const filters = {
         filters.attribute = undefined;
         document.querySelector("#attribute").disabled = "true";
         filters.card_set = undefined;
-        document.querySelector("#card_set").disabled = "true";
         document.querySelector("#card_set").selectedIndex = 0;
       }
       if (el.value == "undefined") {
