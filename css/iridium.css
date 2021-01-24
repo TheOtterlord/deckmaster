@@ -96,3 +96,7 @@ body {
 .ir-maxwidth {
   width: 100%;
 }
+
+.ir-faded-text {
+  color: rgba(255,255,255,0.4);
+}

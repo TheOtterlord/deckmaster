@@ -118,7 +118,7 @@ class ComboEditor {
     const tests = document.querySelector("#variant-tests");
     tests.innerHTML = "";
     variant.tests.forEach(test => {
-      tests.innerHTML += `<div class="item">'${test.query}' in '${test.target}' - ${test.min ? 'min: '+test.min : ''}${test.min && test.max ? ', ' : ''}${test.max ? 'max: '+test.max : ''}<span style="float: right;color:red;" onclick="combo_editor.removeTest(this.parentElement);">&#10006;</span></div>`;
+      tests.innerHTML += `<div class="item">'${test.query}' in '${test.target}' - ${test.min ? 'min: '+test.min : ''}${test.min && test.max ? ', ' : ''}${test.max ? 'max: '+test.max : ''} ${`<a class='ir-faded-text'>${get_preview(test.query, this.data.arrays)}</a>` ?? ""}<span style="float: right;color:red;" onclick="combo_editor.removeTest(this.parentElement);">&#10006;</span></div>`;
     });
     document.querySelector("#combo-screen").children[1].style.display = "block";
   }
@@ -142,7 +142,7 @@ class ComboEditor {
     var list = document.querySelector("#array-list");
     list.innerHTML = "";
     array.forEach(itm => {
-      list.innerHTML += `<div class="item">${itm}<span style="float: right;color:red;" onclick="combo_editor.removeArrayItem(this.parentElement);this.parentElement.remove()">&#10006;</span></div>`;
+      list.innerHTML += `<div class="item">${itm} ${`<a class='ir-faded-text'>${get_preview(itm, this.data.arrays)}</a>` ?? ""}<span style="float: right;color:red;" onclick="combo_editor.removeArrayItem(this.parentElement);this.parentElement.remove()">&#10006;</span></div>`;
     });
   }
 
