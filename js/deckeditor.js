@@ -76,6 +76,40 @@ const editor = {
     }
     return json;
   },
+  exportImage: async () => {
+    if (document.querySelector(".editor").style.display != "block") return;
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.style.display != "none") {
+        openDropdown.style.display = "none";
+      }
+    }
+    
+    const { left, top, width, height } = document.querySelector('#deck').getBoundingClientRect();
+    win.webContents.capturePage({x: Math.round(left), y: Math.round(top), width: Math.round(width), height: Math.round(height)})
+    .then(image => {
+      const buff = image.toPNG();
+      dialog.showSaveDialog(win, 
+        {
+          filters: [
+            { name: 'PNG', extensions: ['png'] },
+            { name: 'All Files', extensions: ['*'] }
+          ]
+        }
+      ).then(save => {
+        if (save.filePath) {
+          fs.open(save.filePath, 'w', function(err, fd) {
+            if (err) console.error(err);
+            fs.write(fd, buff, 0, buff.length, null, function(err) {
+                if (err) console.error(err);
+            });
+          });
+        }
+      });
+    });
+  },
   linkCombo: (path) => {
     var deck = document.querySelector(".cell.info .deckname").value;
     var combos = JSON.parse(localStorage.getItem(deck));

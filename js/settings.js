@@ -25,7 +25,8 @@ class Settings {
       save_as: {key: "s", ctrl: true, shift: true},
       settings: {key: ",", ctrl: true},
       undo: {key: "z", ctrl: true},
-      redo: {key: "y", ctrl: true}
+      redo: {key: "y", ctrl: true},
+      scrot: {key: "e", ctrl: true}
     }, ...old.keybindings ?? {}};
     new_settings.author = old.author ?? "";
     this.save();
