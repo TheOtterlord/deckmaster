@@ -181,3 +181,8 @@ class Combo {
     return chance;
   }
 }
+
+module.exports = {
+  query,
+  Combo
+};
