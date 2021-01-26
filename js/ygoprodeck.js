@@ -7,24 +7,33 @@ const DEFAULT_IMG = "bg.webp";
 const ygoprodeck = {
   version: "v7",
   file: "cards.json",
+  on: (event, callback) => {
+    if (!this[event]) this[event] = [];
+    this[event].push(callback);
+  },
+  trigger: (event) => {
+    if (!this[event]) return;
+    this[event].forEach(callback => callback());
+  },
   connect_ygopro: (path) => {
     fs.mkdir(paths.join(path, "combos"), () => {});
     localStorage.setItem("ygopro", path);
   },
   dl_image: (id, el) => {
+    var path;
     if (localStorage.getItem("ygopro")) {
       path = localStorage.getItem("ygopro");
-      path += "\\pics\\" + id + ".jpg";
+      path = paths.join(path, "./pics", `${id}.jpg`);
     } else {
-      if (!fs.existsSync("images\\")) {
+      if (!fs.existsSync(paths.join(__dirname, "./images"))) {
         // make folder
-        fs.mkdir("images\\", (err) => {
+        fs.mkdir(paths.join(__dirname, "./images"), (err) => {
           if (err) {
-            console.log("Error: ", e);
+            console.error("Error: ", err);
           }
         });
       }
-      path = "images\\" + id + ".jpg";
+      path = paths.join(__dirname, "./images", `${id}.jpg`);
     }
     if (fs.existsSync(path)) {
       return path;
@@ -39,9 +48,9 @@ const ygoprodeck = {
             // path redeclaration required to fix img duplication bug
             if (localStorage.getItem("ygopro")) {
               path = localStorage.getItem("ygopro");
-              path += "\\pics\\" + id + ".jpg";
+              path = paths.join(path, "./pics", `${id}.jpg`);
             } else {
-              path = "images\\" + id + ".jpg";
+              path = paths.join(__dirname, "./images", `${id}.jpg`);
             }
             el.children[0].src = path;
           }, 100);
@@ -77,7 +86,7 @@ const ygoprodeck = {
         }
         ygodata = cards;
         console.log("Received new card data");
-        fs.writeFile(paths.join("__dirname", "../", ygoprodeck.file), JSON.stringify(cards), (err) => {
+        fs.writeFile(paths.join(__dirname, "../", ygoprodeck.file), JSON.stringify(cards), (err) => {
           if (err) {
             console.log(`Failed to write to ${ygoprodeck.file}`);
           }
@@ -92,9 +101,11 @@ const ygoprodeck = {
               options.innerHTML += `<option value="${set.set_code}">${set.set_name}</option>`;
             });
             console.log("Received new cardset data");
-            fs.writeFile(paths.join("__dirname", "../", "sets.json"), JSON.stringify(json), (err) => {
+            fs.writeFile(paths.join(__dirname, "../", "sets.json"), JSON.stringify(json), (err) => {
               if (err) {
                 console.log(`Failed to write to ${ygoprodeck.file}`);
+              } else {
+                ygoprodeck.trigger("load");
               }
             });
           }
@@ -287,7 +298,7 @@ const filters = {
 };
 
 document.addEventListener("DOMContentLoaded", (ev) => {
-  fs.readFile(paths.join("__dirname", "../", ygoprodeck.file), (err, data) => {
+  fs.readFile(paths.join(__dirname, "../", ygoprodeck.file), (err, data) => {
     if (err) {
       ygoprodeck.fetch();
     } else {
@@ -298,7 +309,7 @@ document.addEventListener("DOMContentLoaded", (ev) => {
         ygoprodeck.fetch();
       } else {
         console.log("Loaded cards from memory");
-        fs.readFile(paths.join("__dirname", "../", "sets.json"), (err, data) => {
+        fs.readFile(paths.join(__dirname, "../", "sets.json"), (err, data) => {
           if (err) {
             ygoprodeck.fetch();
           } else {
@@ -309,6 +320,7 @@ document.addEventListener("DOMContentLoaded", (ev) => {
             data.forEach(set => {
               options.innerHTML += `<option value="${set.set_code}">${set.set_name}</option>`;
             });
+            ygoprodeck.trigger("load");
           }
         });
       }

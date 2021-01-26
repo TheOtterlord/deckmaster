@@ -9,7 +9,7 @@ let binder, settings;
 ipcRenderer.on("cmd", (ev, args) => {
   const arg = args[args.length - 1];
   if (arg.endsWith(".ydk")) {
-    deckmaster.openDeck(args[args.length - 1]);
+    ygoprodeck.on("load", () => deckmaster.openDeck(args[args.length - 1]));
   }
 });
 
