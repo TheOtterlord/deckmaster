@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.5.1 Alpha
+
+Patch update fixing bugs a few key features.
+
+### Fixed
+
+- A bug that caused the editor to crash when opening a deck using file association
+- A bug that caused instances that did not link a YGOPro directory to not correctly download images
+- A bug causing card data to be saved in incorrect locations
+
 ## 0.5.0 Alpha
 
 Undo/Redo update
