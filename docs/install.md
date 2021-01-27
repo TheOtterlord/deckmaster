@@ -2,8 +2,6 @@
 
 You can install DeckMaster's latest version via one of the installers, or by building it from the source code.
 
-> NOTE: auto-update is disabled. Please download new versions to install them when they are released. I will try to fix this as soon as possible. Watch the blog for updates: https://theotterholt.blogspot.com/
-
 - [Windows Installer](#windows-installer)
 
 - [Linux Installer](#linux-installer)
