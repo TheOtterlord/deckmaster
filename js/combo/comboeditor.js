@@ -87,8 +87,8 @@ class ComboEditor {
     };
     var min = document.querySelector("#variant-min");
     var max = document.querySelector("#variant-max");
-    if (min.value != "") test.min = min.value;
-    if (max.value != "") test.max = max.value;
+    if (min.value != "") test.min = +min.value;
+    if (max.value != "") test.max = +max.value;
     if (min.value == "" && max.value == "") return;
     this.data.combos[this.currentCombo].variants[this.currentVariant].tests.push(test);
     this.loadVariant(this.currentVariant);
@@ -202,12 +202,12 @@ class ComboEditor {
     }
     q.classList.remove("err");
     this.data.arrays[this.currentArray].push(q.value);
-    document.querySelector("#array-list").innerHTML += `<div class="item">${q.value}<span style="float: right;color:red;" onclick="combo_editor.removeArrayItem(this.parentElement);this.parentElement.remove()">&#10006;</span></div>`
+    this.loadArray(this.currentArray);
     q.value = "";
   }
 
   removeArrayItem(value) {
-    value = value.innerHTML.split("<span")[0];
+    value = value.innerHTML.split("<span")[0].split("<a")[0].trim();
     var index = this.data.arrays[this.currentArray].indexOf(value);
     if (index > -1) {
       this.data.arrays[this.currentArray].splice(index, 1);
