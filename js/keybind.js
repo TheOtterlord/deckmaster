@@ -33,7 +33,8 @@ class Keybinder {
       'save_as',
       'settings',
       'undo',
-      'redo'
+      'redo',
+      'scrot'
     ];
     to_bind.forEach(bind => {
       document.querySelector(`.key-${bind}`).value = this.stringify(settings.data.keybindings?.[bind]) ?? "";
@@ -81,6 +82,7 @@ class Keybinder {
     this.register({...binds.settings, callback: open_settings });
     this.register({...binds.undo, callback: () => deckchanges.undo()});
     this.register({...binds.redo, callback: () => deckchanges.redo()});
+    this.register({...binds.scrot, callback: editor.exportImage});
   }
 
   register(binding) {
