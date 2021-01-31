@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.6.0 Alpha
+
+Features upgrades to both the deck editor and the combo editor.
+
+### Added
+
+- Card preview to the combo editor
+- Deck screenshot with auto-cropping
+- Keybindings for `File > New Deck` & `File > New YCB`
+
+## Fixed
+
+- A bug causing hypergeometric calculations to be incorrect if a `string` was passed as the `min`/`max` variables.
+
 ## 0.5.1 Alpha
 
 Patch update fixing bugs a few key features.
