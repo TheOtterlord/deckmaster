@@ -48,7 +48,6 @@ function query(q, id, arrays) {
   if (q.startsWith("arrays.")) {
     new_query = q.split("arrays.")[1];
     if (arrays == undefined || arrays[new_query] == undefined) {
-      console.warn(`ComboModuleWarning: No array found for '${q}'`);
       return false;
     }
     for (let i = 0; i < arrays[new_query].length; i++) {
@@ -118,6 +117,8 @@ class Combo {
         test.target = "hand";
       }
 
+      test.min = +test.min;
+      test.max = +test.max;
       test.amt = count;
       misc -= count;
     }
