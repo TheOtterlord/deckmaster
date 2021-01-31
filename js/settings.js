@@ -19,6 +19,8 @@ class Settings {
     var new_settings = {};
     new_settings.keybindings = {...{
       help: {key: "f1", ctrl: true},
+      new_deck: {key: "n", ctrl: true},
+      new_ycb: {key: "n", ctrl: true, shift: true},
       open_deck: {key: "o", ctrl: true},
       open_ycb: {key: "o", ctrl: true, shift: true},
       save: {key: "s", ctrl: true},

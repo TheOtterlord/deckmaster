@@ -27,6 +27,8 @@ class Keybinder {
   displayKeybindings() {
     var to_bind = [
       'help',
+      'new_deck',
+      'new_ycb',
       'open_deck',
       'open_ycb',
       'save',
@@ -68,6 +70,8 @@ class Keybinder {
     this.clear();
     var binds = settings.get('keybindings');
     this.register({...binds.help, callback: deckmaster.wiki});
+    this.register({...binds.new_deck, callback: deckmaster.newDeck });
+    this.register({...binds.new_ycb, callback: deckmaster.newCombo });
     this.register({...binds.open_deck, callback: deckmaster.openDeck });
     this.register({...binds.open_ycb, callback: deckmaster.openCombo });
     this.register({
