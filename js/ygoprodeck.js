@@ -25,15 +25,15 @@ const ygoprodeck = {
       path = localStorage.getItem("ygopro");
       path = paths.join(path, "./pics", `${id}.jpg`);
     } else {
-      if (!fs.existsSync(paths.join(__dirname, "./images"))) {
+      if (!fs.existsSync(paths.join(__dirname, "../images"))) {
         // make folder
-        fs.mkdir(paths.join(__dirname, "./images"), (err) => {
+        fs.mkdir(paths.join(__dirname, "../images"), (err) => {
           if (err) {
             console.error("Error: ", err);
           }
         });
       }
-      path = paths.join(__dirname, "./images", `${id}.jpg`);
+      path = paths.join(__dirname, "../images", `${id}.jpg`);
     }
     if (fs.existsSync(path)) {
       return path;
@@ -50,7 +50,7 @@ const ygoprodeck = {
               path = localStorage.getItem("ygopro");
               path = paths.join(path, "./pics", `${id}.jpg`);
             } else {
-              path = paths.join(__dirname, "./images", `${id}.jpg`);
+              path = paths.join(__dirname, "../images", `${id}.jpg`);
             }
             el.children[0].src = path;
           }, 100);
