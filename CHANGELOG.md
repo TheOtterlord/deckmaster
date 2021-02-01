@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.6.1 Alpha
+
+A few bug fixes and adds links to the Discord server.
+
+### Added
+
+- Links to Discord server
+
+### Fixed
+
+- A reappearing bug causing image downloads to fail when YGOPro was not linked
+- Small problem with Discord RPC
+
 ## 0.6.0 Alpha
 
 Features upgrades to both the deck editor and the combo editor.
