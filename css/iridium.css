@@ -1,7 +1,7 @@
 /* Iridium CSS (WIP) */
 
 
-/* Classic */
+/* Default */
 :root {
   --background: #121212;
   --color: #fefefe;
@@ -12,16 +12,6 @@
   --hover-shade: rgba(255,255,255,0.1);
 }
 
-/* Nightfall */
-:root {
-  --background: #06090F;
-  --color: #fefefe;
-  --elevated: #0D1117;
-  --primary: #192b2e;
-  --on-primary: #fff;
-  --secondary: #b44;
-  --hover-shade: rgba(255,255,255,0.1);
-}
 
 * {
   box-sizing: border-box;
@@ -98,6 +88,10 @@ body {
   box-sizing: border-box;
   transition: 0.2s;
   cursor: pointer;
+}
+
+.settings .ir-button {
+  background: var(--primary);
 }
 
 .ir-button:active {

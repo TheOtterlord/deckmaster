@@ -27,6 +27,7 @@
   <script src="js/combowidget.js"></script>
   <script src="js/keybind.js"></script>
   <script src="js/settings.js"></script>
+  <script src="js/theme.js"></script>
   <script src="js/update.js"></script>
   <script src="js/main.js"></script>
 
@@ -425,6 +426,14 @@
         <div class="ir-flex">YGOPro/EDOPro Path: </div>
         <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder
           selected...</button>
+      </div>
+      <div class="ir-flex-row">
+        <div class="ir-flex">Theme: </div>
+        <select class="ir-flex ir-button theme" style="width: 50%;" onchange="setTheme(this.value)">
+          <option value="default">Default</option>
+          <option value="classic">Classic</option>
+          <option value="nightfall">Nightfall</option>
+        </select>
       </div>
     </div>
     <div class="tab" id="Keybindings">
