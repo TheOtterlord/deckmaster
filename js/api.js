@@ -116,6 +116,7 @@ const deckmaster = {
       if (err) {
         console.log(`Failed to write to ${path}`);
       } else {
+        deckeditor.addRecentDocs(path);
         notify(`<div id='saved'>
           Your deck has been saved
         </div>`, 'saved', 3000);
