@@ -64,6 +64,7 @@ const ygoprodeck = {
       properties: ['openDirectory']
     }).then((result) => {
       var btns = document.querySelectorAll(".ygopro_connect")
+      if (!result.filePaths[0]) return;
       for (let i = 0; i < btns.length; i++) {
         const btn = btns[i];
         btn.innerHTML = result.filePaths[0];
