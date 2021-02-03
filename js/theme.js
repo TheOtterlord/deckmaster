@@ -20,7 +20,7 @@ function setCSS(css) {
 }
 
 var themes = {
-  "default": ``,
+  "default": "/* defined in iridium.css */",
 
   "classic": `
     :root {
@@ -44,11 +44,23 @@ var themes = {
       --secondary: #b44;
       --hover-shade: rgba(255,255,255,0.1);
     }
+  `,
+
+  "light": `
+    :root {
+      --background: #fff;
+      --color: #000;
+      --elevated: #e0e0e0;
+      --primary: #fa4040;
+      --on-primary: #fff;
+      --secondary: #ffae02;
+      --hover-shade: rgba(255,255,255,0.1);
+    }
   `
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.body.parentElement.firstChild.innerHTML += "<style></style>";
+  document.body.parentElement.firstChild.innerHTML += `<style>${user_css}</style>`;
   var index = 0;
   var selection = document.querySelector(".theme");
   for (let i = 0; i < selection.length; i++) {
