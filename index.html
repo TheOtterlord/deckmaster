@@ -64,6 +64,7 @@
           <a href="#" onclick="deckmaster.wiki()">User documentation</a>
           <a href="#" onclick="deckmaster.link('https://discord.gg/dmE2rNwu')">Discord</a>
           <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster')">GitHub</a>
+          <a href="#" onclick="openChangelog()">Changelog</a>
           <a href="#" onclick="checkForUpdates()">Check for updates</a>
           <a href="#" onclick="open_settings()">Settings</a>
         </div>
@@ -494,9 +495,26 @@
     <button onclick="deckmaster.setup()">Finish</button>
   </div>
 
+  <div class="changelog" style="padding: 16px;">
+    <h2>What's new in <span class="version"></span></h2>
+    <div>
+      <p>A few bug fixes and adds links to the Discord server.</p>
+      <h4>Added</h4>
+      <ul><li>Links to Discord server</li></ul>
+      <h4>Fixed</h4>
+      <ul>
+        <li>A reappearing bug causing image downloads to fail when YGOPro was not linked</li>
+        <li>Small problem with Discord RPC</li>
+      </ul>
+    </div>
+    <div class="ir-flex-row">
+      <button class="ir-flex ir-button" onclick="closeChangelog()">Close Changelog</button>
+    </div>
+  </div>
+
   <div class="notifications"></div>
 
-  <div class="fade-bg hide" onclick="close_settings()"></div>
+  <div class="fade-bg hide" onclick="close_settings();closeChangelog()"></div>
 </body>
 
 </html>

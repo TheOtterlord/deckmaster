@@ -348,3 +348,22 @@ header {
 #Keybindings .ir-flex-row div {
   width: 50%;
 }
+
+.changelog {
+  background-color: #282828;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  min-height: 60%;
+  max-height: 80%;
+  overflow-y: scroll;
+  z-index: 10;
+  transform: translate(-50%, -50%) scale(0);
+  transition: .5s ease-in-out;
+}
+
+.changelog.show {
+  transform: translate(-50%, -50%) scale(1);
+}
