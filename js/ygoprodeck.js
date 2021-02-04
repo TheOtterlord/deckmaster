@@ -64,6 +64,7 @@ const ygoprodeck = {
       properties: ['openDirectory']
     }).then((result) => {
       var btns = document.querySelectorAll(".ygopro_connect")
+      if (!result.filePaths[0]) return;
       for (let i = 0; i < btns.length; i++) {
         const btn = btns[i];
         btn.innerHTML = result.filePaths[0];
@@ -199,7 +200,7 @@ const filters = {
     filters.race && filters.supertype == "Monster" ? all.push(["race", filters.race]) : null;
     filters.supertype == "Monster" && filters.atk && filters.atk != "" ? all.push(["atk", filters.atk]) : null;
     filters.supertype == "Monster" && filters.def && filters.def != "" ? all.push(["def", filters.def]) : null;
-    if (filters.supertype == "Monster" && filters.cardtype && filters.level && filters.level != "") {
+    if (filters.supertype == "Monster" && filters.level && filters.level != "") {
       ["XYZ Monster","XYZ Pendulum Effect Monster"].includes(filters.cardtype) ? all.push(["level", filters.level]) : ("Link Monster" == filters.cardtype ? all.push(["linkval", filters.level]) : all.push(["level", filters.level]));
     }
     filters.supertype == "Monster" && filters.scale ? all.push(["scale", filters.scale]) : null;

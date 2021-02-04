@@ -4,6 +4,16 @@ const app = remote.app;
 
 const win = remote.getCurrentWindow();
 
+function openChangelog() {
+  document.querySelector(".fade-bg").classList.remove("hide");
+  document.querySelector(".changelog").classList.add("show");
+}
+
+function closeChangelog() {
+  document.querySelector(".fade-bg").classList.add("hide");
+  document.querySelector(".changelog").classList.remove("show");
+}
+
 let binder, settings;
 
 ipcRenderer.on("cmd", (ev, args) => {
@@ -14,6 +24,11 @@ ipcRenderer.on("cmd", (ev, args) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("lastversion") != deckmaster.version) {
+    document.querySelector(".version").innerHTML = deckmaster.version;
+    localStorage.setItem("lastversion", deckmaster.version);
+    openChangelog();
+  }
   settings = new Settings();
   var recent = document.querySelector(".recent .padding .list");
   deckmaster.getRecentDocs().forEach(path => {
