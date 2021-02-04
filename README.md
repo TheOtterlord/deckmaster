@@ -1,7 +1,7 @@
 # Yu-Gi-Oh! DeckMaster
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/TheOtterlord/deckmaster?label=Latest)](https://github.com/TheOtterlord/deckmaster/releases/latest)
-[![Discord](https://img.shields.io/discord/805766973605937173?label=Discord)](https://discord.gg/dmE2rNwu)
+[![Discord](https://img.shields.io/discord/805766973605937173?label=Discord)](https://discord.gg/5R7Zt9yqBr)
 
 ![DeckMaster's editor in action](docs/assets/deckbuilding.png)
 
@@ -19,7 +19,7 @@ Visit the [documentation](https://theotterlord.github.io/deckmaster/install) for
 
 If you encounter any issues when using DeckMaster, or simply have a suggestion on how to improve it, please open an issue in our [issue tracker](https://github.com/TheOtterlord/deckmaster/issues) and I'll get back to you.
 
-Alternatively, if you do not have a GitHub account, please use the [Discord](https://discord.gg/dmE2rNwu) server.
+Alternatively, if you do not have a GitHub account, please use the [Discord](https://discord.gg/5R7Zt9yqBr) server.
 
 
 ## Contributing

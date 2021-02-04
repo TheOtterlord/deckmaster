@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.6.3 Alpha
+
+Quick update to add full changelog link & fix Discord invites.
+
+### Added
+
+- GitHub Changelog link
+
+### Fixed
+
+- Discord invite (make permanent)
+
 ## 0.6.2 Alpha
 
 This update adds a viewable changelog & half a dozen bug fixes.
