@@ -11,6 +11,8 @@ function selectMod(i) {
   selected = i;
 }
 
+function selectCombo() {}
+
 function displayComboMod(i) {
   // TODO
 }
@@ -65,7 +67,8 @@ function addCombos(data) {
 
 function removeCombo() {
   if (selected != -1) {
-    combos.splice(selected, 1);
+    combos.splice(Math.round(selected/2), 1);
+    console.log(combos);
     editor.unlinkCombo();
     updateCombos();
   }

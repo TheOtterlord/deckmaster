@@ -116,6 +116,7 @@ const deckmaster = {
       if (err) {
         console.log(`Failed to write to ${path}`);
       } else {
+        deckeditor.addRecentDocs(path);
         notify(`<div id='saved'>
           Your deck has been saved
         </div>`, 'saved', 3000);
@@ -139,6 +140,7 @@ const deckmaster = {
   },
   newDeck() {
     var startscreen = document.querySelector(".start-screen");
+    document.querySelector(".combo-editor").style.display = "none";
     var el_editor = document.querySelector(".editor");
     startscreen.style.display = "none";
     el_editor.style.display = "block";
@@ -157,6 +159,7 @@ const deckmaster = {
     if (path) {
       this.addRecentDocs(path);
       var startscreen = document.querySelector(".start-screen");
+      document.querySelector(".combo-editor").style.display = "none";
       var el_editor = document.querySelector(".editor");
       startscreen.style.display = "none";
       el_editor.style.display = "block";
@@ -204,6 +207,7 @@ const deckmaster = {
     if (path) {
       this.addRecentDocs(path);
       var startscreen = document.querySelector(".start-screen");
+      document.querySelector(".editor").style.display = "none";
       var el_editor = document.querySelector(".combo-editor");
       startscreen.style.display = "none";
       el_editor.style.display = "block";
@@ -229,6 +233,7 @@ const deckmaster = {
   },
   newCombo() {
     var startscreen = document.querySelector(".start-screen");
+    document.querySelector(".editor").style.display = "none";
     var el_editor = document.querySelector(".combo-editor");
     startscreen.style.display = "none";
     el_editor.style.display = "block";
