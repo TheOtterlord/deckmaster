@@ -27,13 +27,16 @@ class Keybinder {
   displayKeybindings() {
     var to_bind = [
       'help',
+      'new_deck',
+      'new_ycb',
       'open_deck',
       'open_ycb',
       'save',
       'save_as',
       'settings',
       'undo',
-      'redo'
+      'redo',
+      'scrot'
     ];
     to_bind.forEach(bind => {
       document.querySelector(`.key-${bind}`).value = this.stringify(settings.data.keybindings?.[bind]) ?? "";
@@ -68,6 +71,8 @@ class Keybinder {
     this.clear();
     var binds = settings.get('keybindings');
     this.register({...binds.help, callback: deckmaster.wiki});
+    this.register({...binds.new_deck, callback: deckmaster.newDeck });
+    this.register({...binds.new_ycb, callback: deckmaster.newCombo });
     this.register({...binds.open_deck, callback: deckmaster.openDeck });
     this.register({...binds.open_ycb, callback: deckmaster.openCombo });
     this.register({
@@ -81,6 +86,7 @@ class Keybinder {
     this.register({...binds.settings, callback: open_settings });
     this.register({...binds.undo, callback: () => deckchanges.undo()});
     this.register({...binds.redo, callback: () => deckchanges.redo()});
+    this.register({...binds.scrot, callback: editor.exportImage});
   }
 
   register(binding) {

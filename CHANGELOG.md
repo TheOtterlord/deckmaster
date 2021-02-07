@@ -6,6 +6,83 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.6.4
+
+Deck saving bug fix
+
+### Fixed
+
+- Deck saving
+
+## 0.6.3 Alpha
+
+Quick update to add full changelog link & fix Discord invites.
+
+### Added
+
+- GitHub Changelog link
+
+### Fixed
+
+- Discord invite (make permanent)
+
+## 0.6.2 Alpha
+
+This update adds a viewable changelog & half a dozen bug fixes.
+
+### Added
+
+- Changelog that launches after updating
+
+### Changed
+
+- Update about info
+
+### Fixed
+
+- Fix a bug causing new decks to not be added to recent docs when saved
+- Fix transition between deck editor & combo editor
+- Fix level filter in deck editor
+- Fix a bug with select/remove combo
+- Fix issue with ygopro link when no path was selected
+
+## 0.6.1 Alpha
+
+A few bug fixes and adds links to the Discord server.
+
+### Added
+
+- Links to Discord server
+
+### Fixed
+
+- A reappearing bug causing image downloads to fail when YGOPro was not linked
+- Small problem with Discord RPC
+
+## 0.6.0 Alpha
+
+Features upgrades to both the deck editor and the combo editor.
+
+### Added
+
+- Card preview to the combo editor
+- Deck screenshot with auto-cropping
+- Keybindings for `File > New Deck` & `File > New YCB`
+
+## Fixed
+
+- A bug causing hypergeometric calculations to be incorrect if a `string` was passed as the `min`/`max` variables.
+
+## 0.5.1 Alpha
+
+Patch update fixing bugs a few key features.
+
+### Fixed
+
+- A bug that caused the editor to crash when opening a deck using file association
+- A bug that caused instances that did not link a YGOPro directory to not correctly download images
+- A bug causing card data to be saved in incorrect locations
+
 ## 0.5.0 Alpha
 
 Undo/Redo update

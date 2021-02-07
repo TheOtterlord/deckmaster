@@ -114,7 +114,7 @@ function updateActivity() {
 
 rpc.on('ready', () => {
   updateActivity();
-  setTimeout(updateActivity(), 60e3);
+  setTimeout(updateActivity, 60e3);
 });
 
 rpc.login({ clientId }).catch(console.error);

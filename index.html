@@ -21,7 +21,8 @@
   <script src="js/ygoprodeck.js"></script>
   <script src="js/deckeditor.js"></script>
   <script src="js/deck_sorter.js"></script>
-  <script src="js/comboeditor.js"></script>
+  <script src="js/combo/preview.js"></script>
+  <script src="js/combo/comboeditor.js"></script>
   <script src="js/hg_calc.js"></script>
   <script src="js/combowidget.js"></script>
   <script src="js/keybind.js"></script>
@@ -41,6 +42,7 @@
           <a href="#" onclick="deckmaster.newCombo()">New YCB</a>
           <a href="#" onclick="deckmaster.openDeck()">Open Deck</a>
           <a href="#" onclick="deckmaster.openCombo()">Open YCB</a>
+          <a href="#" onclick="editor.exportImage()">Screenshot deck</a>
           <a href="#" onclick="deckmaster.close()">Close</a>
         </div>
       </div>
@@ -60,11 +62,11 @@
         <div class="dropdown-content">
           <a href="#" onclick="deckmaster.restart()">Restart</a>
           <a href="#" onclick="deckmaster.wiki()">User documentation</a>
-          <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster/issues')">Report a bug</a>
+          <a href="#" onclick="deckmaster.link('https://discord.gg/5R7Zt9yqBr')">Discord</a>
           <a href="#" onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster')">GitHub</a>
-          <a href="#" onclick="open_settings()">Settings</a>
+          <a href="#" onclick="openChangelog()">Changelog</a>
           <a href="#" onclick="checkForUpdates()">Check for updates</a>
-          <a href="#" onclick="deckmaster.link('https://theotterlord.github.io/deckmaster/about')">About</a>
+          <a href="#" onclick="open_settings()">Settings</a>
         </div>
       </div>
     </div>
@@ -162,14 +164,16 @@
             <button class="btn50" onclick="removeCombo()">Remove</button>
           </div>
         </div>
-        <div class="cell" style="height: 50%;">
-          <div class="deckbox main"></div>
-        </div>
-        <div class="cell" style="height: 12.5%;">
-          <div class="deckbox extra"></div>
-        </div>
-        <div class="cell" style="height: 12.5%;">
-          <div class="deckbox side"></div>
+        <div id="deck" style="height: 75%;">
+          <div class="cell" style="height: 66.66%;">
+            <div class="deckbox main"></div>
+          </div>
+          <div class="cell" style="height: 16.66%;">
+            <div class="deckbox extra"></div>
+          </div>
+          <div class="cell" style="height: 16.66%;">
+            <div class="deckbox side"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -377,7 +381,8 @@
       <div class="col" style="width: 75%;">
         <div class="ir-margin">
           <div id="variant-tests" class="array-list"></div>
-          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery()" placeholder="YCB Query">
+          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query">
+          <h6 class="ir-hint-text" style="margin-bottom:6px;"></h6>
           <div class="ir-flex-row">
             <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup="" placeholder="Min" type="number" min="0">
             <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-max" onkeyup="" placeholder="Max" type="number" min="0">
@@ -403,7 +408,8 @@
         <br>
         <div id="array-list" class="array-list"></div>
         <br>
-        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else combo_editor.validateArrayItem()" placeholder="YCB Query">
+        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}" placeholder="YCB Query">
+        <h6 class="ir-hint-text"></h6>
         <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
       </div>
     </div>
@@ -427,6 +433,12 @@
         <div>Help</div><input class="ir-input key-help">
       </div>
       <div class="ir-flex-row">
+        <div>New deck</div><input class="ir-input key-new_deck">
+      </div>
+      <div class="ir-flex-row">
+        <div>New YCB</div><input class="ir-input key-new_ycb">
+      </div>
+      <div class="ir-flex-row">
         <div>Open deck</div><input class="ir-input key-open_deck">
       </div>
       <div class="ir-flex-row">
@@ -437,6 +449,9 @@
       </div>
       <div class="ir-flex-row">
         <div>Save As</div><input class="ir-input key-save_as">
+      </div>
+      <div class="ir-flex-row">
+        <div>Screenshot deck</div><input class="ir-input key-scrot">
       </div>
       <div class="ir-flex-row">
         <div>Settings</div><input class="ir-input key-settings">
@@ -450,11 +465,12 @@
     </div>
     <div class="tab" id="About">
       <h2>About</h2>
-      <p>Version: 0.5.0</p>
+      <p>Version: 0.6.4</p>
       <p>Author: Reuben Tier (AKA TheOtterlord)</p>
       <p>Website: <a href="https://theotterlord.github.io/deckmaster"
-          target="_blank">theotterlord.github.io/deckmaster</a></p>
-      <p>Bug Tracker: <a href="https://github.com/TheOtterlord/deckmaster/issues" target="_blank">GitHub Issues</a></p>
+          target="_blank">https://theotterlord.github.io/deckmaster</a></p>
+      <p>Bug Tracker: <a href="https://github.com/TheOtterlord/deckmaster/issues" target="_blank">GitHub</a></p>
+      <p>Discord: <a href="https://discord.gg/5R7Zt9yqBr" target="_blank">Invite</a></p>
     </div>
     <div class="ir-flex-row">
       <button class="ir-flex ir-button" onclick="deckmaster.reset_all()">Reset All Settings</button>
@@ -480,9 +496,27 @@
     <button onclick="deckmaster.setup()">Finish</button>
   </div>
 
+  <div class="changelog" style="padding: 16px;">
+    <h2>What's new in <span class="version"></span></h2>
+    <div>
+      <p>Quick update to add full changelog link &amp; fix Discord invites.</p>
+      <h3 id="added">Added</h3>
+      <ul>
+      <li>GitHub Changelog link</li>
+      </ul>
+      <h3 id="fixed">Fixed</h3>
+      <ul>
+      <li>Discord invite (make permanent)</li>
+      </ul>
+    </div>
+    <div class="ir-flex-row">
+      <button class="ir-flex ir-button" onclick="closeChangelog()">Close Changelog</button>
+    </div>
+  </div>
+
   <div class="notifications"></div>
 
-  <div class="fade-bg hide" onclick="close_settings()"></div>
+  <div class="fade-bg hide" onclick="close_settings();closeChangelog()"></div>
 </body>
 
 </html>
