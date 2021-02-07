@@ -1,23 +1,12 @@
 const { ipcRenderer } = require("electron")
 
-// TODO: Clean up element node removal
-function notify(msg, id, timeout) {
-  var all = document.querySelector(".notifications");
-  all.innerHTML += msg;
-  if (!timeout) return;
-  var i = all.childElementCount-1;
-  setTimeout(() => {
-    document.querySelector(`#${id}`).remove();
-  }, timeout);
-}
-
 ipcRenderer.on('message', function(event, text) {
   if (text == "update-downloaded") {
-    notify(`<div id='downloaded'>
+    notify(`
       A new update was downloaded!<br><br>
       <button style="float: left;width: 50%;" onclick="ipcRenderer.send('update')">Restart</button>
       <button style="float: left;width: 50%;" onclick="this.parentElement.remove()">Dismiss</button>
-    </div>`, 'downloaded');
+    `);
   } else if (text.startsWith("progress:")) {
     var percent = +text.split("progress:")[1];
     document.querySelector("#update-progress").innerHTML = `Downloading update: ${percent}%`;
@@ -25,11 +14,9 @@ ipcRenderer.on('message', function(event, text) {
   } else if (text == "update-available") {
     notify(`<div id='update-progress'>
       New update available!
-    </div>`, 'update-progress');
+    </div>`);
   } else {
-    notify(`<div id='message'>
-      ${text}
-    </div>`, 'message', 4000);
+    notify(text, 3000);
   }
 })
 

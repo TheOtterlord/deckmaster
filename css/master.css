@@ -279,7 +279,7 @@ header {
   margin: 8px;
 }
 
-.notifications {
+#notifications {
   margin: 16px;
   position: fixed;
   bottom: 0;
@@ -290,19 +290,40 @@ header {
   flex-direction: column-reverse;
 }
 
-.notifications div {
+.notification {
   width: 100%;
-  background-color: var(--elevated);
+  background-color: var(--primary);
+  color: var(--on-primary);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 8px;
   margin: 16px 0;
   padding: 8px;
-  animation: slide-in 1s linear;
+  animation: slide-in 0.2s ease-in;
+  transform-origin: bottom center;
   overflow-x: auto;
 }
 
+.notification.closing {
+  animation: close-notification 1s ease-in;
+}
+
 @keyframes slide-in {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {opacity: 0;transform:scale(0)}
+  to {opacity: 1;transform:scale(1)}
+}
+
+@keyframes close-notification {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    max-height: 200px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
 }
 
 #Keybindings .ir-flex-row div {

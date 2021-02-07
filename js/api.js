@@ -117,9 +117,7 @@ const deckmaster = {
         console.log(`Failed to write to ${path}`);
       } else {
         deckmaster.addRecentDocs(path);
-        notify(`<div id='saved'>
-          Your deck has been saved
-        </div>`, 'saved', 3000);
+        notify("Your deck has been saved!", 3000);
       }
     });
   },
