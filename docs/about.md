@@ -1,6 +1,6 @@
 # About DeckMaster
 
-[![Discord](https://img.shields.io/discord/805766973605937173?label=Discord)](https://discord.gg/dmE2rNwu)
+[![Discord](https://img.shields.io/discord/805766973605937173?label=Discord)](https://discord.gg/5R7Zt9yqBr)
 
 DeckMaster is a *prototype* deck editor application for the Yu-Gi-Oh! Trading Card Game. 
 Still in the development phase, a lot of features have not yet been implemented and those that have are experimental. 
