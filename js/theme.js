@@ -61,6 +61,7 @@ var themes = {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.parentElement.firstChild.innerHTML += `<style>${user_css}</style>`;
+  document.querySelector(".user_css").innerHTML = user_css;
   var index = 0;
   var selection = document.querySelector(".theme");
   for (let i = 0; i < selection.length; i++) {
