@@ -2,7 +2,7 @@ const { dialog } = require('electron').remote;
 const paths = require('path');
 
 const deckmaster = {
-  version: "v0.6.3",
+  version: "v0.6.4",
   notification: (title, text, onclick) => {
     const notification = new Notification(title, {
       body: text
@@ -116,7 +116,7 @@ const deckmaster = {
       if (err) {
         console.log(`Failed to write to ${path}`);
       } else {
-        deckeditor.addRecentDocs(path);
+        deckmaster.addRecentDocs(path);
         notify(`<div id='saved'>
           Your deck has been saved
         </div>`, 'saved', 3000);
