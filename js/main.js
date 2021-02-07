@@ -23,6 +23,11 @@ ipcRenderer.on("cmd", (ev, args) => {
   }
 });
 
+ipcRenderer.on("discord", (ev, connected) => {
+  if (connected) notify("Connected to Discord", 3000);
+  else notify("Disconnected from Discord", 3000);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("lastversion") != deckmaster.version) {
     document.querySelector(".version").innerHTML = deckmaster.version;
