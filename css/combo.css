@@ -83,3 +83,21 @@
 .array-list .item span {
   cursor: pointer;
 }
+
+.suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  transform: translateY(-10px);
+  background-color: #282828;
+}
+
+.suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions div.active {
+  background-color: #a44;
+}

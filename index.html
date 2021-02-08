@@ -381,7 +381,10 @@
       <div class="col" style="width: 75%;">
         <div class="ir-margin">
           <div id="variant-tests" class="array-list"></div>
-          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query">
+          <div style="position: relative;">
+            <div class="suggestions"></div>
+            <input class="ir-input ir-maxwidth" id="variant-query" oninput="suggest(this);combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query">
+          </div>
           <h6 class="ir-hint-text" style="margin-bottom:6px;"></h6>
           <div class="ir-flex-row">
             <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup="" placeholder="Min" type="number" min="0">
@@ -408,7 +411,10 @@
         <br>
         <div id="array-list" class="array-list"></div>
         <br>
-        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}" placeholder="YCB Query">
+        <div style="position:relative;">
+          <div class="suggestions"></div>
+          <input class="ir-input ir-maxwidth" id="array-itemname" oninput="suggest(this)" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}" placeholder="YCB Query">
+        </div>
         <h6 class="ir-hint-text"></h6>
         <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
       </div>
