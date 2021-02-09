@@ -147,9 +147,11 @@ header {
 }
 
 .start-screen .card .actions .padding .list a {
-  padding: 4px;
+  padding: 8px;
+  border-radius: 8px;
   display: block;
   cursor: pointer;
+  transition: background 0.4s;
 }
 
 .start-screen .card .actions .padding .list a * {
@@ -186,11 +188,13 @@ header {
 }
 
 .start-screen .card .recent .padding .list a {
-  padding: 4px;
+  padding: 8px;
+  border-radius: 8px;
   display: block;
   cursor: pointer;
   overflow: hidden;
   overflow-wrap: break-word;
+  transition: background 0.4s;
 }
 
 .start-screen .card .recent .padding .list a * {
