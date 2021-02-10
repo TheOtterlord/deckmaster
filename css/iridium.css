@@ -3,10 +3,10 @@
 
 /* Default */
 :root {
-  --background: #121212;
+  --background: #202020;
   --color: #fefefe;
-  --elevated: #181818;
-  --primary: #242424;
+  --elevated: #262626;
+  --primary: #d66b24;
   --on-primary: #fff;
   --secondary: #07bcad;
   --hover-shade: rgba(255,255,255,0.1);

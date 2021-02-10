@@ -24,9 +24,9 @@ var themes = {
 
   "classic": `
     :root {
-      --background: #121212;
+      --background: #202020;
       --color: #fefefe;
-      --elevated: #181818;
+      --elevated: #242424;
       --primary: #9200d6;
       --on-primary: #fff;
       --secondary: #03DAC6;

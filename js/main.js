@@ -29,8 +29,8 @@ ipcRenderer.on("discord", (ev, connected) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".version").innerHTML = deckmaster.version;
   if (localStorage.getItem("lastversion") != deckmaster.version) {
-    document.querySelector(".version").innerHTML = deckmaster.version;
     localStorage.setItem("lastversion", deckmaster.version);
     openChangelog();
   }
