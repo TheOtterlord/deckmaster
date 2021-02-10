@@ -112,6 +112,14 @@ function updateActivity() {
   });
 }
 
+rpc.on('connected', () => {
+  win.webContents.send("discord", true);
+});
+
+rpc.on('disconnected', () => {
+  win.webContents.send("discord", false);
+});
+
 rpc.on('ready', () => {
   updateActivity();
   setTimeout(updateActivity, 60e3);
