@@ -1,53 +1,12 @@
-* {
-  box-sizing: border-box;
-  -webkit-user-select: none;
-}
-
 #About a {
   text-decoration: none;
-  color: #0cf;
-}
-
- /* width */
- ::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: #ddd;
-  transition: background 0.2s;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #fff;
-}
-
-html {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #202020;
-  color: #fff;
-  height: 100%;
+  color: var(--secondary);
 }
 
 header {
   -webkit-app-region: drag;
   -webkit-user-select: none;
-  background-color: #141414;
+  background-color: var(--elevated);
   grid-area: titlebar;
 	overflow: hidden;
 	display: flex;
@@ -59,7 +18,8 @@ header {
   padding: 2px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: #192b2e;
+  background-color: var(--primary);
+  color: var(--on-primary);
 }
 
 /* Menu */
@@ -95,13 +55,13 @@ header {
 }
 
 .dropdown .dropbtn:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--hover-shade);
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #202020;
+  background-color: var(--elevated);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -110,7 +70,7 @@ header {
 
 .dropdown-content a {
   float: none;
-  color: white;
+  color: var(--color);
   padding: 2px 8px;
   text-decoration: none;
   display: block;
@@ -118,7 +78,7 @@ header {
 }
 
 .dropdown-content a:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--hover-shade);
 }
 
 .dropdown-content a.disabled {
@@ -141,7 +101,7 @@ header {
   cursor: pointer;
 }
 .win-menu div:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--hover-shade);
 }
 .win-menu div.close:hover {
   background-color: #f22;
@@ -158,13 +118,13 @@ header {
   position: absolute;
   top: 50%;
   left: 50%;
-  min-width: 50%;
-  min-height: 50%;
+  min-width: 60%;
+  min-height: 60%;
   max-width: 80%;
   max-height: 80%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  background-color: #242424;
+  background-color: var(--elevated);
 }
 
 .start-screen .card .actions {
@@ -187,9 +147,11 @@ header {
 }
 
 .start-screen .card .actions .padding .list a {
-  padding: 4px;
+  padding: 8px;
+  border-radius: 8px;
   display: block;
   cursor: pointer;
+  transition: background 0.4s;
 }
 
 .start-screen .card .actions .padding .list a * {
@@ -197,7 +159,7 @@ header {
 }
 
 .start-screen .card .actions .padding .list a:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--hover-shade);
 }
 
 .start-screen .card .actions .padding .list a.disabled {
@@ -226,11 +188,13 @@ header {
 }
 
 .start-screen .card .recent .padding .list a {
-  padding: 4px;
+  padding: 8px;
+  border-radius: 8px;
   display: block;
   cursor: pointer;
   overflow: hidden;
   overflow-wrap: break-word;
+  transition: background 0.4s;
 }
 
 .start-screen .card .recent .padding .list a * {
@@ -238,7 +202,7 @@ header {
 }
 
 .start-screen .card .recent .padding .list a:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--hover-shade);
 }
 
 
@@ -250,7 +214,7 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #242424;
+  background-color: var(--elevated);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   overflow: hidden;
   transition: height 0.4s;
@@ -293,7 +257,7 @@ header {
 }
 
 .settings {
-  background-color: #282828;
+  background-color: var(--elevated);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
   position: fixed;
   top: 50%;
@@ -319,7 +283,7 @@ header {
   margin: 8px;
 }
 
-.notifications {
+#notifications {
   margin: 16px;
   position: fixed;
   bottom: 0;
@@ -330,19 +294,40 @@ header {
   flex-direction: column-reverse;
 }
 
-.notifications div {
+.notification {
   width: 100%;
-  background-color: #343434;
+  background-color: var(--primary);
+  color: var(--on-primary);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 8px;
   margin: 16px 0;
   padding: 8px;
-  animation: slide-in 1s linear;
+  animation: slide-in 0.2s ease-in;
+  transform-origin: bottom center;
   overflow-x: auto;
 }
 
+.notification.closing {
+  animation: close-notification 1s ease-in;
+}
+
 @keyframes slide-in {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {opacity: 0;transform:scale(0)}
+  to {opacity: 1;transform:scale(1)}
+}
+
+@keyframes close-notification {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    max-height: 200px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
 }
 
 #Keybindings .ir-flex-row div {

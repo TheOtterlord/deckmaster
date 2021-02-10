@@ -1,14 +1,48 @@
 /* Iridium CSS (WIP) */
 
+
+/* Default */
+:root {
+  --background: #121212;
+  --color: #fefefe;
+  --elevated: #181818;
+  --primary: #242424;
+  --on-primary: #fff;
+  --secondary: #07bcad;
+  --hover-shade: rgba(255,255,255,0.1);
+}
+
+
 * {
   box-sizing: border-box;
   -webkit-user-select: none;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 0;
+  background-color: var(--background);
+  color: var(--color);
+  height: 100%;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+   width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+}
+
 
 .ir-flex-row {
   display: flex;
@@ -30,11 +64,11 @@ body {
 }
 
 .tablinks a:hover {
-  border-bottom: 2px solid #444;
+  border-bottom: 2px solid var(--secondary);
 }
 
 .tablinks a.active {
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid var(--secondary);
 }
 
 .tab {
@@ -43,29 +77,35 @@ body {
 }
 
 .ir-button {
-  background: #343434;
+    background: var(--elevated);
+  color: var(--color);
   outline: none;
   border: none;
   border-radius: 2px;
-  color: #fff;
   width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  transition: border 0.2s;
+  transition: 0.2s;
   cursor: pointer;
 }
 
+.settings .ir-button {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
 .ir-button:active {
-  background: #343443;
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 .ir-input {
-  background: #242424;
+  background: var(--background);
   outline: none;
-  border: 2px solid #141414;
+  border: 2px solid #000;
   border-radius: 2px;
-  color: #fff;
+  color: var(--color);
   width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -73,7 +113,7 @@ body {
 }
 
 .ir-input:focus {
-  border: 2px solid #fff;
+  border: 2px solid var(--secondary);
 }
 
 .ir-input.err {

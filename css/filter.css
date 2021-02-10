@@ -1,8 +1,8 @@
 select {
-  background: #555;
+  background: var(--primary);
   outline: none;
   border: none;
-  color: white;
+  color: var(--color);
   padding: 8px;
   font-weight: bold;
   width: 100%;
@@ -13,9 +13,13 @@ input[type=text] {
   background: transparent;
   outline: none;
   border: none;
-  color: #fff;
-  border-bottom: 1px solid #fff;
+  color: var(--color);
+  border-bottom: 1px solid var(--primary);
   padding: 4px;
+}
+
+input[type=text]:focus {
+  border-bottom-color: var(--secondary);
 }
 
 input[type=text]:disabled {

@@ -16,6 +16,7 @@
 
 <body>
   <script src="js/menu.js"></script>
+  <script src="js/interface/notifications.js"></script>
   <script src="js/api.js"></script>
   <script src="js/undo.js"></script>
   <script src="js/ygoprodeck.js"></script>
@@ -27,6 +28,7 @@
   <script src="js/combowidget.js"></script>
   <script src="js/keybind.js"></script>
   <script src="js/settings.js"></script>
+  <script src="js/theme.js"></script>
   <script src="js/update.js"></script>
   <script src="js/main.js"></script>
 
@@ -122,7 +124,7 @@
   <div class="editor">
     <div class="preview">
       <div class="img">
-        <img src="bg.webp" alt="No card selected">
+        <img src="bg.png" alt="No card selected">
       </div>
       <div class="cardtext"></div>
     </div>
@@ -142,7 +144,7 @@
               Created by:
             </div>
             <div style="width: 60%;float:left;">
-              <input type="text" class="author" placeholder="Author..." style="width:100%;">
+              <input type="text" class="author" placeholder="Author..." style="width:100%;" spellcheck="false">
             </div>
           </div>
           <div style="width: 100%;float: left;">
@@ -180,7 +182,7 @@
     <div class="search">
       <div class="padding">
         <div class="filter">
-          <input class="searchbar" type="text" placeholder="Card name/text...">
+          <input class="searchbar" type="text" placeholder="Card name/text..." spellcheck="false">
           <button onclick="toggleFilter(`open`)">Filter/Sort</button>
           <button class="clear">Clear</button>
         </div>
@@ -317,7 +319,7 @@
           <br><br>
         </div>
       </div>
-      <button class="ir-button ir-maxwidth" onclick="toggleFilter(`close`)">Close</button>
+      <button class="ir-button ir-maxwidth" style="background: var(--background);" onclick="toggleFilter(`close`)">Close</button>
     </div>
   </div>
 
@@ -328,18 +330,18 @@
         <div class="collapse">
           <div class="ir-margin">
             <input class="ir-input ir-maxwidth" id="meta-name" placeholder="Module Name"
-              oninput="combo_editor.data.name = this.value">
+              oninput="combo_editor.data.name = this.value" spellcheck="false">
             <input class="ir-input ir-maxwidth" id="meta-version" placeholder="Module Version"
-              oninput="combo_editor.data.version = this.value">
+              oninput="combo_editor.data.version = this.value" spellcheck="false">
             <input class="ir-input ir-maxwidth" id="meta-author" placeholder="Module Author"
-              oninput="combo_editor.data.author = this.value">
+              oninput="combo_editor.data.author = this.value" spellcheck="false">
           </div>
         </div>
         <h2 class="collapse-btn" onclick="toggleCollapse(this)">Arrays</h2>
         <div class="collapse" style="padding:0;">
           <div id="arrays"></div>
           <div class="ir-margin">
-            <input class="ir-input ir-maxwidth" id="array-name" placeholder="Name of array" onkeypress="if (event.which == 13) combo_editor.addArray();">
+            <input class="ir-input ir-maxwidth" id="array-name" placeholder="Name of array" onkeypress="if (event.which == 13) combo_editor.addArray();" spellcheck="false">
             <button class="ir-button ir-maxwidth" onclick="combo_editor.addArray()">+ Add array</button>
           </div>
         </div>
@@ -366,7 +368,7 @@
       <div class="col" style="width: 25%;">
         <div class="ir-margin">
           <h6 style="margin:0;color:#888;">Changes will be reflected on save</h6>
-          <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value">
+          <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value" spellcheck="false">
           <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth" id="combo-desc" placeholder="Combo Description" oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value" spellcheck="false"></textarea>
           <select id="combo-turn" onchange="combo_editor.data.combos[combo_editor.currentCombo].turn = this.value;">
             <option value="first">First</option>
@@ -381,7 +383,7 @@
       <div class="col" style="width: 75%;">
         <div class="ir-margin">
           <div id="variant-tests" class="array-list"></div>
-          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query">
+          <input class="ir-input ir-maxwidth" id="variant-query" onkeyup="combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query" spellcheck="false">
           <h6 class="ir-hint-text" style="margin-bottom:6px;"></h6>
           <div class="ir-flex-row">
             <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup="" placeholder="Min" type="number" min="0">
@@ -408,7 +410,7 @@
         <br>
         <div id="array-list" class="array-list"></div>
         <br>
-        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}" placeholder="YCB Query">
+        <input class="ir-input ir-maxwidth" id="array-itemname" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}" placeholder="YCB Query" spellcheck="false">
         <h6 class="ir-hint-text"></h6>
         <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
       </div>
@@ -427,40 +429,52 @@
         <button class="ir-flex ir-button ygopro_connect" onclick="ygoprodeck.linkYGOPro()">No folder
           selected...</button>
       </div>
+      <div class="ir-flex-row">
+        <div class="ir-flex">Theme: </div>
+        <select class="ir-flex ir-button theme" style="width: 50%;" onchange="setTheme(this.value)">
+          <option value="default">Default</option>
+          <option value="classic">Classic</option>
+          <option value="nightfall">Nightfall</option>
+          <option value="light">Light Mode</option>
+        </select>
+      </div>
+      <div class="ir-flex-row">
+        <textarea class="ir-input ir-maxwidth user_css" style="font-family: sans-serif;resize: vertical;height: 200px;" placeholder="Add custom CSS..." spellcheck="false" oninput="setCSS(this.value)"></textarea>
+      </div>
     </div>
     <div class="tab" id="Keybindings">
       <div class="ir-flex-row">
-        <div>Help</div><input class="ir-input key-help">
+        <div>Help</div><input class="ir-input key-help" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>New deck</div><input class="ir-input key-new_deck">
+        <div>New deck</div><input class="ir-input key-new_deck" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>New YCB</div><input class="ir-input key-new_ycb">
+        <div>New YCB</div><input class="ir-input key-new_ycb" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Open deck</div><input class="ir-input key-open_deck">
+        <div>Open deck</div><input class="ir-input key-open_deck" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Open YCB</div><input class="ir-input key-open_ycb">
+        <div>Open YCB</div><input class="ir-input key-open_ycb" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Save</div><input class="ir-input key-save">
+        <div>Save</div><input class="ir-input key-save" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Save As</div><input class="ir-input key-save_as">
+        <div>Save As</div><input class="ir-input key-save_as" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Screenshot deck</div><input class="ir-input key-scrot">
+        <div>Screenshot deck</div><input class="ir-input key-scrot" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Settings</div><input class="ir-input key-settings">
+        <div>Settings</div><input class="ir-input key-settings" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Undo</div><input class="ir-input key-undo">
+        <div>Undo</div><input class="ir-input key-undo" spellcheck="false">
       </div>
       <div class="ir-flex-row">
-        <div>Redo</div><input class="ir-input key-redo">
+        <div>Redo</div><input class="ir-input key-redo" spellcheck="false">
       </div>
     </div>
     <div class="tab" id="About">
@@ -514,7 +528,7 @@
     </div>
   </div>
 
-  <div class="notifications"></div>
+  <div id="notifications"></div>
 
   <div class="fade-bg hide" onclick="close_settings();closeChangelog()"></div>
 </body>

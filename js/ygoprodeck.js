@@ -3,7 +3,7 @@ const fs = require('fs');
 
 var ygodata;
 
-const DEFAULT_IMG = "bg.webp";
+const DEFAULT_IMG = "bg.png";
 const ygoprodeck = {
   version: "v7",
   file: "cards.json",
