@@ -54,7 +54,10 @@ var themes = {
       --primary: #fa4040;
       --on-primary: #fff;
       --secondary: #ffae02;
-      --hover-shade: rgba(255,255,255,0.1);
+      --hover-shade: rgba(255,255,255,0.2);
+    }
+    .ir-faded-text {
+      color: #444;
     }
   `
 };
