@@ -75,3 +75,26 @@
 .array-list .item span {
   cursor: pointer;
 }
+
+.suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  transform: translateY(-10px);
+  background-color: #282828;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background-color: #242424;
+}
+
+.suggestions div.active {
+  background-color: #a44;
+}
