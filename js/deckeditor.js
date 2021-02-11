@@ -171,7 +171,7 @@ function toggleFilter(force) {
 }
 
 function display(id) {
-  var img = document.querySelector(".preview .img img");
+  var img = document.querySelector(".preview img");
   img.src = ygoprodeck.dl_image(id);
   var card = ygodata.cards[id];
   var text = document.querySelector(".preview .cardtext");
@@ -366,6 +366,7 @@ class Deck {
     this.min = options.min;
     this.max = options.max;
     this.el.classList.add(`max-${this.display[0].max}`);
+    this.preview = new CardPreview(document.querySelector(".preview"));
   }
   oncardadded(card) {
     if (this.el.childElementCount < this.max) {
@@ -440,7 +441,7 @@ class Deck {
     card.id = id;
     card.draggable = false;
     card.onmouseover = (ev) => {
-      display(card.children[0].alt);
+      this.preview.setCard(card.children[0].alt);
     };
     card.ondragstart = (ev) => {
       ev = ev || window.event;

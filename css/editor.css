@@ -14,18 +14,17 @@
   overflow-x: hidden;
 }
 
-.editor .preview .img {
-  padding: 8px;
-  height: 50%;
+.editor .preview * {
+  -webkit-user-select: text;
 }
 
-.editor .preview .img img {
+.editor .preview img {
+  padding: 8px;
+  height: 50%;
   max-width: 100%;
-  height: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 4px;
 }
 
 .editor .preview .cardtext {
