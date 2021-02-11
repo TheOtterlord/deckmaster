@@ -171,14 +171,8 @@ function toggleFilter(force) {
 }
 
 function display(id) {
-  var img = document.querySelector(".preview img");
-  img.src = ygoprodeck.dl_image(id);
-  var card = ygodata.cards[id];
-  var text = document.querySelector(".preview .cardtext");
-  text.innerHTML = "";
-  text.innerHTML += `${card.id}<br>`;
-  text.innerHTML += card.desc;
-  text.innerHTML += `<br>ATK/ ${card.atk} DEF/ ${card.def}`;
+  var preview = new CardPreview(document.querySelector(".preview"));
+  preview.setCard(id);
 }
 
 function fade(el) {
