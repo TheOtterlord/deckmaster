@@ -77,7 +77,7 @@ class Keybinder {
     this.register({...binds.open_ycb, callback: deckmaster.openCombo });
     this.register({
       ...binds.save, callback: () => {
-        if (main.filepath?.endsWith(".ydk")) deckmaster.saveDeck(main.filepath);
+        if (editor.filepath?.endsWith(".ydk")) deckmaster.saveDeck(editor.filepath);
         else if (combo_editor.filepath?.endsWith(".ycb")) combo_editor.save();
         else deckmaster.saveAs();
       }

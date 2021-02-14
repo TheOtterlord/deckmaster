@@ -1,160 +1,3 @@
-const editor = {
-  ydk_to_json: (text) => {
-    var json = {
-      main: [],
-      extra: [],
-      side: [],
-      author: "unknown"
-    };
-    var lines = text.split("\n");
-    var target = "main";
-    lines.forEach(line => {
-      if (line.startsWith("#")) {
-        if (line.startsWith("#main")) {
-          target = "main";
-        } else if (line.startsWith("#extra")) {
-          target = "extra";
-        } else if (line.startsWith("#created by ")) {
-          json.author = line.split("#created by ")[1];
-        }
-      } else if (line.startsWith("!side")) {
-        target = "side";
-      } else if (line != "") {
-        line = parseInt(line);
-        json[target].push(line);
-      }
-    });
-    return json;
-  },
-  json_to_ydk: (json) => {
-    var ydk = "#created by " + json.author + "\n";
-    ydk += "#main\n";
-    for (let i = 0; i < json.main.length; i++) {
-      ydk += json.main[i] + "\n";
-    }
-    ydk += "#extra\n";
-    for (let i = 0; i < json.extra.length; i++) {
-      ydk += json.extra[i] + "\n";
-    }
-    ydk += "!side\n";
-    for (let i = 0; i < json.side.length; i++) {
-      ydk += json.side[i] + "\n";
-    }
-    return ydk;
-  },
-  delete: () => {
-    fs.unlink(main.filepath, (err) => {
-      if (err) {
-        throw err;
-      }
-      notify(`The deck at ${main.filepath} has been deleted!`, 3000);
-      deckmaster.removeRecentDocs(main.filepath);
-      main.filepath = undefined;
-      deckmaster.toHome();
-    });
-  },
-  getDeck: () => {
-    var json = {
-      main: [],
-      extra: [],
-      side: [],
-      author: document.querySelector(".cell.info .author").value
-    };
-    for (let i = 0; i < main.el.children.length; i++) {
-      const card = main.el.children[i].id;
-      json.main.push(card);
-    }
-    for (let i = 0; i < extra.el.children.length; i++) {
-      const card = extra.el.children[i].id;
-      json.extra.push(card);
-    }
-    for (let i = 0; i < side.el.children.length; i++) {
-      const card = side.el.children[i].id;
-      json.side.push(card);
-    }
-    return json;
-  },
-  exportImage: async () => {
-    if (document.querySelector(".editor").style.display != "block") return;
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.style.display != "none") {
-        openDropdown.style.display = "none";
-      }
-    }
-    
-    const { left, top, width, height } = document.querySelector('#deck').getBoundingClientRect();
-    win.webContents.capturePage({x: Math.round(left), y: Math.round(top), width: Math.round(width), height: Math.round(height)})
-    .then(image => {
-      const buff = image.toPNG();
-      dialog.showSaveDialog(win, 
-        {
-          filters: [
-            { name: 'PNG', extensions: ['png'] },
-            { name: 'All Files', extensions: ['*'] }
-          ]
-        }
-      ).then(save => {
-        if (save.filePath) {
-          fs.open(save.filePath, 'w', function(err, fd) {
-            if (err) console.error(err);
-            fs.write(fd, buff, 0, buff.length, null, function(err) {
-                if (err) console.error(err);
-            });
-          });
-        }
-      });
-    });
-  },
-  linkCombo: (path) => {
-    var deck = document.querySelector(".cell.info .deckname").value;
-    var combos = JSON.parse(localStorage.getItem(deck));
-    if (combos) {
-      combos.push(path);
-    } else {
-      combos = [path];
-    }
-    localStorage.setItem(deck, JSON.stringify(combos));
-  },
-  unlinkCombo: (i) => {
-    var deck = document.querySelector(".cell.info .deckname").value;
-    var combos = JSON.parse(localStorage.getItem(deck));
-    if (combos) {
-      combos.splice(i, 1);
-    } else {
-      combos = [];
-    }
-    localStorage.setItem(deck, JSON.stringify(combos));
-  },
-  loadCombos: () => {
-    var deck = document.querySelector(".cell.info .deckname").value;
-    var all_paths = JSON.parse(localStorage.getItem(deck));
-    if (!all_paths) {return}
-    for (let i = 0; i < all_paths.length; i++) {
-      const path = all_paths[i];
-      if (!path) { return }
-      fs.readFile(path, (err, data) => {
-        if (err) {
-          console.log("Failed to open file");
-        } else {
-          data = JSON.parse(data.toString());
-          addCombos(data);
-        }
-      });
-    }
-  },
-  setDeckname: (name) => {
-    document.querySelector(".cell.info .deckname").value = name;
-  },
-  setAuthor: (author) => {
-    document.querySelector(".cell.info .author").value = author;
-  }
-};
-
-
-
 function clear() {
   document.querySelector(".search .padding .searchbar").value = "";
   document.querySelector("#supertype").selectedIndex = 0;
@@ -533,7 +376,7 @@ class Deck {
   }
 }
 
-let main, extra, side, deckchanges;
+let main, extra, side, deckchanges, editor;
 
 document.addEventListener("DOMContentLoaded", function () {
   main = new Deck(document.querySelector(".deckbox.main"), {
@@ -558,6 +401,8 @@ document.addEventListener("DOMContentLoaded", function () {
       { max: 15, width: "6.66%", height: "100%" }
     ]
   });
+
+  editor = new DeckEditor(document.querySelector(".editor"), main, extra, side);
 
   deckchanges = new Change();
 
