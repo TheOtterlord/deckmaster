@@ -26,8 +26,6 @@ function createWindow() {
       webSecurity: true,
       nodeIntegration: true,
       enableRemoteModule: true,
-      // the default of `contextIsolation` is deprecated and will be changing from false to true in a future release of Electron.
-      // when deprecated, remove `nodeIntegration: true` but keep this
       contextIsolation: false
     }
   });
