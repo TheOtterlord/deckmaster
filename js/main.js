@@ -28,17 +28,59 @@ ipcRenderer.on("discord", (ev, connected) => {
   else notify("Disconnected from Discord", 3000);
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
+  // Load Cards & Sets
+  fs.readFile(paths.join(__dirname, "../", ygoprodeck.file), (err, data) => {
+    if (err) {
+      ygoprodeck.fetch();
+    } else {
+      data = JSON.parse(data);
+      ygodata = data;
+      var date = new Date();
+      if (data.updated < `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`) {
+        ygoprodeck.fetch();
+      } else {
+        console.log("Loaded cards from memory");
+        fs.readFile(paths.join(__dirname, "../", "sets.json"), (err, data) => {
+          if (err) {
+            ygoprodeck.fetch();
+          } else {
+            data = JSON.parse(data);
+            ygodata.sets = data;
+            console.log("Loaded sets from memory");
+            var options = document.querySelector("#card_set");
+            data.forEach(set => {
+              options.innerHTML += `<option value="${set.set_code}">${set.set_name}</option>`;
+            });
+            ygoprodeck.trigger("load");
+          }
+        });
+      }
+    }
+  });
+
+  // Prep changelog
   document.querySelector(".version").innerHTML = deckmaster.version;
   if (localStorage.getItem("lastversion") != deckmaster.version) {
     localStorage.setItem("lastversion", deckmaster.version);
     openChangelog();
   }
+
+  // Prep settings
+  document.querySelector(".ir-flex.ygopro_connect").innerHTML = (localStorage.getItem("ygopro") ?? "No folder selected...");
   settings = new Settings();
   var recent = document.querySelector(".recent .padding .list");
   deckmaster.getRecentDocs().forEach(path => {
     recent.innerHTML = `<a onclick="deckmaster.open(this.children[0].innerHTML)">${path.split("/").pop().split("\\").pop()}<span style="display:none;">${path}</span></a>` + recent.innerHTML;
   });
-
   binder = new Keybinder();
+
+  // Load deck editor
+  loadDeckEditor();
+
+  // Remove load screen
+  setTimeout(() => {
+    document.querySelector(".load-screen").classList.add("loaded");
+    setTimeout(() => document.querySelector(".load-screen").style.display = "none", 350)
+  }, 500);
 });

@@ -297,6 +297,4 @@ class ComboEditor {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  combo_editor = new ComboEditor();
-});
+combo_editor = new ComboEditor();

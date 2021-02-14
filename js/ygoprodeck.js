@@ -297,34 +297,3 @@ const filters = {
     search(document.querySelector(".search .padding .searchbar").value);
   }
 };
-
-document.addEventListener("DOMContentLoaded", (ev) => {
-  fs.readFile(paths.join(__dirname, "../", ygoprodeck.file), (err, data) => {
-    if (err) {
-      ygoprodeck.fetch();
-    } else {
-      data = JSON.parse(data);
-      ygodata = data;
-      var date = new Date();
-      if (data.updated < `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`) {
-        ygoprodeck.fetch();
-      } else {
-        console.log("Loaded cards from memory");
-        fs.readFile(paths.join(__dirname, "../", "sets.json"), (err, data) => {
-          if (err) {
-            ygoprodeck.fetch();
-          } else {
-            data = JSON.parse(data);
-            ygodata.sets = data;
-            console.log("Loaded sets from memory");
-            var options = document.querySelector("#card_set");
-            data.forEach(set => {
-              options.innerHTML += `<option value="${set.set_code}">${set.set_name}</option>`;
-            });
-            ygoprodeck.trigger("load");
-          }
-        });
-      }
-    }
-  });
-});

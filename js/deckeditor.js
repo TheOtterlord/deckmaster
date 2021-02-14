@@ -535,7 +535,7 @@ class Deck {
 
 let main, extra, side, deckchanges;
 
-document.addEventListener("DOMContentLoaded", function () {
+function loadDeckEditor() {
   main = new Deck(document.querySelector(".deckbox.main"), {
     min: 40, max: 60,
     display: [
@@ -601,4 +601,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
   });
   document.querySelector(".clear").onclick = clear;
-});
+}
