@@ -47,9 +47,7 @@ const editor = {
       if (err) {
         throw err;
       }
-      notify(`<div id='deleted'>
-        The deck at ${main.filepath} has been deleted
-      </div>`, 'deleted', 3000);
+      notify(`The deck at ${main.filepath} has been deleted!`, 3000);
       deckmaster.removeRecentDocs(main.filepath);
       main.filepath = undefined;
       deckmaster.toHome();

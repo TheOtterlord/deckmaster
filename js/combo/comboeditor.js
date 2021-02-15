@@ -257,7 +257,7 @@ class ComboEditor {
   }
 
   alert(msg) {
-    notify(`<div id='ycb'>${msg}</div>`, 'ycb', 3000);
+    notify(msg, 3000);
   }
 
   save() {

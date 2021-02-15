@@ -1,6 +1,6 @@
 # Installation
 
-You can install DeckMaster's latest version via one of the installers, or by building it from the source code.
+You can install DeckMaster's latest version via one of the pre-built installers, or by building it from the source code.
 
 - [Windows Installer](#windows-installer)
 

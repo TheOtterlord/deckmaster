@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.7.1 Alpha
+
+Oops
+
+### Fixed
+
+- Fix the new card back image
+
+## 0.7.0 Alpha
+
+This update improves the overall UI adding themes & custom css while also adding autocomplete for YCB card ids.
+
+### Added
+
+- A theme system with a few different themes
+- Custom css that can be changed in settings
+- Autocomplete for YCB card ids
+- Discord connect & disconnect notifications
+- New notifications API with better animations
+
+### Changed
+
+- Upgraded electron to 11.2.1 minimum
+- Updated the start screen UI (now only displays the name of the file, not the path)
+
 ## 0.6.4
 
 Deck saving bug fix

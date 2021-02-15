@@ -6,7 +6,7 @@
 .combo-editor .col {
   height: 100%;
   float: left;
-  border-right: 2px solid #181818;
+  border-right: 2px solid rgba(0,0,0,0.2);
 }
 
 .combo-editor .col .scroller {
@@ -19,18 +19,16 @@
   outline: none;
   border: none;
   margin: 0;
-  color: #fff;
+  color: var(--color);
   padding: 12px 20px;
   box-sizing: border-box;
   transition: border 0.2s;
-  background: #262626;
+  background: var(--elevated);
 }
 
 .collapse-btn.active {
-  background: #303030;
-}
-.collapse-btn:hover {
-  background: #343434;
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 .collapse {
@@ -44,42 +42,62 @@
   outline: none;
   border: none;
   margin: 0;
-  color: #fff;
+  color: var(--color);
   padding: 12px 20px;
   box-sizing: border-box;
   transition: 0.2s;
 }
 .array-item:hover, .array-item.active {
   background-color: rgba(0,0,0,0.2);
-  color: #0ef;
+  color: var(--secondary);
 }
 
 .array-list {
   width: 100%;
-  border: 2px solid #181818;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   border-radius: 16px;
   overflow: hidden;
+  background: var(--elevated);
 }
 
 .array-list .item {
-  background: #242424;
   outline: none;
   border: none;
-  color: #fff;
+  color: var(--color);
   width: 100%;
   padding: 12px 20px;
   box-sizing: border-box;
 }
 
 .array-list .item:nth-child(even) {
-  background-color: #202020;
+  background-color: var(--hover-shade);
 }
-
-/* Maybe add back if you can click it for action */
-/* .array-list .item:hover {
-  background-color: #343443;
-} */
 
 .array-list .item span {
   cursor: pointer;
+}
+
+.suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  transform: translateY(-10px);
+  background-color: var(--elevated);
+  color: var(--color);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background-color: var(--hover-shade);
+}
+
+.suggestions div.active {
+  background-color: var(--primary);
+  color: var(--on-primary);
 }

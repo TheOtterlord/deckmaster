@@ -1,6 +1,6 @@
 {
   "name": "deckmaster",
-  "version": "0.6.4",
+  "version": "0.7.1",
   "description": "A Yu-Gi-Oh! TCG deck editor",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "files": [
       "index.js",
       "index.html",
-      "bg.webp",
+      "bg.png",
       "css/",
       "js/"
     ],
@@ -81,7 +81,7 @@
     "electron-updater": "^4.0.0"
   },
   "devDependencies": {
-    "electron": "^11.1.1",
+    "electron": "^11.2.1",
     "electron-builder": "latest",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",

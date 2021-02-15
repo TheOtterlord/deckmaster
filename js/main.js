@@ -23,16 +23,21 @@ ipcRenderer.on("cmd", (ev, args) => {
   }
 });
 
+ipcRenderer.on("discord", (ev, connected) => {
+  if (connected) notify("Connected to Discord", 3000);
+  else notify("Disconnected from Discord", 3000);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".version").innerHTML = deckmaster.version;
   if (localStorage.getItem("lastversion") != deckmaster.version) {
-    document.querySelector(".version").innerHTML = deckmaster.version;
     localStorage.setItem("lastversion", deckmaster.version);
     openChangelog();
   }
   settings = new Settings();
   var recent = document.querySelector(".recent .padding .list");
   deckmaster.getRecentDocs().forEach(path => {
-    recent.innerHTML = `<a onclick="deckmaster.open(this.innerHTML)">${path}</a>` + recent.innerHTML;
+    recent.innerHTML = `<a onclick="deckmaster.open(this.children[0].innerHTML)">${path.split("/").pop().split("\\").pop()}<span style="display:none;">${path}</span></a>` + recent.innerHTML;
   });
 
   binder = new Keybinder();

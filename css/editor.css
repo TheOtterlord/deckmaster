@@ -60,7 +60,7 @@
 }
 
 .deckbox {
-  border: 1px solid #fff;
+  border: 1px solid var(--primary);
   padding: 4px;
   height: 100%;
 }
@@ -114,6 +114,7 @@
 
 .card {
   transition: padding 0.2s;
+  cursor: pointer;
 }
 
 .card.drag {
@@ -137,8 +138,8 @@
   background: transparent;
   outline: none;
   border: none;
-  color: #fff;
-  border-bottom: 1px solid #fff;
+  color: var(--color);
+  border-bottom: 1px solid var(--primary);
   padding: 4px;
 }
 
@@ -146,16 +147,17 @@
   width: calc(50% - 8px);
   outline: none;
   border: none;
-  background: rgba(255,0,255,0.4);
-  color: #fff;
+  background: var(--elevated);
+  color: var(--color);
   float: left;
   margin: 4px;
   border-radius: 4px;
-  transition: background 0.4s;
+  transition: 0.2s;
 }
 
 .editor .search .padding .filter button:active {
-  background-color: rgba(255,0,255,0.6);
+  background-color: var(--primary);
+  color: var(--on-primary);
 }
 
 .editor .search .padding .maxwidth {
@@ -200,7 +202,7 @@
 }
 
 .editor .search .padding .pagination a.active, .editor .search .padding .pagination a:active {
-  background-color: rgba(255,0,255,0.4);
+  background-color: var(--primary);
 }
 
 .fade {
@@ -227,7 +229,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #242424;
+  background-color: var(--elevated);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   overflow: hidden;
   transition: height 0.4s;
@@ -241,18 +243,19 @@
 .filter-panel button {
   outline: none;
   border: none;
-  background: rgba(255,0,255,0.4);
-  color: #fff;
+  background: var(--background);
+  color: var(--color);
   float: left;
   margin: 4px;
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 4px;
-  transition: background 0.4s;
+  transition: 0.2s;
 }
 
 .filter-panel button:active {
-  background-color: rgba(255,0,255,0.6);
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 /* Information box above deck */
@@ -261,51 +264,60 @@
   background-color: transparent;
   outline: none;
   border: none;
-  color: #fff;
-  border-bottom: 1px solid #fff;
+  color: var(--color);
+  border-bottom: 1px solid var(--primary);
   padding: 4px;
+  transition: border 0.2s;
+}
+
+.cell.info input:focus {
+  border-bottom-color: var(--secondary);
 }
 
 .btn50 {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   outline: none;
   border: none;
-  background: rgba(255,0,255,0.4);
-  color: #fff;
+  background: var(--elevated);
+  color: var(--color);
   float: left;
   margin: 4px;
   padding-left: 6px;
   padding-right: 6px;
   border-radius: 4px;
-  transition: background 0.4s;
   width: calc(50% - 8px);
+  transition: 0.2s;
 }
 
 .btn50:active {
-  background-color: rgba(255,0,255,0.6);
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 .btn33 {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   outline: none;
   border: none;
-  background: rgba(255,0,255,0.4);
-  color: #fff;
+  background: var(--elevated);
+  color: var(--color);
   float: left;
   margin: 2px;
   padding-left: 6px;
   padding-right: 6px;
   border-radius: 4px;
-  transition: background 0.4s;
   width: calc(50% - 4px);
+  transition: 0.2s;
 }
 
 .btn33:active {
-  background-color: rgba(255,0,255,0.6);
+  background-color: var(--primary);
+  color: var(--on-primary);
 }
 
 /* Combo Widget */
 
 .combo-widget {
-  border: 1px solid #fff;
+  border: 1px solid var(--primary);
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
@@ -318,7 +330,7 @@
 }
 
 .combo-widget h4:hover {
-  background-color: #282828;
+  background-color: var(--hover-shade);
 }
 
 .combo-widget .btn-grp {
@@ -328,14 +340,8 @@
   min-width: 66%;
 }
 
-.combo-widget .btn50.disabled {
-  cursor: not-allowed;
-  background-color: #282828;
-  color: #555;
-}
-
 .combo-widget h4.active {
-  background-color: #3a3a3a;
+  background-color: var(--elevated);
 }
 
 .combo-widget ul {
@@ -363,7 +369,7 @@
   z-index: 9;
   transform: translate(-50%, -50%) scale(0);
   transition: .5s ease-in-out;
-  background-color: #282828;
+  background-color: var(--elevated);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
