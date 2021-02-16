@@ -542,6 +542,12 @@
 
   <div id="notifications"></div>
 
+  <div class="logs">
+    <pre class="ir-code">Error Logs - DeckMaster Render Process</pre>
+    <button onclick="clipboard.writeText(this.previousElementSibling.innerHTML);notify('Copied to clipboard',2000)">Copy logs</button>
+    <button onclick="this.parentElement.style.display = 'none'">Close</button>
+  </div>
+
   <div class="fade-bg hide" onclick="close_settings();closeChangelog()"></div>
 </body>
 

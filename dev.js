@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
@@ -30,6 +30,10 @@ function createWindow() {
   win.webContents.on('new-window', function (e, url) {
     e.preventDefault();
     require('electron').shell.openExternal(url);
+  });
+
+  ipcMain.on("error", (_, ev) => {
+    console.error(ev);
   });
 
   // Load the web app

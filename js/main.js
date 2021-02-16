@@ -1,7 +1,6 @@
-const { remote } = require('electron');
+const { remote, clipboard } = require('electron');
 
 const app = remote.app;
-
 const win = remote.getCurrentWindow();
 
 function openChangelog() {
@@ -12,6 +11,10 @@ function openChangelog() {
 function closeChangelog() {
   document.querySelector(".fade-bg").classList.add("hide");
   document.querySelector(".changelog").classList.remove("show");
+}
+
+function viewLogs() {
+  document.querySelector(".logs").style.display = "block";
 }
 
 let binder, settings;
@@ -26,6 +29,13 @@ ipcRenderer.on("cmd", (ev, args) => {
 ipcRenderer.on("discord", (ev, connected) => {
   if (connected) notify("Connected to Discord", 3000);
   else notify("Disconnected from Discord", 3000);
+});
+
+window.addEventListener("error", (ev) => {
+  const {message, filename, lineno, colno, error} = ev;
+  notify(`<div onclick="viewLogs()">${message}</div>`, 5000);
+  document.querySelector(".logs").firstElementChild.innerHTML += `\n${error}`;
+  ipcRenderer.send("error", {message, filename, lineno, colno, error});
 });
 
 document.addEventListener("DOMContentLoaded", () => {
