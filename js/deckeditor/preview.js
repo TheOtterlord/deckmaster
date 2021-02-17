@@ -23,7 +23,7 @@ class CardPreview {
         card.atk!=undefined ? `<b>Atk:</b> ${card.atk} / 
         ${card.def!=undefined ? `<b>Def:</b> ${card.def}` : (card.linkval ? `<b>Link:</b> ${card.linkmarkers.length}` : '')}
         ${card.level ? `/ <b>${card.type.includes("XYZ") ? 'Rank' : 'Level' }:</b> ${card.level}` : ''}` : ''}</div>
-      <div>${card.desc}</div>
+      <div>${card.desc.replaceAll("\n", "<br>")}</div>
     `;
   }
 }
