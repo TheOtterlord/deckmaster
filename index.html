@@ -545,6 +545,8 @@
   <div class="logs">
     <pre class="ir-code">Error Logs - DeckMaster Render Process</pre>
     <button onclick="clipboard.writeText(this.previousElementSibling.innerHTML);notify('Copied to clipboard',2000)">Copy logs</button>
+    <button onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster/issues/new?body=**Explain problem below**%0A%0A```%0A'+this.previousElementSibling.previousElementSibling.innerHTML.replaceAll('\n', '%0A')+'%0A```')">Report on GitHub</button>
+    <button onclick="deckmaster.link('https://discord.gg/7kq56nhx9P')">Report on Discord</button>
     <button onclick="this.parentElement.style.display = 'none'">Close</button>
   </div>
 
