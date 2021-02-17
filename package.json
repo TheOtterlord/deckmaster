@@ -4,7 +4,8 @@
   "description": "A Yu-Gi-Oh! TCG deck editor",
   "main": "index.js",
   "scripts": {
-    "dev": "electron .",
+    "dev": "electron ./dev.js",
+    "start": "electron .",
     "build": "electron-builder",
     "deploy-docs": "mkdocs gh-deploy",
     "docs": "mkdocs serve"
@@ -80,6 +81,7 @@
   },
   "devDependencies": {
     "electron": "^11.2.1",
-    "electron-builder": "latest"
+    "electron-builder": "latest",
+    "electron-reload": "^1.5.0"
   }
 }
