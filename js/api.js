@@ -111,7 +111,7 @@ const deckmaster = {
   saveDeck(path) {
     var save_deck = editor.getDeck();
     editor.setDeckname(path.split("\\").reverse()[0]);
-    main.filepath = path;
+    editor.filepath = path;
     fs.writeFile(path, editor.json_to_ydk(save_deck), (err) => {
       if (err) {
         console.log(`Failed to write to ${path}`);
@@ -144,7 +144,7 @@ const deckmaster = {
     el_editor.style.display = "block";
     fade(el_editor);
     editor.setDeckname("");
-    main.filepath = undefined;
+    editor.filepath = undefined;
     main.clear();
     extra.clear();
     side.clear();
@@ -170,7 +170,7 @@ const deckmaster = {
           extra.clear();
           side.clear();
           deck = editor.ydk_to_json(data.toString());
-          main.filepath = path;
+          editor.filepath = path;
           main.addCards(deck.main);
           extra.addCards(deck.extra);
           side.addCards(deck.side);
