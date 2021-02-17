@@ -1,14 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
-const { autoUpdater } = require("electron-updater");
-const discordRPC = require('discord-rpc');
 
-const clientId = '794611884316950559';
-discordRPC.register(clientId);
-const rpc = new discordRPC.Client({ transport: 'ipc' });
-
-const startTimestamp = new Date();
+require("electron-reload")(__dirname);
 
 let win;
 
@@ -26,6 +20,8 @@ function createWindow() {
       webSecurity: true,
       nodeIntegration: true,
       enableRemoteModule: true,
+      // the default of `contextIsolation` is deprecated and will be changing from false to true in a future release of Electron.
+      // when deprecated, remove `nodeIntegration: true` but keep this
       contextIsolation: false
     }
   });
@@ -36,6 +32,10 @@ function createWindow() {
     require('electron').shell.openExternal(url);
   });
 
+  ipcMain.on("error", (_, ev) => {
+    console.error(ev);
+  });
+
   // Load the web app
   var index_path = path.join(__dirname, 'index.html');
   win.loadURL(url.format({
@@ -44,17 +44,12 @@ function createWindow() {
     slashes: true
   }));
 
-  ipcMain.on('update', () => {
-    autoUpdater.quitAndInstall();
-  });
-
   win.webContents.on("did-finish-load", () => {
     win.webContents.send("cmd", process.argv);
   });
 
   // Once loaded, show the screen
   win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify();
     win.maximize();
     win.show();
   });
@@ -81,46 +76,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-function sendStatusToWindow(text) {
-  win.webContents.send('message', text);
-}
-
-autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('update-downloaded');
-});
-
-autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('update-available');
-});
-
-autoUpdater.on('download-progress', (progressObj) => {
-  sendStatusToWindow('progress:' + Math.round(progressObj.percent));
-});
-
-function updateActivity() {
-  if (!rpc) return;
-  rpc.setActivity({
-    details: `Deck building`,
-    // state: '',
-    largeImageKey: 'main-icon',
-    largeImageText: 'Yu-Gi-Oh!',
-    startTimestamp,
-    instance: false,
-  });
-}
-
-rpc.on('connected', () => {
-  win.webContents.send("discord", true);
-});
-
-rpc.on('disconnected', () => {
-  win.webContents.send("discord", false);
-});
-
-rpc.on('ready', () => {
-  updateActivity();
-  setTimeout(updateActivity, 60e3);
-});
-
-rpc.login({ clientId }).catch(console.error);
