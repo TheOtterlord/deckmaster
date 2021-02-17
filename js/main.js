@@ -76,6 +76,9 @@ window.addEventListener("load", () => {
     openChangelog();
   }
 
+  // Load deck editor
+  loadDeckEditor();
+  
   // Prep settings
   document.querySelector(".ir-flex.ygopro_connect").innerHTML = (localStorage.getItem("ygopro") ?? "No folder selected...");
   settings = new Settings();
@@ -84,9 +87,6 @@ window.addEventListener("load", () => {
     recent.innerHTML = `<a onclick="deckmaster.open(this.children[0].innerHTML)">${path.split("/").pop().split("\\").pop()}<span style="display:none;">${path}</span></a>` + recent.innerHTML;
   });
   binder = new Keybinder();
-
-  // Load deck editor
-  loadDeckEditor();
 
   // Remove load screen
   setTimeout(() => {
