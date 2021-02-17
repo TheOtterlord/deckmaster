@@ -145,3 +145,7 @@ body {
 .ir-hint-text {
   margin: 0;
 }
+
+.ir-text-center {
+  text-align: center;
+}
