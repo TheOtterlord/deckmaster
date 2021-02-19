@@ -369,7 +369,7 @@ header {
 }
 
 .changelog {
-  background-color: #282828;
+  background-color: var(--elevated);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
   position: fixed;
   top: 50%;

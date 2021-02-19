@@ -90,6 +90,7 @@ window.addEventListener("load", () => {
 
   // Load plugins
   plugins = new Plugins();
+  deckmaster.plugins = plugins;
 
   // Remove load screen
   setTimeout(() => {

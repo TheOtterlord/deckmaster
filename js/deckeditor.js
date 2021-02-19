@@ -204,7 +204,22 @@ class Deck {
     this.max = options.max;
     this.el.classList.add(`max-${this.display[0].max}`);
     this.preview = new CardPreview(document.querySelector(".preview"));
+    this.events = {
+      cardadded: [],
+      cardremoved: []
+    };
   }
+
+  emit(event, args) {
+    if (!this.events[event]) throw Error(`Event '${event}' does not exist for class 'Deck'`);
+    this.events[event].forEach(f => f(args));
+  }
+
+  on(event, callback) {
+    if (!this.events[event]) throw Error(`Event '${event}' does not exist for class 'Deck'`);
+    this.events[event].push(callback);
+  }
+
   oncardadded(card) {
     if (this.el.childElementCount < this.max) {
       var count = 0;
@@ -310,10 +325,13 @@ class Deck {
         if (ev.target.classList.contains("deckbox")) {
           // add to the deckbox
           card.parentElement.deck.oncardremoved();
+          var temp_deck = card.parentElement.deck;
           card.parentElement.removeChild(card);
+          temp_deck.emit('cardremoved');
           var add_card = ev.target.deck.oncardadded(card);
           if (add_card) {
             ev.target.appendChild(card);
+            ev.target.deck.emit('cardadded');
           }
           updateCombos();
         } else if (
@@ -322,7 +340,9 @@ class Deck {
           ) {
             // add to deckbox before the target card
             card.parentElement.deck.oncardremoved();
+            var temp_deck = card.parentElement.deck;
             card.parentElement.removeChild(card);
+            temp_deck.emit('cardremoved');
             var target = ev.target;
             if (!target.classList.contains("card")) {
               target = target.parentElement;
@@ -330,11 +350,14 @@ class Deck {
             var add_card = target.parentElement.deck.oncardadded(card);
             if (add_card) {
               target.parentElement.insertBefore(add_card, target);
+              this.emit('cardadded');
             }
             updateCombos();
           } else {
             card.parentElement.deck.oncardremoved();
+            var temp_deck = card.parentElement.deck;
             card.remove();
+            temp_deck.emit('cardremoved');
             updateCombos();
           }
           deckchanges.push(editor.getDeck());
@@ -343,7 +366,9 @@ class Deck {
     card.oncontextmenu = (ev) => {
       ev.preventDefault();
       card.parentElement.deck.oncardremoved();
+      var temp_deck = card.parentElement.deck;
       card.parentElement.removeChild(card);
+      temp_deck.emit('cardremoved');
       updateCombos();
       deckchanges.push(editor.getDeck());
       return true;
@@ -366,6 +391,7 @@ class Deck {
       } else {
         this.el.appendChild(add_card);
       }
+      this.emit('cardadded');
     }
     updateCombos();
   }
