@@ -18,21 +18,21 @@ function displayComboMod(i) {
 }
 
 function displayCombo(i, i2) {
-  var combo = combos[i].combos[i2];
-  var img = document.querySelector(".preview .img img");
-  img.src = DEFAULT_IMG;
-  var text = document.querySelector(".preview .cardtext");
-  text.innerHTML = "";
-  text.innerHTML += `<h4>${combo.name}</h4>`;
-  text.innerHTML += `<p>${combo.desc}</p>`;
-  text.innerHTML += "<b>Raw Values</b>";
-  text.innerHTML += "<ul>";
-  for (let i = 0; i < combo.variants.length; i++) {
-    var variant = combo.variants[i];
-    text.innerHTML += `<li>Test ${i + 1}: ${variant.exact.toFixed(3)}%</li>`;
-  }
-  text.innerHTML += "</ul>";
-  text.innerHTML += `<p>Total Chance: ${combo.exact.toFixed(3)}%</p>`;
+  // var combo = combos[i].combos[i2];
+  // var img = document.querySelector(".preview .img img");
+  // img.src = DEFAULT_IMG;
+  // var text = document.querySelector(".preview .cardtext");
+  // text.innerHTML = "";
+  // text.innerHTML += `<h4>${combo.name}</h4>`;
+  // text.innerHTML += `<p>${combo.desc}</p>`;
+  // text.innerHTML += "<b>Raw Values</b>";
+  // text.innerHTML += "<ul>";
+  // for (let i = 0; i < combo.variants.length; i++) {
+  //   var variant = combo.variants[i];
+  //   text.innerHTML += `<li>Test ${i + 1}: ${variant.exact.toFixed(3)}%</li>`;
+  // }
+  // text.innerHTML += "</ul>";
+  // text.innerHTML += `<p>Total Chance: ${combo.exact.toFixed(3)}%</p>`;
 }
 
 function addComboMod() {
