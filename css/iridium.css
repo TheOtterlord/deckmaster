@@ -133,8 +133,24 @@ body {
   margin: 8px;
 }
 
+.ir-padding {
+  padding: 4px 8px;
+}
+
 .ir-maxwidth {
   width: 100%;
+}
+
+.ir-absolute {
+  position: absolute;
+}
+
+.ir-top {
+  top: 0;
+}
+
+.ir-right {
+  right: 0;
 }
 
 .ir-faded-text {
@@ -172,4 +188,34 @@ body {
   border-radius: 8px;
   background-color: var(--background);
   color: var(--color);
+}
+
+.ir-dialog {
+  background-color: var(--elevated);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  min-height: 60%;
+  max-height: 80%;
+  overflow-y: auto;
+  z-index: 10;
+  transform: translate(-50%, -50%) scale(0);
+  transition: .5s ease-in-out;
+}
+
+.ir-dialog.open {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ir-primary {
+  display: block;
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.ir-hover-error:hover {
+  background-color: #f22;
+  color: #fff;
 }
