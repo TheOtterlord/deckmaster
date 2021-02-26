@@ -322,7 +322,8 @@
           <br><br>
         </div>
       </div>
-      <button class="ir-button ir-maxwidth" style="background: var(--background);" onclick="toggleFilter(`close`)">Close</button>
+      <button class="ir-button ir-maxwidth" style="background: var(--background);"
+        onclick="toggleFilter(`close`)">Close</button>
     </div>
   </div>
 
@@ -344,7 +345,8 @@
         <div class="collapse" style="padding:0;">
           <div id="arrays"></div>
           <div class="ir-margin">
-            <input class="ir-input ir-maxwidth" id="array-name" placeholder="Name of array" onkeypress="if (event.which == 13) combo_editor.addArray();" spellcheck="false">
+            <input class="ir-input ir-maxwidth" id="array-name" placeholder="Name of array"
+              onkeypress="if (event.which == 13) combo_editor.addArray();" spellcheck="false">
             <button class="ir-button ir-maxwidth" onclick="combo_editor.addArray()">+ Add array</button>
           </div>
         </div>
@@ -362,7 +364,8 @@
         <div class="ir-margin">
           <h6 style="margin:0;color:#f44;">
             This feature is experimental.
-            Please report any bugs and send your feedback to <a style="color:#68f" href="https://github.com/TheOtterlord/deckmaster/issues">GitHub</a>.
+            Please report any bugs and send your feedback to <a style="color:#68f"
+              href="https://github.com/TheOtterlord/deckmaster/issues">GitHub</a>.
           </h6>
         </div>
       </div>
@@ -371,8 +374,12 @@
       <div class="col" style="width: 25%;">
         <div class="ir-margin">
           <h6 style="margin:0;color:#888;">Changes will be reflected on save</h6>
-          <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name" oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value" spellcheck="false">
-          <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth" id="combo-desc" placeholder="Combo Description" oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value" spellcheck="false"></textarea>
+          <input class="ir-input ir-maxwidth" id="combo-name" placeholder="Combo Name"
+            oninput="combo_editor.data.combos[combo_editor.currentCombo].name = this.value" spellcheck="false">
+          <textarea style="font-family: sans-serif;resize: vertical;height: 200px;" class="ir-input ir-maxwidth"
+            id="combo-desc" placeholder="Combo Description"
+            oninput="combo_editor.data.combos[combo_editor.currentCombo].desc = this.value"
+            spellcheck="false"></textarea>
           <select id="combo-turn" onchange="combo_editor.data.combos[combo_editor.currentCombo].turn = this.value;">
             <option value="first">First</option>
             <option value="second">Second</option>
@@ -388,12 +395,16 @@
           <div id="variant-tests" class="array-list"></div>
           <div style="position: relative;">
             <div class="suggestions"></div>
-            <input class="ir-input ir-maxwidth" id="variant-query" oninput="suggest(this);combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query" spellcheck="false">
+            <input class="ir-input ir-maxwidth" id="variant-query"
+              oninput="suggest(this);combo_editor.validateTestQuery();inputPreview(this)" placeholder="YCB Query"
+              spellcheck="false">
           </div>
           <h6 class="ir-hint-text" style="margin-bottom:6px;"></h6>
           <div class="ir-flex-row">
-            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup="" placeholder="Min" type="number" min="0">
-            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-max" onkeyup="" placeholder="Max" type="number" min="0">
+            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-min" onkeyup=""
+              placeholder="Min" type="number" min="0">
+            <input class="ir-flex ir-input" style="margin:2px;float:left;width:50%" id="variant-max" onkeyup=""
+              placeholder="Max" type="number" min="0">
           </div>
           <br>
           <select id="variant-target">
@@ -418,7 +429,9 @@
         <br>
         <div style="position:relative;">
           <div class="suggestions"></div>
-          <input class="ir-input ir-maxwidth" id="array-itemname" oninput="suggest(this)" onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}" placeholder="YCB Query" spellcheck="false">
+          <input class="ir-input ir-maxwidth" id="array-itemname" oninput="suggest(this)"
+            onkeyup="if (event.which == 13) combo_editor.addArrayItem();else {combo_editor.validateArrayItem();inputPreview(this)}"
+            placeholder="YCB Query" spellcheck="false">
         </div>
         <h6 class="ir-hint-text"></h6>
         <button class="ir-button ir-maxwidth" onclick="combo_editor.addArrayItem()">Add Item</button>
@@ -448,7 +461,8 @@
         </select>
       </div>
       <div class="ir-flex-row">
-        <textarea class="ir-input ir-maxwidth user_css" style="font-family: sans-serif;resize: vertical;height: 200px;" placeholder="Add custom CSS..." spellcheck="false" oninput="setCSS(this.value)"></textarea>
+        <textarea class="ir-input ir-maxwidth user_css" style="font-family: sans-serif;resize: vertical;height: 200px;"
+          placeholder="Add custom CSS..." spellcheck="false" oninput="setCSS(this.value)"></textarea>
       </div>
     </div>
     <div class="tab" id="Keybindings">
@@ -488,7 +502,7 @@
     </div>
     <div class="tab" id="About">
       <h2>About</h2>
-      <p>Version: 0.8.0</p>
+      <p>Version: 0.8.1</p>
       <p>Author: Reuben Tier (AKA TheOtterlord)</p>
       <p>Website: <a href="https://theotterlord.github.io/deckmaster"
           target="_blank">https://theotterlord.github.io/deckmaster</a></p>
@@ -522,21 +536,14 @@
   <div class="changelog" style="padding: 16px;">
     <h2>What's new in <span class="version"></span></h2>
     <div>
-      <p>This update improves the overall UI adding themes &amp; custom css while also adding autocomplete for YCB card ids.</p>
-      <h3 id="added">Added</h3>
+      <p>The combo widget hover/preview has been removed as it is incompatible with the new card preview.
+        I plan to reimplement this when I revisit the combo system.</p>
+      <h3 id="removed">Removed</h3>
       <ul>
-      <li>A theme system with a few different themes</li>
-      <li>Custom css that can be changed in settings</li>
-      <li>Autocomplete for YCB card ids</li>
-      <li>Discord connect &amp; disconnect notifications</li>
-      <li>New notifications API with better animations</li>
+        <li>Combo Widget Preview</li>
       </ul>
-      <h3 id="changed">Changed</h3>
-      <ul>
-      <li>Upgraded electron to 11.2.1 minimum</li>
-      <li>Updated the start screen UI (now only displays the name of the file, not the path)</li>
-      </ul>
-      <p><a href="https://github.com/TheOtterlord/deckmaster/blob/main/CHANGELOG.md" target="_blank">Full Changelog</a></p>
+      <p><a href="https://github.com/TheOtterlord/deckmaster/blob/main/CHANGELOG.md" target="_blank">Full Changelog</a>
+      </p>
     </div>
     <div class="ir-flex-row">
       <button class="ir-flex ir-button" onclick="closeChangelog()">Close Changelog</button>
@@ -547,8 +554,11 @@
 
   <div class="logs">
     <pre class="ir-code">Error Logs - DeckMaster Render Process</pre>
-    <button onclick="clipboard.writeText(this.previousElementSibling.innerHTML);notify('Copied to clipboard',2000)">Copy logs</button>
-    <button onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster/issues/new?body=**Explain problem below**%0A%0A```%0A'+this.previousElementSibling.previousElementSibling.innerHTML.replaceAll('\n', '%0A')+'%0A```')">Report on GitHub</button>
+    <button onclick="clipboard.writeText(this.previousElementSibling.innerHTML);notify('Copied to clipboard',2000)">Copy
+      logs</button>
+    <button
+      onclick="deckmaster.link('https://github.com/TheOtterlord/deckmaster/issues/new?body=**Explain problem below**%0A%0A```%0A'+this.previousElementSibling.previousElementSibling.innerHTML.replaceAll('\n', '%0A')+'%0A```')">Report
+      on GitHub</button>
     <button onclick="deckmaster.link('https://discord.gg/7kq56nhx9P')">Report on Discord</button>
     <button onclick="this.parentElement.style.display = 'none'">Close</button>
   </div>

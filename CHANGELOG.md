@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.8.1 Alpha
+
+The combo widget hover/preview has been removed as it is incompatible with the new card preview.
+I plan to reimplement this when I revisit the combo system.
+
+### Removed
+
+- Combo Widget Preview
+
 ## 0.8.0 Alpha
 
 ### Added
