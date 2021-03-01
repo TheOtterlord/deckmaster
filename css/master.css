@@ -32,7 +32,7 @@
   }
 }
 
-#About a, .changelog a {
+.changelog a {
   text-decoration: none;
   color: var(--secondary);
 }

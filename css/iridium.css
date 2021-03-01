@@ -7,7 +7,9 @@
   --color: #fefefe;
   --elevated: #262626;
   --primary: #d66b24;
+  --primary-accent: #f17f4b;
   --on-primary: #fff;
+  --on-primary-accent: var(--on-primary);
   --secondary: #07bcad;
   --hover-shade: rgba(255,255,255,0.1);
 }
@@ -43,6 +45,10 @@ body {
   background-color: var(--primary);
 }
 
+.ir-scroller {
+  width: 100%;
+  overflow-y: auto;
+}
 
 .ir-flex-row {
   display: flex;
@@ -77,8 +83,8 @@ body {
 }
 
 .ir-button {
-  background: var(--elevated);
-  color: var(--color);
+  background: var(--primary);
+  color: var(--on-primary);
   outline: none;
   border: none;
   border-radius: 2px;
@@ -90,14 +96,9 @@ body {
   cursor: pointer;
 }
 
-.settings .ir-button {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-
 .ir-button:active {
-  background: var(--primary);
-  color: var(--on-primary);
+  background: var(--primary-accent);
+  color: var(--on-primary-accent);
 }
 
 .ir-input {
@@ -126,12 +127,17 @@ textarea.ir-input {
 }
 
 .ir-select {
-  background: #242424;
+  background: var(--primary);
+  color: var(--on-primary);
   outline: none;
+  border: none;
   border-radius: 2px;
-  color: #fff;
+  width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
+  box-sizing: border-box;
+  transition: 0.2s;
+  cursor: pointer;
 }
 
 .ir-margin {
@@ -156,6 +162,10 @@ textarea.ir-input {
 
 .ir-right {
   right: 0;
+}
+
+.ir-sticky {
+  position: sticky;
 }
 
 .ir-faded-text {
@@ -220,7 +230,44 @@ textarea.ir-input {
   color: var(--on-primary);
 }
 
+.ir-elevated {
+  background-color: var(--elevated);
+  color: var(--color);
+}
+
 .ir-hover-error:hover {
   background-color: #f22;
   color: #fff;
+}
+
+.ir-tablinks {
+  overflow: hidden;
+}
+
+.ir-tablink {
+  background-color: inherit;
+  float: left;
+  border: none;
+  border-bottom: 2px solid transparent;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.ir-tablink:hover {
+  border-bottom: 2px solid var(--hover-shade);
+}
+
+.ir-tablink.active {
+  border-bottom: 2px solid var(--secondary);
+}
+
+.ir-tab {
+  display: none;
+  padding: 6px 12px;
+}
+
+.ir-tab.active {
+  display: block;
 }

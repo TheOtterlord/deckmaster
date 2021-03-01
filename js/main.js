@@ -80,7 +80,6 @@ window.addEventListener("load", () => {
   loadDeckEditor();
   
   // Prep settings
-  document.querySelector(".ir-flex.ygopro_connect").innerHTML = (localStorage.getItem("ygopro") ?? "No folder selected...");
   settings = new Settings();
   var recent = document.querySelector(".recent .padding .list");
   deckmaster.getRecentDocs().forEach(path => {

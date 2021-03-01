@@ -24,6 +24,11 @@ class Component {
     return this;
   }
 
+  addChildren(componentList) {
+    componentList.forEach(component => this.addChild(component));
+    return this;
+  }
+
   /**
    * Destroy this
    */
@@ -51,6 +56,7 @@ class Component {
       const key = keys[i];
       this.el.style[key] = options[i];
     }
+    return this;
   }
 }
 
@@ -66,8 +72,8 @@ class Dialog extends Component {
     super("div");
     this.el.className = "ir-dialog";
     this.el.innerHTML = `
-      <div class="ir-primary" style="height:30px;">
-        <div class="ir-padding">${title}</div>
+      <div class="ir-sticky ir-top">
+        <div class="ir-primary ir-padding">${title}</div>
         <span
           style="padding:4px;width:30px;height:30px;"
           class="ir-hover-error ir-text-center ir-absolute ir-top ir-right"
@@ -79,6 +85,16 @@ class Dialog extends Component {
     this.el.innerHTML += ``;
 
     document.querySelector(".dialogs").appendChild(this.el);
+  }
+
+  /**
+   * Add a header
+   * @param {Component} component The component to add as a header
+   */
+  addHeader(component) {
+    component.el.parentElement.removeChild(component.el);
+    this.el.firstElementChild.appendChild(component.el);
+    this.header = component;
   }
 
   /**
@@ -130,25 +146,17 @@ class Text extends Component {
 }
 
 class Button extends Component {
-  constructor({text, style}) {
+  constructor({classes, text, style}) {
     super("button", {style});
-    this.el.className = "ir-button ir-margin";
+    this.el.className = "ir-button ir-margin "+classes;
     this.el.innerHTML = text;
   }
 }
 
-class Input extends Component {
-  constructor({placeholder, style}) {
-    super("input", {style});
-    this.el.className = "ir-input ir-margin";
-    this.el.placeholder = placeholder ?? "";
-  }
-}
-
 class TextArea extends Component {
-  constructor({placeholder, style}) {
+  constructor({placeholder, style, classes}) {
     super("textarea", {style});
-    this.el.className = "ir-input ir-margin";
+    this.el.className = "ir-input ir-margin "+classes;
     this.el.placeholder = placeholder ?? "";
   }
 
@@ -158,5 +166,84 @@ class TextArea extends Component {
 
   set text(value) {
     this.el.value = value;
+  }
+}
+
+class Input extends Component {
+  constructor({placeholder, value, style, classes}) {
+    super("input", {style});
+    if (value) this.el.value = value;
+    this.el.className = "ir-input ir-margin "+classes;
+    this.el.placeholder = placeholder ?? "";
+  }
+
+  get text() {
+    return this.el.value;
+  }
+
+  set text(value) {
+    this.el.value = value;
+  }
+}
+
+class Dropdown extends Component {
+  constructor({options, selected, style, change}) {
+    super("select");
+    this.el.className = "ir-select ir-margin theme";
+    this.el.onchange = () => change(this.el.value);
+    for (let i = 0; i < options.length; i++) {
+      const option = options[i];
+      this.addChild(
+        new Option({text: option})
+      )
+    }
+    this.el.value = selected;
+  }
+}
+
+class Option extends Component {
+  constructor({text, style}) {
+    super("option");
+    this.el.innerHTML = text;
+    this.el.value = text;
+  }
+}
+
+class Tabination extends Component {
+  constructor() {
+    super("div");
+    this.tablinks = new Component("div");
+    this.tablinks.el.className = "ir-tablinks ir-maxwidth ir-elevated";
+    this.addChild(this.tablinks);
+    this.tabs = new Component("div");
+    this.addChild(this.tabs);
+  }
+
+  addTab(name, component) {
+    component.el.id = `tab-${name.toLowerCase().replaceAll(" ", "-")}`;
+    component.el.classList.add("ir-tab");
+    const link = new Component("a");
+    link.el.classList.add("ir-tablink");
+    link.el.innerHTML = name;
+    link.el.onclick = () => this.setTab(name);
+    this.tablinks.addChild(link);
+    this.tabs.addChild(component);
+    return this;
+  }
+
+  setTab(name) {
+    [...this.tablinks.el.children].forEach(link => {
+      if (name != link.innerHTML) link.classList.remove("active");
+      else link.classList.add("active");
+    });
+    [...this.tabs.el.children].forEach(tab => tab.classList.remove("active"));
+    this.tabs.el.querySelector(`#tab-${name.toLowerCase().replaceAll(" ", "-")}`).classList.add("active");
+  }
+}
+
+class Header extends Component {
+  constructor(level, {text}) {
+    super(`h${level}`);
+    this.el.innerHTML = text;
   }
 }
