@@ -24,6 +24,16 @@ class Plugins {
     if (!this.data[url]) return console.error(`Failed to load '${url}', reason: not downloaded`);
     const plugin = new Function([], this.data[url]);
     plugin();
+    // UI
+    settings.component.el.querySelector("#tab-plugins").component.addChild(
+      (new FlexRow()).addChildren([
+        new Text({ text: url, style: {width:"50%"} }),
+        (new Button({text: "Remove", style: {width:"50%"}})).on("click", () => {
+          this.removePlugin(url);
+          settings.component.el.querySelector("#tab-plugins").component.el.children[i].component.destroy();
+        })
+      ])
+    );
   }
 
   addPlugin(url) {

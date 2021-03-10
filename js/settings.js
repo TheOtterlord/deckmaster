@@ -32,6 +32,7 @@ class Settings {
                   (new TextArea({ placeholder: "Custom css...", classes: "user_css" })).on("input", function () { setCSS(this.value) })
                 )
               )
+          ).addTab("Plugins", new Component("div")
           ).addTab("Keybindings",
             (new Component("div"))
               .addChildren(Object.keys(this.data.keybindings).map(key => {
