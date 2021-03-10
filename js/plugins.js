@@ -16,11 +16,11 @@ class Plugins {
 
     for (let i = 0; i < Object.keys(this.data).length; i++) {
       const url = Object.keys(this.data)[i];
-      this.loadPlugin(url);
+      this.loadPlugin(url, i);
     }
   }
 
-  loadPlugin(url) {
+  loadPlugin(url, i) {
     if (!this.data[url]) return console.error(`Failed to load '${url}', reason: not downloaded`);
     const plugin = new Function([], this.data[url]);
     plugin();
@@ -30,7 +30,7 @@ class Plugins {
         new Text({ text: url, style: {width:"50%"} }),
         (new Button({text: "Remove", style: {width:"50%"}})).on("click", () => {
           this.removePlugin(url);
-          settings.component.el.querySelector("#tab-plugins").component.el.children[i].component.destroy();
+          settings.component.el.querySelector("#tab-plugins").component.el.children[i+1].component.destroy();
         })
       ])
     );
@@ -40,9 +40,10 @@ class Plugins {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = () => {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
+        url = url.split("\\").pop().split("/").pop()
         this.data[url] = xhttp.responseText;
         this.save();
-        this.loadPlugin(url);
+        this.loadPlugin(url, Object.keys(this.data).indexOf(url));
       }
     };
     xhttp.open("GET", url, true);
