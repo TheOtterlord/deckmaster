@@ -2,7 +2,6 @@ class Plugins {
   constructor() {
     this.path = paths.join(__dirname, '../../plugins.json');
     this.plugins = [];
-    this.load();
   }
   
   save() {
@@ -10,35 +9,38 @@ class Plugins {
   }
   
   load() {
-    this.data = JSON.parse(fs.readFileSync(this.path));
-    if (!this.data) throw Error("Failed to load data for plugins");
+    try {
+      this.data = JSON.parse(fs.readFileSync(this.path));
+    } catch {}
+    if (!this.data) this.data = {};
 
-    for (let i = 0; i < this.data.length; i++) {
-      const url = this.data[i];
+    for (let i = 0; i < Object.keys(this.data).length; i++) {
+      const url = Object.keys(this.data)[i];
       this.loadPlugin(url);
     }
   }
 
   loadPlugin(url) {
+    if (!this.data[url]) return console.error(`Failed to load '${url}', reason: not downloaded`);
+    const plugin = new Function([], this.data[url]);
+    plugin();
+  }
+
+  addPlugin(url) {
     const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        const plugin = new Function([], this.responseText);
-        plugin();
+    xhttp.onreadystatechange = () => {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        this.data[url] = xhttp.responseText;
+        this.save();
+        this.loadPlugin(url);
       }
     };
     xhttp.open("GET", url, true);
     xhttp.send();
   }
 
-  addPlugin(url) {
-    this.data.push(url);
-    this.loadPlugin(url);
-    this.save();
-  }
-
   removePlugin(url) {
-    this.data.splice(this.data[this.data.indexOf(url)], 1);
+    delete this.data[url];
     this.save();
     notify(`<div onclick="deckmaster.restart()">Removed plugin. Please restart DeckMaster</div>`);
   }

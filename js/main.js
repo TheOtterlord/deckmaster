@@ -1,4 +1,4 @@
-const { remote, clipboard } = require('electron');
+const { remote } = require('electron');
 
 const app = remote.app;
 const win = remote.getCurrentWindow();
@@ -90,6 +90,7 @@ window.addEventListener("load", () => {
   // Load plugins
   plugins = new Plugins();
   deckmaster.plugins = plugins;
+  deckmaster.plugins.load();
 
   // Remove load screen
   setTimeout(() => {
