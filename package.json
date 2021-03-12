@@ -41,7 +41,8 @@
       "artifactName": "linux-installer.${ext}",
       "target": [
         "deb",
-        "rpm"
+        "rpm",
+        "appImage"
       ],
       "category": "Editor"
     },
