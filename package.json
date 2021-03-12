@@ -37,7 +37,7 @@
       ]
     },
     "linux": {
-      "icon": "favicon.png",
+      "icon": "favicon.ico",
       "artifactName": "linux-installer.${ext}",
       "target": [
         "deb",
