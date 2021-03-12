@@ -18,6 +18,7 @@ function displayComboMod(i) {
 }
 
 function displayCombo(i, i2) {
+  // TODO: Fix combo module
   // var combo = combos[i].combos[i2];
   // var img = document.querySelector(".preview .img img");
   // img.src = DEFAULT_IMG;

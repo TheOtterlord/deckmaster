@@ -107,7 +107,7 @@ class DeckEditor {
    * @returns {Promise} A promise that resolves when the file has been saved/ignored
    */
   async exportImage() {
-    if (this.el.querySelector(".editor").style.display != "block") return;
+    if (this.el.style.display != "block") return;
 
     // close all menus that could be in the way
     var dropdowns = document.getElementsByClassName("dropdown-content");

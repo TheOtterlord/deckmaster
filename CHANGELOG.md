@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 0.9.0 Alpha
+
+Plugins now expand the normal capabilities of DeckMaster.
+With plugins, anyone can customise DeckMaster and add their own unique features.
+
+### Added
+
+- Plugins API
+- New settings screen
+- Component API
+
 ## 0.8.1 Alpha
 
 The combo widget hover/preview has been removed as it is incompatible with the new card preview.

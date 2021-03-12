@@ -1,4 +1,4 @@
-const { remote, clipboard } = require('electron');
+const { remote } = require('electron');
 
 const app = remote.app;
 const win = remote.getCurrentWindow();
@@ -17,7 +17,7 @@ function viewLogs() {
   document.querySelector(".logs").style.display = "block";
 }
 
-let binder, settings;
+let binder, settings, plugins;
 
 ipcRenderer.on("cmd", (ev, args) => {
   const arg = args[args.length - 1];
@@ -80,13 +80,17 @@ window.addEventListener("load", () => {
   loadDeckEditor();
   
   // Prep settings
-  document.querySelector(".ir-flex.ygopro_connect").innerHTML = (localStorage.getItem("ygopro") ?? "No folder selected...");
   settings = new Settings();
   var recent = document.querySelector(".recent .padding .list");
   deckmaster.getRecentDocs().forEach(path => {
     recent.innerHTML = `<a onclick="deckmaster.open(this.children[0].innerHTML)">${path.split("/").pop().split("\\").pop()}<span style="display:none;">${path}</span></a>` + recent.innerHTML;
   });
   binder = new Keybinder();
+
+  // Load plugins
+  plugins = new Plugins();
+  deckmaster.plugins = plugins;
+  deckmaster.plugins.load();
 
   // Remove load screen
   setTimeout(() => {
