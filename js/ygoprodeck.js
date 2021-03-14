@@ -79,7 +79,7 @@ const ygoprodeck = {
         var json = JSON.parse(xhttp.responseText);
         var date = new Date();
         var baninfo = new XMLHttpRequest();
-        baninfo.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardinfo.php?banlist=tcg`, false);
+        baninfo.open("GET", `https://db.ygoprodeck.com/api/${ygoprodeck.version}/cardinfo.php?banlist=tcg&misc=yes`, false);
         baninfo.send();
         var banlist = JSON.parse(baninfo.responseText).data;
         var cards = {
@@ -87,7 +87,7 @@ const ygoprodeck = {
           cards: {}
         };
         for (let i = 0; i < json.data.length; i++) {
-          json.data[i].banlist_info = banlist.find(card => {return card.id == json.data[i].id}).banlist_info
+          json.data[i] = banlist.find(card => {return card.id == json.data[i].id}) ?? json.data[i];
           cards.cards[`${json.data[i].id}`] = json.data[i];
         }
         ygodata = cards;

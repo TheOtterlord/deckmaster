@@ -74,7 +74,10 @@ function set_page() {
     child.classList.add("card");
     child.draggable = false;
     var url = ygoprodeck.dl_image(card, child);
-    child.innerHTML = `<img src='${url}' alt='${card}'>`;
+    var tag = ygodata.cards[card].banlist_info?.ban_tcg == 'Banned' ? `<div style='position:relative;'><img style='position: absolute;width: 1.5em;height: 1.5em;transform: translateX(-100%);margin: -4px 4px;' src='./assets/ban.png'></div>` : '';
+    var tag = ygodata.cards[card].banlist_info?.ban_tcg == 'Limited' ? `<div style='position:relative;'><img style='position: absolute;width: 1.5em;height: 1.5em;transform: translateX(-100%);margin: -4px 4px;' src='./assets/limit.png'></div>` : tag;
+    var tag = ygodata.cards[card].banlist_info?.ban_tcg == 'Semi-Limited' ? `<div style='position:relative;'><img style='position: absolute;width: 1.5em;height: 1.5em;transform: translateX(-100%);margin: -4px 4px;' src='./assets/semi.png'></div>` : tag;
+    child.innerHTML = `<img src='${url}' alt='${card}'>${tag}`;
     child.oncontextmenu = (ev) => {
       ev.preventDefault();
       var main = document.querySelector(".deckbox.main");
@@ -374,7 +377,10 @@ class Deck {
       return true;
     }
     var img = ygoprodeck.dl_image(id, card);
-    card.innerHTML = `<img src="${img}", alt="${id}">`;
+    var tag = ygodata.cards[id].banlist_info?.ban_tcg == 'Banned' ? `<div style='position:relative;'><img style='position: absolute;width: 1.5em;height: 1.5em;transform: translateX(-100%);margin: -4px 4px;' src='./assets/ban.png'></div>` : '';
+    var tag = ygodata.cards[id].banlist_info?.ban_tcg == 'Limited' ? `<div style='position:relative;'><img style='position: absolute;width: 1.5em;height: 1.5em;transform: translateX(-100%);margin: -4px 4px;' src='./assets/limit.png'></div>` : tag;
+    var tag = ygodata.cards[id].banlist_info?.ban_tcg == 'Semi-Limited' ? `<div style='position:relative;'><img style='position: absolute;width: 1.5em;height: 1.5em;transform: translateX(-100%);margin: -4px 4px;' src='./assets/semi.png'></div>` : tag;
+    card.innerHTML = `<img src='${img}' alt='${id}'>${tag}`;
     card.children[0].onerror = () => {
       card.children[0].src = DEFAULT_IMG;
       card.children[0].onerror = () => {
