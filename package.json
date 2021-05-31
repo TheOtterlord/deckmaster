@@ -1,6 +1,6 @@
 {
   "name": "deckmaster",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Yu-Gi-Oh! TCG deck editor",
   "main": "index.js",
   "scripts": {
