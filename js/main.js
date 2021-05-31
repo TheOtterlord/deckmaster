@@ -17,7 +17,7 @@ function viewLogs() {
   document.querySelector(".logs").style.display = "block";
 }
 
-let binder, settings, plugins;
+let binder, settings;
 
 ipcRenderer.on("cmd", (ev, args) => {
   const arg = args[args.length - 1];
@@ -86,11 +86,6 @@ window.addEventListener("load", () => {
     recent.innerHTML = `<a onclick="deckmaster.open(this.children[0].innerHTML)">${path.split("/").pop().split("\\").pop()}<span style="display:none;">${path}</span></a>` + recent.innerHTML;
   });
   binder = new Keybinder();
-
-  // Load plugins
-  plugins = new Plugins();
-  deckmaster.plugins = plugins;
-  deckmaster.plugins.load();
 
   // Remove load screen
   setTimeout(() => {

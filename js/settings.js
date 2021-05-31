@@ -32,24 +32,6 @@ class Settings {
                   (new TextArea({ placeholder: "Custom css...", classes: "user_css" })).on("input", function () { setCSS(this.value) })
                 )
               )
-          ).addTab("Plugins",
-            (new Component("div")).addChild(
-              (new FlexRow()).addChildren([
-                (new Button({text: "Add plugin from file", style: {width:"50%"}})).on("click", () => {
-                  dialog.showOpenDialog(win, {
-                    properties: ['openFile'],
-                    filters: [
-                      { name: "JavaScript File", extensions: ["js"] },
-                      { name: 'All Files', extensions: ['*'] }
-                    ]
-                  }).then(res => {
-                    const file = res.filePaths[0];
-                    if (!file) return;
-                    plugins.addPlugin(file);
-                  });
-                })
-              ])
-            )
           ).addTab("Keybindings",
             (new Component("div"))
               .addChildren(Object.keys(this.data.keybindings).map(key => {

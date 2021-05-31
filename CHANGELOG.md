@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 1.0.0
+
+We've reached a big milestone, and while I have been gone for a while working on other projects, I'm going to make sure to dedicate more time to DeckMaster.
+
+### Changed
+
+- Fixed terrible colour used for links in settings
+
+### Removed
+
+- Plugins have been removed because of flaws in their design. They will return, but I have other priorities first
+
 ## 0.9.0 Alpha
 
 Plugins now expand the normal capabilities of DeckMaster.
