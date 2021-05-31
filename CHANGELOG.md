@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 1.0.1
+
+Adds banlist visuals. A feature planned for 1.0.0 but one I forgot to add.
+
+### Added
+
+- Add banlist visuals
+
 ## 1.0.0
 
 We've reached a big milestone, and while I have been gone for a while working on other projects, I'm going to make sure to dedicate more time to DeckMaster.
