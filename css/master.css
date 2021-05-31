@@ -32,7 +32,7 @@
   }
 }
 
-.changelog a {
+.ir-dialog a {
   text-decoration: none;
   color: var(--secondary);
 }
