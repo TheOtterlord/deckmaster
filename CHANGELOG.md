@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 1.0.2
+
+### Fixed
+
+- Image assets not being packaged correctly
+
 ## 1.0.1
 
 Adds banlist visuals. A feature planned for 1.0.0 but one I forgot to add.
