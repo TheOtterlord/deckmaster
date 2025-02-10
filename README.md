@@ -36,3 +36,6 @@ If you wish to contribute to **DeckMaster**, please read our [contributing](CONT
 ## Thanks For All The Fish! (Attribution)
 
 - Card data is served from the [YGOProDeck](ygoprodeck.com) database [API](db.ygoprodeck.com/api)
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTY1NDQ1MTIyNl19
+-->
